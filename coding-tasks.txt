@@ -1,0 +1,10 @@
+in order to check the contents of a module we use 'dir' function
+"echo "___" > h.py" makes a new file named 'h.py'. it stores '___'
+To display current working directry we use 'os.cwd()'
+
+
+______________________________________________________________H.W.__________________________________________________
+
+
+
+tkinter

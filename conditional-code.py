@@ -3,6 +3,7 @@ import math
 import time
 import random
 sti = datetime.datetime.now()
+
 a = float(input("type your height             "))
 b = float(input("type you weight              "))
 c = float(input("type your age                "))
@@ -10,6 +11,8 @@ X = input("write a word                   ")
 Y = input("type your name                 ")
 Z = input("what is your favourite place   ")
 e = int(a+b/c)
+noc =0
+now= 0
 f = int(input("type a number                  "))
 g = int(input("type another number            "))
 d = input("Do you like watching football  ")
@@ -163,6 +166,8 @@ if mq == "yes":
       print("The no. of wrongs you got are/is", now)
       etti = datetime.datetime.now()
       print("The time you took is", etti-stti)
+else:
+  print("")
 print("hi, " + aa)
 print("The length of your word, " + z +" is "+ str(len(z)) + " lettters long")
 print("Your bmi = " + str(ac-1))

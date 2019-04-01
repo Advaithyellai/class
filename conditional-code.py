@@ -3,7 +3,6 @@ import math
 import time
 import random
 sti = datetime.datetime.now()
-
 a = float(input("type your height             "))
 b = float(input("type you weight              "))
 c = float(input("type your age                "))
@@ -129,6 +128,28 @@ else:
   print("Oh, try watching some matches then you will like it")
   print("   ")
 print("     ")
+class Jungle:
+    def __init__(self, name, vore, place, behavior, pred, prey):   
+        self.animal = name
+        self.vores = vore
+        self.live = place
+        self.behave = behavior
+        self.predator = pred
+        self.prey = prey
+    def Name(self):
+        print("\n Name: {} \n type: {} \n Position: {} \n Speciality: {} \n Prey: {} \n Predator: {}" .format(self.animal, self.vores, self.live, self.behave, self.prey, self.predator))
+class Animal(Jungle):
+    def __init__(self, name, vore, place, behavior, pred, prey):
+        super().__init__(name, vore, place, behavior, pred, prey)
+    def details(self):
+        print("\n Name: {} \n type: {} \n Position: {} \n Speciality: {} \n Prey: {} \n Predator: {}" .format(self.animal, self.vores, self.live, self.behave, self.prey, self.predator))
+printer_1 = Jungle('Worm', 'Herbivore', '3rd', 'Slow walker', 'Sparrow', 'Hawk')
+printer_2 = Animal('Sparrow', 'Insectivore', '2nd', 'Fast digger', 'Hawk', 'Worm' )
+printer_3 = Animal('Hawk', 'Carnivores', '1st', 'Super sight', 'Worms', 'Sparrow')
+printer_1.Name()
+printer_2.details()
+printer_3.details()
+print("     ")
 if mq == "yes":
   maqu= input("Would you like a quiz of maths ")
   maqu=maqu.lower()
@@ -168,7 +189,6 @@ if mq == "yes":
       print("The time you took is", etti-stti)
 else:
   print("")
-import time
 print("Welcome to my amazing game (Not like Advaith.Basireddy's)")
 print("This game is about story telling")
 d = input("What's your name  ")
@@ -977,7 +997,7 @@ print("7. you didn't realize that number 3. was missing")
 print("8. you just looked back to see number 3")
 print("9. you are laughing at this ")
 print("10. you can't say the letter 'P' without putting your tongue in") 
-time.sleep(9)
+time.sleep(2)
 print("Put your tongue in you fool")
 eti = datetime.datetime.now()
 difse = sti - eti

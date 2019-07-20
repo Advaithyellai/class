@@ -1,100 +1,59 @@
-import math
+# a = int(input("Runs        - "))
+# b = input("Overs       - ")
+# e = int(input("Total overs - "))
+# f = int(input("Wickets     - "))
+# g = int(input("Target      - "))
+# c = 0
+# if "." in b:
+#     c = 1
+# b = b.split(".")
+# if c == 0:
+#     b.append('0')
+# d = (a/int(b[0])+((int(b[1])/100*6)/10))
+# if d/f*10 < e:
+#     e = d/f*10
+# print("run rate =", d)
+# print("  ")
+# print("projected score =", d*e)
+
+
+# a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'\
+#     ,'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']
+# b = input("number or word - ")
+# if b == 'number':
+#     c = input("number         - ")
+#     c = c.split('2')
+#     for d in c:
+#         if d != '':
+#             print(a[eval("0b0"+d)], end = "")
+# elif b == 'word':
+#     c = input("word           - ")
+#     for d in c:
+#         f = bin(a.index(d))
+#         print(f[2:]+"2", end = "")
+
+
+# import random
+# import tkinter as tk
+# root = tk.Tk()
+# d = 0
+# b = []
+# f = ["arrow", "circle", "clock", "cross", "dotbox", "exchange", "fleur", "heart",\
+#     "man", "mouse", "pirate", "plus", "shuttle", "sizing", "spider", "spraycan",\
+#     "star", "target", "tcross", "trek", "watch"]
+# while(d<4):
+#     d += 1
+#     a = ['blue', 'green', 'red', 'yellow']
+#     c = a[random.randrange(0, 4)]
+#     if c in b:
+#         d -=1
+#     else:
+#         b.append(c)
+#         e = f[random.randrange(0, len(f))]
+#         tk.Label(root, text = c, cursor =e, bg = c).grid(row = d)
+# root.mainloop()
+
+
 import tkinter as tk
-numer = ""
-n = ""
-a = 0
-def number(no, fake):
-    global numer, n, a
-    if no == "":
-        a = 1
-    numer += no
-    n += fake
-    S.set(n)
-    return
-def bal(blabla):
-    global numer, n, a
-    if a == 1:
-        asb = str(math.sqrt(eval(numer)))
-        S.set(asb)
-        numer = asb
-        n = asb 
-        a = 0
-    else:
-        try:
-            asb = str(eval(numer))
-            S.set(asb)
-            numer = asb
-            n = asb
-        except:
-            try:
-                asd = str(eval(E.get()))
-                n = asd
-                numer = asd
-                S.set(n)
-            except:
-                S.set(" Error ")
-    return
-def screen():
-    global numer, a, n
-    numer = ""
-    n = ""
-    S.set(n)
-    return
 root = tk.Tk()
-root.configure(bg = "blue")
-S = tk.StringVar()
-E = tk.Entry(root, text = S, width = 15)
-E.grid(columnspan = 4, ipadx = 40)
-E.bind('<Return>', bal)
-S.set("this is a calclator")
-tk.Button(root, text = " clear ", width = 10, height = 4, command = lambda: screen()\
-         , bg = "red").grid(row = 1, column = 0)
-tk.Button(root, text = " exit ", width = 10, height = 4, command = lambda: exit()\
-         , bg = "red").grid(row = 1, column = 1)
-tk.Button(root, text = " % ", width = 10, height = 4, command = lambda: number("/100", "%")\
-         , bg = "red").grid(row = 1, column = 2)
-tk.Button(root, text = " ÷ ", width = 10, height = 4, command = lambda: number("/", "÷")\
-         , bg = "red").grid(row = 1, column = 3)
-tk.Button(root, text = " √ ", width = 10, height = 4, command = lambda: number("", "√")\
-         , bg = "red").grid(row = 1, column = 4)
-tk.Button(root, text = " 7 ", width = 10, height = 4, command = lambda: number("7", "7")\
-         , bg = "red").grid(row = 2, column = 0)
-tk.Button(root, text = " 8 ", width = 10, height = 4, command = lambda: number("8", "8")\
-         , bg = "red").grid(row = 2, column = 1)
-tk.Button(root, text = " 9 ", width = 10, height = 4, command = lambda: number("9", "9")\
-         , bg = "red").grid(row = 2, column = 2)
-tk.Button(root, text = " ( ", width = 10, height = 4, command = lambda: number("(", "(")\
-         , bg = "red").grid(row = 2, column = 3)
-tk.Button(root, text = " × ", width = 10, height = 4, command = lambda: number("*", "×")\
-         , bg = "red").grid(row = 2, column = 4)
-tk.Button(root, text = " 4 ", width = 10, height = 4, command = lambda: number("4", "4")\
-         , bg = "red").grid(row = 3, column = 0)
-tk.Button(root, text = " 5 ", width = 10, height = 4, command = lambda: number("5", "5")\
-         , bg = "red").grid(row = 3, column = 1)
-tk.Button(root, text = " 6 ", width = 10, height = 4, command = lambda: number("6", "6")\
-         , bg = "red").grid(row = 3, column = 2)
-tk.Button(root, text = " ) ", width = 10, height = 4, command = lambda: number(")", ")")\
-         , bg = "red").grid(row = 3, column = 3)
-tk.Button(root, text = " - ", width = 10, height = 4, command = lambda: number("-", "-")\
-         , bg = "red").grid(row = 3, column = 4)
-tk.Button(root, text = " 1 ", width = 10, height = 4, command = lambda: number("1", "1")\
-         , bg = "red").grid(row = 4, column = 0)
-tk.Button(root, text = " 2 ", width = 10, height = 4, command = lambda: number("2", "2")\
-         , bg = "red").grid(row = 4, column = 1)
-tk.Button(root, text = " 3 ", width = 10, height = 4, command = lambda: number("3", "3")\
-         , bg = "red").grid(row = 4, column = 2)
-tk.Button(root, text = " π ", width = 10, height = 4, command = lambda: number("3.14285714285", "π")\
-         , bg = "red").grid(row = 4, column = 3)
-tk.Button(root, text = " + ", width = 10, height = 4, command = lambda: number("+", "+")\
-         , bg = "red").grid(row = 4, column = 4)
-tk.Button(root, text = " Exp ", width = 10, height = 4, command = lambda: number("e", "E")\
-         , bg = "red").grid(row = 5, column = 0)
-tk.Button(root, text = " ^ ", width = 10, height = 4, command = lambda: number("**", "^")\
-         , bg = "red").grid(row = 5, column = 1)
-tk.Button(root, text = " 0 ", width = 10, height = 4, command = lambda: number("0", "0")\
-         , bg = "red").grid(row = 5, column = 2)
-tk.Button(root, text = " . ", width = 10, height = 4, command = lambda: number(".", ".")\
-         , bg = "red").grid(row = 5, column = 3)
-tk.Button(root, text = " = ", width = 10, height = 4, command = lambda: bal(0)\
-         , bg = "red").grid(row = 5, column = 4)
 root.mainloop()

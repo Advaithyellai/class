@@ -1,7 +1,7 @@
 senc =[2233, 2323, 3223, 2332, 3232, 3322]
-senn =['Advaith.Y', 'Advaith.B', 'Daiwik', 'Tanishq', 'Vidit', 'Ganesh']
+senn =['Advaith.Y', 'Advaith.B', 'Daiwik', 'Tanishq', 'Vidit', 'Amogh']
 recc =[4455, 4545, 5445, 4554, 5454, 5544]
-recn =['Advaith.Y', 'Advaith.B', 'Daiwik', 'Tanishq', 'Vidit', 'Ganesh']
+recn =['Advaith.Y', 'Advaith.B', 'Daiwik', 'Tanishq', 'Vidit', 'Amogh']
 class Trans:
     def __init__(self, tran, sencar, reccar):
         self.trs = tran

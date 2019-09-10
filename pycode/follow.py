@@ -2,7 +2,6 @@ import tkinter as tk
 import time
 def callback(event):
     x, y = event.x, event.y
-    print(x, y)
     c.coords(rect, x - 10, y - 10, x + 10, y + 10)
 root = tk.Tk()
 root.geometry('500x500')

@@ -46,61 +46,14 @@
 # b.bind('<Return>', blehbleh)
 # root_2.mainloop()
 
-# print("task one")
-# a = input("Text - ")
-# b = list(a)
-# e 
-# print(b)
-# for c in range(0, len(b)):
-#     if d == 1:
-#         if b[c] != ' ':
-            
-#     if b[c] == ' ':
-#         d = 1
 
-print("   ")
-a = input("Text(no syntax) - ")
-b = list(a)
-d = ""
-e = []
-for ele in b:
-    if ele == ' ':
-        c = 1
-if c == 0:
-    a += ' '
-    b = list(a)
-    b[-1] = b[0]
-    b.remove(b[0])
-    c = ""
-    for ele in b:
-        c += ele
-    c += "ay"
-    print(c)
-elif c == 1:
-    for el in b:
-        d += el
-    d = d.split(' ')
-    for elem in d:
-        print(elem)
-        elem += ' '
-        f = list(elem)
-        print(f)
-        f[-1] = f[0]
-        print(f)
-        b.remove(b[0])
-        print(f)
-        h = ""
-        for eleme in elem:
-            h += eleme
-            print(f)
-        h += "ay "
-        print(f)
-        e.append(f)
-        g = ""
-        i = ""
-        for elemen in e:
-            for
-            g += elemen
-            print(g)
-        print(g)
-        exit()
+from tkinter import Tk, mainloop, TOP, Button
+from time import time
+root = Tk() 
+def helloer():
+    print("hello")
+button = Button(root, text = 'Geeks', command = root.after(5000, root.destroy)) 
+button.pack(side = TOP, pady = 5) 
+button_2 = Button(root, text = "hello", command = helloer)
+button_2.pack()
+mainloop()

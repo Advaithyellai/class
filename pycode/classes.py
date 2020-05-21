@@ -8,6 +8,7 @@ class Trans:
         self.a_1 = sencar
         self.a_2 = reccar
         try:
+            print("yes")
             self.senca = senc.index(sencar)
             self.senna = senn[self.senca]
             self.recca = recc.index(reccar)
@@ -19,9 +20,9 @@ class Trans:
             print("You sent ₹%s to %s" %(self.trs, self.recna))
             print("Your name is %s and account number is ****" %(self.senna))
         else:
-            exit("Sorry you're")
+            exit("Sorry you sent too much")
 acc_1 = int(input("What is your account number           "))
 acc_2 = int(input("What's the reciever's account number  "))
 acc_3 = int(input("How much money do you want to send    "))
 trans_1 = Trans(acc_3, acc_1, acc_2)
-trans_1.transact()
+trans_1

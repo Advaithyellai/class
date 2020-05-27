@@ -1,116 +1,3 @@
-# import tkinter as tk
-# import random
-# import time
-# root = tk.Tk()
-# root.title('monopoly with CPU')
-# def highestroll(event):
-#     a = []
-#     for loop1 in range(0, 4):
-#         b = random.randrange(1, 6)
-#         a.append(b)
-#     D1.configure(text = a[0])
-#     D2.configure(text = a[1])
-#     D1.after(1000, func = R1.configure(text = "CPU's roll"))
-#     D2.after(1000, func = D1.configure(text = a[2]))
-#     D2.after(100, func = D2.configure(text = a[3]))
-#     c = a[0] + a[1]
-#     d = a[2] + a[3]
-#     e = max(d, c)
-#     if e == d:
-#         R1.destroy
-#         R2 = tk.Button(root, text = "Roll", height = 2, width = 15)
-#         R2.grid(row = 2, column = 1)
-#     else:
-#         R1.destroy
-#         R2 = tk.Button(root, text = "Roll", height = 2, width = 15)
-#         R2.grid(row = 2, column = 1)
-#         a = random.randrange(1, )
-#     return
-# a = random.randrange(2, 5)
-# b = random.randrange(2, 5)
-# while(a == b):
-#       b = random.randrange(2, 5)
-# c = ['blue', 'green', 'yellow', 'red']
-# pl = c[a]
-# cpu = c[b]
-# lpl = tk.Label(root, text = "Your colour "+pl, bg = pl)
-# lcl = tk.Label(root, text = "CPU's colour "+cpu, bg = cpu)
-# tk.Label(root, text = " ").grid(row = 1, column = 1)
-# lpl.grid(row = 4, column = 4)
-# lcl.grid(row = 4, column = 5)
-# D1 = tk.Label(root, text = 'dice 1', height = 6, width = 15, bg = 'black', fg = 'white', font=("Courier", 12))
-# D2 = tk.Label(root, text = 'dice 2', height = 6, width = 15, bg = 'black', fg = 'white', font=("Courier", 12))
-# R1 = tk.Button(root, text = "ROLL", height = 2, width = 15)
-# lpl.after(4000, func = lpl.destroy)
-# lcl.after(4000, func = lcl.destroy)
-# D1.grid(row = 1, column = 1)
-# D2.grid(row = 1, column = 2)
-# R1.grid(row = 2, column = 1)
-# R1.bind('<Button>', highestroll)
-# root.mainloop()
-
-
-
-
-
-# import tkinter as tk
-# root = tk.Tk()
-# import random
-# print("WELCOME TO MY GAME OF HANGMAN! The rules are similar to hangman")
-# count = 0
-# def correct(guess, blank, count):
-#     loop = 0
-#     blank_2 = ""
-#     if guess in listword:
-#         for ele in listword:
-#             if ele == guess:
-#                 blank = blank.split(' ')
-#                 blank[loop] = ele
-#                 for ele_2 in blank:
-#                     blank_2 += ele_2
-#                     blank_2 += " "
-#                 blank = blank_2
-#                 blank_2 = ""
-#             loop += 1
-#     print(blank)
-#     if '_' in blank:
-#         if guess in listword:
-#             if guess in blank:
-#                 print("you already guessed that")
-#                 print("We will spare you and take away no tries")
-#             else:
-#                 print("no")
-#         else:
-#             count += 1
-#         if count == 6:
-#             print("😭 😢 loser 😢 😭")
-#             print("word was", word)
-#             exit("  THANKS FOR PLAYING  ")
-#         print("tries:", count)
-#         guess = input("Guess again  ")
-#         if guess == "":
-#             count = count - 1
-#         correct(guess, blank, count)
-#     else:
-#         print("Congrats")
-#         exit("  THANKS FOR PLAYING  ")
-#         print("tries", count)
-# words = ['armadillo', 'beaver', 'chimpanzee', 'dolphin', 'earthworm', 'flamingo', 'gorilla', 'hedgehog', 'iguana', 'jaguar', 'kingfisher', 'llama', 'mangoose', 'otter', 'possum', 'rhea', 'salmon', 'turkey', 'vulture', 'woodpecker']
-# word = words[random.randrange(0, len(words))]
-# blank = ""
-# listword = []
-# for ele in word:
-#     listword += ele
-# blank += listword[0]
-# for loop in range(0, len(word)-1):
-#     blank = blank + " _"
-# print("tries:", count, ", if you have 6 tries you are out. BE WARNED!!!")
-# print(blank)
-# guess = input("guess ")
-# if guess == "":
-#     count = count - 1
-# correct(guess, blank, count)
-# root.mainloop()
 import tkinter as tk
 import random
 import tkinter.font as font
@@ -149,18 +36,23 @@ def hangmang():
             loop = 0
             blank_2 = ""
             if guess.get() in listword:
-                for ele in listword:
-                    if ele == guess.get():
-                        blank = blank.split(' ')
-                        blank[loop] = ele
-                        for ele_2 in blank:
-                            blank_2 += ele_2
-                            blank_2 += " "
-                        blank = blank_2
-                        blank_2 = ""
-                    loop += 1
-                blankp.configure(text = blank)
-                guest.set('')
+                if guess.get() in list(blank):
+                    count.set(int(count.get())+1)
+                    counting.configure(text = "wrongs: %s/6" %(count.get()))
+                    guest.set('')
+                else:
+                    for ele in listword:
+                        if ele == guess.get():
+                            blank = blank.split(' ')
+                            blank[loop] = ele
+                            for ele_2 in blank:
+                                blank_2 += ele_2
+                                blank_2 += " "
+                            blank = blank_2
+                            blank_2 = ""
+                        loop += 1
+                    blankp.configure(text = blank)
+                    guest.set('')
             else:
                 if len(guess.get()) != 0:
                     count.set(int(count.get())+1)
@@ -191,7 +83,10 @@ def hangmang():
         root.geometry('5000x1000')
         myfont = font.Font(size = 12, font = 'algerian')
         count = tk.IntVar()
-        words = ['armadillo', 'beaver', 'chimpanzee', 'dolphin', 'earthworm', 'flamingo', 'gorilla', 'hedgehog', 'iguana', 'jaguar', 'kingfisher', 'llama', 'mangoose', 'otter', 'possum', 'rhea', 'salmon', 'turkey', 'vulture', 'woodpecker']
+        words = ['armadillo', 'beaver', 'chimpanzee', 'dolphin', 'earthworm', 'flamingo'\
+            ,'gorilla', 'hedgehog', 'iguana', 'jaguar', 'kingfisher', 'llama', 'mangoose'\
+            , 'otter', 'possum', 'rhea', 'salmon', 'turkey', 'vulture', 'woodpecker'\
+            , '']
         word = words[random.randrange(0, len(words))]
         blank = ""
         listword = []
@@ -392,8 +287,8 @@ def cubegame():
             t[3], t[4], t[5] = b[5], b[4], b[3]
             b[5], b[4], b[3] = d[5], d[4], d[3]
             d[5], d[4], d[3] = g, c, e
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -404,8 +299,8 @@ def cubegame():
             d[5], d[4], d[3] = b[5], b[4], b[3]
             b[5], b[4], b[3] = t[3], t[4], t[5]
             t[3], t[4], t[5] = g, c, e
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -417,7 +312,7 @@ def cubegame():
             l[1], l[4], l[7] = d[1], d[4], d[7]
             d[1], d[4], d[7] = g, c, e
             a.configure(bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -429,7 +324,7 @@ def cubegame():
             l[1], l[4], l[7] = t[1], t[4], t[7]
             t[1], t[4], t[7] = g, c, e
             a.configure(bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -440,7 +335,7 @@ def cubegame():
             l[5], l[4], l[3] = b[1], b[4], b[7]
             b[1], b[4], b[7] = r[5], r[4], r[3]
             r[5], r[4], r[3] = e, c, g
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
             s.configure(bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
@@ -452,7 +347,7 @@ def cubegame():
             r[5], r[4], r[3] = b[1], b[4], b[7]
             b[1], b[4], b[7] = l[3], l[4], l[5]
             l[3], l[4], l[5] = e, c, g
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
             s.configure(bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
@@ -480,8 +375,8 @@ def cubegame():
             k,h,i,j = l[6], l[5], l[2], l[3]
             l[6], l[5], l[2], l[3] = l[8], l[1], l[0], l[7]
             l[0], l[1], l[7], l[8] = k, j, h, i
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -508,8 +403,8 @@ def cubegame():
             t[3], t[4], t[5] = b[5], b[4], b[3]
             b[5], b[4], b[3] = d[5], d[4], d[3]
             d[5], d[4], d[3] = g, c, e
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -536,8 +431,8 @@ def cubegame():
             h, i, j, k = t[0], t[7], t[8], t[1]
             t[0], t[7], t[8], t[1] = t[2], t[3], t[6], t[5]
             t[6], t[3], t[2], t[5] = h, k, j, i
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -564,8 +459,8 @@ def cubegame():
             l[5], l[4], l[3] = b[1], b[4], b[7]
             b[1], b[4], b[7] = r[5], r[4], r[3]
             r[5], r[4], r[3] = e, c, g
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -593,7 +488,7 @@ def cubegame():
             l[1], l[4], l[7] = d[1], d[4], d[7]
             d[1], d[4], d[7] = g, c, e
             a.configure(bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -620,8 +515,8 @@ def cubegame():
             k,h,i,j = f[6], f[5], f[2], f[3]
             f[6], f[5], f[2], f[3] = f[8], f[1], f[0], f[7]
             f[0], f[1], f[7], f[8] = k, j, h, i
-            a.configure(text = "facing - {}".format(f[4]), fg = f[4], bg = t[4])
-            s.configure(text = "on top - {}".format(t[4]), fg = t[4], bg = f[4])
+            a.configure(text = "facing-{}".format(f[4]), fg = f[4], bg = t[4])
+            s.configure(text = "on top-{}".format(t[4]), fg = t[4], bg = f[4])
             for x in range(2, 5):
                 for y in range(2, 5):
                     z += 1
@@ -636,8 +531,7 @@ def cubegame():
         for loop in range(0, 15):
             n = random.randrange(0, len(p))
             entering(p[n], f, t, r, l, d, b)
-        guest.set(loop)
-        guest.set('')
+        n = loop
     f = ['black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
     d = ['orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange']
     b = ['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow']
@@ -658,23 +552,21 @@ def cubegame():
     w = tk.StringVar()
     ac = tk.Entry(root, text = w)
     ac.grid(row = 2, column = 1)
-    # tk.Label(root, text = "algorithm = ").grid(row = 2, column = 0)
-    # ab = tk.Entry(root)
-    # ab.grid(row = 3, column = 0)
-    a = tk.Label(root, text = "facing - black", fg = 'black', bg = 'red', width = 12)
+    a = tk.Label(root, text = "facing-black", fg = 'black', bg = 'red', width = 12)
     a.grid(row = 5, column = 1)
     a['font'] = myfont
-    s = tk.Label(root, text = "on top - red", fg = 'red', bg = 'black', width = 12)
+    s = tk.Label(root, text = "on top-red", fg = 'red', bg = 'black', width = 12)
     s.grid(row = 6, column = 1)
     s['font'] = myfont
-    # ab.bind("<Return>", algorithming)
     ac.bind("<Return>", returning)
     q = tk.Button(root, text = "Shuffle", bg = 'sea green', width = 12)
     q.grid(row = 7, column = 1)
     q['font'] = myfont
     q.bind("<Button>", shufling)
     root.mainloop()
-def pvzg():
+def bsg():
+    pass
+def mmg():
     pass
 root = tk.Tk()
 root.geometry('1600x900')
@@ -683,5 +575,6 @@ tk.Label(root, text = " ", width = 100).grid(row = 1, column = 0)
 tk.Label(root, text = " ", height = 20).grid(row = 0, column = 1)
 tk.Button(root, text = "Click for Cube", command = cubegame, width = 20, height = 4, bg = 'red', font = myfont).grid(row = 1, column = 1)
 tk.Button(root, text = "Click for Hangman", command = hangmang, width = 20, height = 4, bg = 'blue', font = myfont).grid(row = 1, column = 2)
-tk.Button(root, text = "Click for pvz(W-I-P)", command = pvzg, width = 20, height = 4, bg = 'green', font = myfont).grid(row = 2, column = 1)
+tk.Button(root, text = "W-I-P", command = bsg, width = 20, height = 4, bg = 'green', font = myfont).grid(row = 2, column = 1)
+tk.Button(root, text = "W-I-P", command = mmg, width = 20, height = 4, bg = 'yellow', font = myfont).grid(row = 2, column = 2)
 root.mainloop()

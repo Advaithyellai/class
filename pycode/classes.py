@@ -2,13 +2,14 @@ senc =[2233, 2323, 3223, 2332, 3232, 3322]
 senn =['Advaith.Y', 'Advaith.B', 'Daiwik', 'Tanishq', 'Vidit', 'Amogh']
 recc =[4455, 4545, 5445, 4554, 5454, 5544]
 recn =['Advaith.Y', 'Advaith.B', 'Daiwik', 'Tanishq', 'Vidit', 'Amogh']
+sont =['india', 'usa', 'uk', 'kuwait', 'indonesia', 'russia']
+ront =['india', 'usa', 'uk', 'kuwait', 'indonesia', 'russia']
 class Trans:
     def __init__(self, tran, sencar, reccar):
         self.trs = tran
         self.a_1 = sencar
         self.a_2 = reccar
         try:
-            print("yes")
             self.senca = senc.index(sencar)
             self.senna = senn[self.senca]
             self.recca = recc.index(reccar)
@@ -20,9 +21,9 @@ class Trans:
             print("You sent ₹%s to %s" %(self.trs, self.recna))
             print("Your name is %s and account number is ****" %(self.senna))
         else:
-            exit("Sorry you sent too much")
+            exit("Sorry you sent too much. Maximum is ₹100")
 acc_1 = int(input("What is your account number           "))
 acc_2 = int(input("What's the reciever's account number  "))
 acc_3 = int(input("How much money do you want to send    "))
 trans_1 = Trans(acc_3, acc_1, acc_2)
-trans_1
+trans_1.transact()

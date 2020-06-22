@@ -1,9 +1,10 @@
-# import tkinter as tk
+import time
+import tkinter as tk
 
 # root = tk.Tk()
 # root.geometry('1600x900')
 # root.title("Dots and Boxes")
-# # To do: maze, clock, calendar, google, cleaner, notes, maps, contacts, ultimate banking [ listboxes ]
+# To do: maze, clock, calendar, google, cleaner, notes, maps, contacts, ultimate banking [ listboxes ], mango tree
 
 # root_2 = tk.Tk()
 # def blehbleh(event):
@@ -64,44 +65,59 @@
 # canvas.grid(row = 0, column = 0)
 # scrollbar.grid(row = 0, column = 1, sticky = 'ns')
 
+# class clock:
+#     def __init__(self, root_2):
+#         root_2.destroy()
+#         root = tk.Tk()
+#         tk.Button(root, text = " Alarm ", bg = '')
+#         root.mainloop()
+#     def timering(self):
+#         pass
+#     def alarming(self):
+#         pass
+#     def stopingwatch(self):
+#         pass
 
-# def change(event):
-#     global coords1, cont
-#     if event.x >= 15 and event.x <= 145:
-#         if event.y >= 0 and event.y <= 15:
-#             if cont == 0:
-#                 head.create_line(coords1, fill = 'red')
-#                 cont = 1
-#             else:
-#                 cont = 0
-#                 head.create_line(coords1, fill = 'blue')
-#         if event.y >= 145 and event.y <= 155:
-#             if cont == 0:
-#                 head.create_line(coords3, fill = 'red')
-#                 cont = 1
-#             else:
-#                 cont = 0
-#                 head.create_line(coords3, fill = 'blue')
-#     elif event.x >= 0 and event.x <= 15:
-#         if event.y >= 15 and event.y <= 145:
-#             if cont == 0:
-#                 head.create_line(coords2, fill = 'red')
-#                 cont = 1
-#             else:
-#                 cont = 0
-#                 head.create_line(coords2, fill = 'blue')
-# head = tk.Canvas(root, height = 850, width = 1600)
-# head.grid()
-# cont = 0
-# coords1 = [10, 10, 150, 10]
-# coords2 = [10, 10, 10, 150]
-# coords3 = [10, 150, 150, 150]
-# coords4 = [150, 150, 150, 10]
-# head.create_line(coords1, dash = (6, 3))
-# head.create_line(coords2, dash = (6, 3))
-# head.create_line(coords3, dash = (6, 3))
-# head.create_line(coords4, dash = (6, 3))
-# head.create_oval([5, 5, 15, 15], fill = 'green')
-# head.bind('<Button>', change)
-
+# root_2 = tk.Tk()
+# clock(root_2)
 # root.mainloop()
+
+b = 500
+a = 500
+e = 0
+print("you should enter below 1000 and above 0")
+print("if it takes me 11 tries to guess yvofejvioejou win and I will give 100 rs")
+print("else you give me 10 rs")
+c = int(input("What is your number  "))
+if c > 0 and c < 1000:
+    d = True
+else:
+    exit("You should enter below 1000 and above 0")
+while d == True:
+    e += 1
+    if e == 11:
+        exit("You beat me :(")
+    if e == 1:
+        if a > c:
+            b = 0
+        elif a < c:
+            b = 500
+            a = 1000
+        else:
+            d = False
+    else:
+        f = round((a+b)/2)
+        if f > c:
+            a = f
+        elif f < c:
+            b = f
+        else:
+            d = False
+if a == c:
+    print("It is {} I guessed in {} try / tries".format(a, e))
+elif f == c:
+    print("It is {} i guessed in {} try / tries".format(int(f), e))
+elif b == c:
+    print("It is {} I guessed in {} try / tries".format(b, e))
+else:
+    print("Sorry, some kind of error came")

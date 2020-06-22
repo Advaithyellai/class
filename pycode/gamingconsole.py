@@ -1,6 +1,6 @@
 import tkinter as tk
 import random
-from PIL import ImageTk, Image
+from PIL import Image, ImageTk
 import tkinter.font as font
 
 def saep():
@@ -774,7 +774,7 @@ def saep():
             self.poloc = tk.IntVar(self.root, 1)
             self.plco2 = tk.IntVar(self.root, 0)
             self.plco3 = tk.IntVar(self.root, 0)
-            self.img = Image.open("C:\\Users\\Gayathri\\Downloads\\dino.jpg")
+            self.img = Image.open("D:\\Advaith\\Code\\class\\pycode\\dinotrex.png")
             self.img2 = Image.open("D:\\Advaith\\Code\\class\\pycode\\cactustrex.png")
             self.img = self.img.resize((160, 80))
             self.img2 = self.img2.resize((160, 80))
@@ -788,7 +788,7 @@ def saep():
             tk.Label(self.root, text = "      ", height = 5, width = 20).grid(row = 0, column = 7)
             tk.Label(self.root, text = "      ", height = 5, width = 20).grid(row = 2, column = 7)
             tk.Label(self.root, text = "      ", height = 5, width = 20).grid(row = 1, column = 7)
-            loc = tk.Label(self.root, image = self.pi, bg = 'black')
+            loc = tk.Label(self.root, image = self.pi)
             loc.grid(row = 1, column = 0)
             self.root.bind('<space>', ctlidky)
             self.root.bind('<Down>', octlidky)
@@ -1026,23 +1026,46 @@ def saep():
                         li = self.head.create_line(exx, eyy, exx+40, eyy, fill = 'red', tags = 'line')
                     self.counter = self.nbm(self.head.coords(li), vh, self.counter)
     
+    root_2 = tk.Tk()
     root_2.geometry('1600x900')
-    locfb = ["arrow", "circle", "clock", "cross", "dotbox", "exchange", "fleur", "heart", "heart", "man", "mouse", "pirate", "plus", "shuttle", "sizing", "spider", "spraycan", "star", "target", "tcross", "trek", "watch"]
     myfont = font.Font(family="algerian", size=12, root = root_2, weight = "bold")
 
-    tk.Label(root_2, text = " ", width = 85, height = 18).grid(row = 0, column = 0)
+    p1 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\rubikube.png") 
+    p1 = p1.subsample(3, 3)
+    p2 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\hangman.png")
+    p2 = p2.subsample(2, 2)
+    p3 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\coloursg.png")
+    p3 = p3.subsample(5, 5)
+    p4 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\dinotrex.png")
+    p4 = p4.subsample(3, 3)
+    p5 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\x_and_o.png")
+    p5 = p5.subsample(2, 2)
+    p6 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\dot_box.png")
+    p6 = p6.subsample(2, 2)
+
+    bc = tk.Button(root_2, image = p1, compound = 'top', text = "Cube", command = lambda : cubegame(root_2), font = myfont, relief = 'flat', activebackground = 'red')
+    bc.image = p1
+    bc.grid(row = 1, column = 1)
     
-    tk.Button(root_2, text = "Click for Cube", command = lambda : cubegame(root_2), width = 20, height = 4, bg = 'red', cursor = locfb[random.randrange(0, len(locfb))], font = myfont).grid(row = 1, column = 1)
+    bh = tk.Button(root_2, image = p2, compound = 'top', text = "Hangman", command = lambda : hangmang(root_2), font = myfont, relief = 'flat', activebackground = 'blue')
+    bh.image = p2
+    bh.grid(row = 1, column = 2)
     
-    tk.Button(root_2, text = "Click for Hangman", command = lambda : hangmang(root_2), width = 20, height = 4, bg = 'blue', cursor = locfb[random.randrange(0, len(locfb))], font = myfont).grid(row = 1, column = 2)
-    
-    tk.Button(root_2, text = "Click for color game", command = lambda : cg(root_2), width = 20, height = 4, bg = 'yellow', cursor = locfb[random.randrange(0, len(locfb))], font = myfont).grid(row = 2, column = 1)
-    
-    tk.Button(root_2, text = "Click for trex run", command = lambda : trr(root_2), width = 20, height = 4, bg = 'green', cursor = locfb[random.randrange(0, len(locfb))], font = myfont).grid(row = 2, column = 2)
-    
-    tk.Button(root_2, text = "Click for X and O", command = lambda : kacg(root_2), width = 20, height = 4, bg = 'orange', cursor = locfb[random.randrange(0, len(locfb))], font = myfont).grid(row = 3, column = 2)
-    
-    tk.Button(root_2, text = "Click for boxes", command = lambda : boxes(root_2), width = 20, height = 4, bg = 'pink', cursor = locfb[random.randrange(0, len(locfb))], font = myfont).grid(row = 3, column = 1)
+    bcg = tk.Button(root_2, image = p3, compound = 'top', text = "Color Game", command = lambda : cg(root_2), font = myfont, relief = 'flat', activebackground = 'yellow')
+    bcg.image = p3
+    bcg.grid(row = 2, column = 1)
+
+    bt = tk.Button(root_2, image = p4, compound = 'top', text = "Trex Run", command = lambda : trr(root_2), font = myfont, relief = 'flat', activebackground = 'orange')
+    bt.image = p4
+    bt.grid(row = 2, column = 2)
+
+    bxo = tk.Button(root_2, image = p5, compound = 'top', text = "X and O", command = lambda : kacg(root_2), font = myfont, relief = 'flat', activebackground = 'green')
+    bxo.image = p5
+    bxo.grid(row = 3, column = 2)   
+
+    bb = tk.Button(root_2, image = p6, compound = 'top', text = "dots and boxes", command = lambda : boxes(root_2), font = myfont, relief = 'flat', activebackground = 'deep pink')
+    bb.image = p6
+    bb.grid(row = 3, column = 1)
 
 root = tk.Tk()
 fina = "minetdm"
@@ -1065,9 +1088,8 @@ def showing():
 
         password.config(show = "*")
 def openinger(event):
-    global root_2, root, a, b
+    global root, a, b
     if passvar.get().lower() == fina:
-        root_2 = tk.Tk()
         root.destroy()
 
         saep()

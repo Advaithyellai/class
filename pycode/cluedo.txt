@@ -1,0 +1,37 @@
+  - Said
+✓ - Yes
+X - no
+M - Maybe
+N - Maybe not
+1, 2, 3, ... - might have
+Mustard       |    X|4    |M
+White         |    3|     |
+Green         |    ✓|X    |
+Scarlet       |    X|✓    |     
+Peacock       |-----|-----|
+Plum          |-----|-----|
+----------------------------
+Dagger        |-----| ----|
+Lead Piping   |    ✓|X    |
+Candle stick  |    X|✓    |
+Revolver      |     |1    |
+Rope          |     |     |
+Spanner       |   ✓3|X    |
+----------------------------
+Ballroom      |     |4    |
+Billiard room |-----|-----|
+Conservatory  |     |     |
+Library       |-----|-----|
+Study         |    X|15   |
+Hall          |    X|✓    |
+Lounge        |    X|✓    |
+Dining room   |-----|-----|
+Kitchen       |    2|X    |M
+              |  N  |  A  |
+
+Wins - ;
+           Todays | Total |
+Advaith  -    1   |  16   |
+Gayathri -    0   |  16   |
+Mahesh   -    1   |  10   |
+Adithi   -    0   |  06   |

@@ -9,3 +9,19 @@
 # c.bind('<Motion>', callthiswhatevs)
 # c.grid()
 # root.mainloop()
+
+
+# import pyttsx3
+# cump = pyttsx3.init()
+# cump.setProperty('rate', 120)
+# cump.setProperty('volume', 1)
+# cump.runAndWait()
+
+# from datetime import datetime
+# a = datetime.now()
+# b = "%z%Z\n%a = %A = %w\n%Y = %y / %b = %B = %m / %d\n%H = %I(24hrs) %p : %M : %S.%f\n%U(week no. first day of week is Sunday) = %W(Monday)\n%c | %x | %X | %%"
+# print(a.strftime(b))
+
+
+# DO NOT keep a = b = []
+# you can keep a = b = 0 or a = b= "hi" but no list

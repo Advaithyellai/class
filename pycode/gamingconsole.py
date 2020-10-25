@@ -5054,7 +5054,7 @@ def openinger(event):
         
         # If wrong 6 times
         if b == 6:
-            a = messagebox.showinfo("THIEF!!!", "You have tried to many times\nIf you have any doubts contact\n1234567890")
+            a = messagebox.showinfo("THIEF!!!", "You have tried to many times")
             root.destroy()
 
 # If user forgot the password do this

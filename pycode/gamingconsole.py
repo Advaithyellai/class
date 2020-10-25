@@ -15,12 +15,14 @@ The apps and games are -;
 11) Ping Pong (Table Tennis)
 12) Quiz
 13) Excel Spread Sheet (Google Sheets)
+14) Asteroids (An arcade Game)
 """
 
 """
 To do -;
 
-1) Asteroids
+1) Meme app
+2) Click The Button
 3) Monopoly
 """
 
@@ -4182,11 +4184,384 @@ def saep(app):
                 
                 self.root.grid_remove()
 
+    # Asteroids (an arcade game)
+    class Asteroids:
+        """Asteroids(An arcade Game) this game use to played in 1950s, I guess...\n\nParameters are -;\n1) Root_2 (tk.Frame)\n2) app (tk.Tk)"""
+        global astroot
+            
+        def __init__(self, root_2, app):
+            """This is the __init__ of Asteroids(an arcade game)\n\nParameters are -;\n1) Root_2 (tk.Frame)\n2) app (tk.Tk)"""
+
+            global astroot
+
+            app.bind('<f>', self.switch)
+            app.bind('<Key>', self.pushed)
+            app.bind('<1>', lambda e : self.pushed("space"))
+            app.bind("<Motion>", self.move)
+            app.bind("<Control_L> <w>", lambda e : app.destroy())
+
+            self.no0 = app.after(15000, self.move, "Random")
+            self.no1 = app.after(3000, self.attack, True, 3000)
+            
+            app.title('Asteroids (An arcade game)')
+            app.state('zoomed')
+
+            root_2.grid_remove()
+
+            self.root = tk.Canvas(app, bg = 'black', width = 1550, height = 860, cursor = 'none')
+
+            self.side = 'left'
+
+
+            self.stop = False
+            self.reshoot = True
+            self.selfstop = False
+            self.orange = False
+            self.red = False
+            self.stopper = False
+            
+            self.hearts = 3
+            
+            self.creation = []
+            self.tfa = []
+            self.tfm = []
+
+            self.d = {}
+
+            
+            self.angle = 0
+            self.duration = 7500
+            self.stop = False
+            self.once = False
+
+            self.gwords = ["OOOOO00000ooooofffff", "NOICE SHOT", "KEEP IT UP", "sUpeR", "LET'S GOOOO", "PRO", "AMAZING", "HIT", "BROKEN!!!", "=D"]
+            self.bwords = ["OOOOO00000ooooofffff", "JUST MISS!!!", "HARD LUCK!!!", "DON'T KEEP IT UP", "noT sUpER", "LET'S NOT GOOOO", "NOOB!!!", "UMMMM....", "D=", "LOST MY HOPE"]
+
+            self.img = Image.open("images_for_gcpy\\rocket.png")
+            self.img = self.img.resize((100, 100), Image.ANTIALIAS)
+            self.image = ImageTk.PhotoImage(self.img.rotate(0))
+
+            self.ball = self.root.create_image(775, 400, image = self.image)
+
+            self.heart1 = self.root.create_rectangle(10, 10, 50, 50, fill = 'red')
+            self.heart2 = self.root.create_rectangle(75, 10, 115, 50, fill = 'red')
+            self.heart3 = self.root.create_rectangle(140, 10, 180, 50, fill = 'red')
+
+            self.bbtg = self.root.create_rectangle(-10, -10, -2, -2, fill = "gray20")
+            self.btg = self.root.create_text(-10, -10, text = "Back To Game", fill = "white", font = ("Informal roman", 24, 'bold'))
+
+            self.besc = self.root.create_rectangle(-10, -10, -2, -2, fill = "gray20")
+            self.esc = self.root.create_text(-10, -10, text = "Quit", fill = "white", font = ("Informal roman", 24, 'bold'))
+
+            self.bret = self.root.create_rectangle(-10, -10, -2, -2, fill = "gray20")
+            self.ret = self.root.create_text(-10, -10, text = "Return to Home Screen", fill = "white", font = ("Informal roman", 24, 'bold'))
+
+            self.now = None
+            self.sod = True
+
+            self.attr = False
+
+            self.dtn = datetime.now()
+
+            self.root.create_rectangle(0, 800, 1550, 860, fill = "#e0ba47")
+            self.gbw = self.root.create_text(775, 830, font=("Algerian", 15, 'bold', 'italic'))
+
+            self.root.grid()
+
+        def attack(self, create = False, time = 0):
+
+            if self.stop:
+                self.creation.append(create)
+                self.tfa.append(time)
+                return
+
+            if create == True:
+                torf = random.randrange(0, 2)
+                if torf:
+                    x = random.randrange(0, 1550)
+                    y = random.randrange(0, 2)
+                    if y: metior = self.root.create_oval(x-40, 760, x, 800, fill = "green", tag = "Metior")
+                    else: metior = self.root.create_oval(x-40, 0, x, 40, fill = "green", tag = "Metior")
+                else:
+                    x = random.randrange(0, 800)
+                    y = random.randrange(0, 2)
+                    if y: metior = self.root.create_oval(1510, x-40, 1550, x, fill = "green", tag = "Metior")
+                    else: metior = self.root.create_oval(0, x-40, 40, x, fill = "green", tag = "Metior")
+                if self.duration > 5000: self.duration -= 500
+                else: self.orange = True
+                self.no2 = self.root.after(self.duration, self.attack, True, self.duration)
+                self.now = datetime.now()
+                self.no3 = self.root.after(300, self.attack, metior, 300)
+                return
+            
+            if self.root.itemcget(create, "tag") != "Metior": return
+
+            attacker = self.root.coords(self.ball)
+            shower = self.root.coords(create)
+            attacker = [attacker[0]-10, attacker[1]-30]
+
+            if shower[0] == attacker[0]: x = 0
+            elif shower[0] > attacker[0]: x = -10
+            else: x = 10
+            
+            if shower[1] == attacker[1]: y = 0
+            elif shower[1] > attacker[1]: y = -10
+            else: y = 10
+
+            self.root.coords(create, shower[0]+x, shower[1]+y, shower[2]+x, shower[3]+y)
+            shower = self.root.coords(create)
+            cball = self.root.coords(self.ball)
+            things = self.root.find_enclosed(cball[0]-60, cball[1]-60, cball[0]+60, cball[1]+60)
+            
+            if len(things) > 0:
+                for ele in things:
+                    if self.root.itemcget(ele, 'tag') == "Metior":
+                        self.hearts -= 1
+                        h1 = self.root.create_text(775, 100, text = "-1 Heart", fill = '#00FFFF', font = ("Algerian", 15, 'bold'))
+                        self.no4 = self.root.after(3000, self.root.delete, h1)
+                        if self.hearts == 2: self.root.itemconfigure(self.heart3, fill = 'black')
+                        elif self.hearts == 1: self.root.itemconfigure(self.heart2, fill = 'black')
+                        elif self.hearts == 0: exit("Game Over")
+                        self.root.coords(ele, -100, 0, -100, 0)
+                        self.root.itemconfigure(ele, tag = "torn")
+                        rr = random.randrange(0, len(self.bwords))
+                        self.root.itemconfig(self.gbw, text = self.bwords[rr])
+
+            self.no5 = self.root.after(300, self.attack, create, 300)
+
+        def movit(self, obj, dist = None, time = 0):
+            if self.stop:
+                self.d[obj] = dist
+                self.tfm.append(time)
+                return
+
+            coords = self.root.coords(obj)
+            
+            x = (coords[0]+coords[2])/2
+            y = (coords[1]+coords[3])/2
+            
+            self.root.coords(obj, x+dist[0]-5, y+dist[1]-5, x+dist[0]+5, y+dist[1]+5)
+
+            met = self.root.find_withtag("Metior")
+
+            objc = self.root.coords(obj)
+
+            if objc[0] > 1550 or objc[2] < 0 or objc[1] > 800 or objc[3] < 0:
+                self.root.coords(obj, -100, -250, -100, -250)
+                self.root.itemconfigure(obj, tag = 'torn')
+                return
+
+            for ast in met:
+                coords = self.root.coords(ast)
+
+                a = self.root.find_enclosed(coords[0], coords[1], coords[2], coords[3])
+
+                if a:
+                    
+                    if self.root.itemcget(ast, 'fill') == "green" and self.orange and not self.red:
+                        self.root.itemconfigure(ast, fill = 'orange')
+                        self.sod = self.red = True
+                    
+                    elif self.root.itemcget(ast, 'fill') == "green" or self.root.itemcget(ast, 'fill') == "orange" and not self.sod:
+                        self.root.itemconfigure(ast, fill = 'red')
+                        self.sod = True
+                        self.red = False
+                    
+                    elif not self.sod:
+                        self.root.coords(ast, -250, -250, -250, -250)
+                        self.root.itemconfigure(ast, tag = "Broke")
+                    
+                    rr = random.randrange(0, len(self.gwords))
+                    self.root.itemconfig(self.gbw, text = self.gwords[rr])
+                    self.no6 = self.root.after(2000, lambda : self.root.itemconfig(self.gbw, text = ""))
+                    self.root.delete(obj)
+                    return
+            self.no7 = self.root.after(100, self.movit, obj, dist, 100)
+
+        def pushed(self, e, time = 0):
+
+            if e != 'space' and e != 10: e = e.keysym
+            
+            if self.stop and e != "Escape":
+                if e == 10:
+                    self.reshoot = "Hello"
+                return
+
+            if e == 10:
+                self.reshoot = True
+                return
+            
+            x0, y0 = self.root.coords(self.ball)
+            if e == 'a':
+                self.side = 'left'
+                self.root.coords(self.ball, x0-15, y0)
+            elif e == 'd':
+                self.side = 'right'
+                self.root.coords(self.ball, x0+15, y0)
+            elif e == 'w':
+                self.side = 'up'
+                self.root.coords(self.ball, x0, y0-15)
+            elif e == 's':
+                self.side = 'down'
+                self.root.coords(self.ball, x0, y0+15)
+            
+            elif e == "Escape" and not self.stop:
+                
+                app.after_cancel(self.no0)
+                app.after_cancel(self.no1)
+
+                self.dtn2 = datetime.now()-self.dtn
+
+                self.stop = True
+                self.root['cursor'] = 'arrow'
+                self.root.coords(self.bbtg, 620, 250, 930, 350)
+                self.root.coords(self.btg, 775, 300)
+                
+                self.root.coords(self.besc, 620, 350, 930, 450)
+                self.root.coords(self.esc, 775, 400)
+
+                self.root.coords(self.bret, 620, 450, 930, 550)
+                self.root.coords(self.ret, 775, 500)
+
+                self.stopper = True
+
+                if not self.once:
+                    self.once = True
+                    self.root.tag_bind(self.bret, "<Button>", lambda e : self.switch())
+                    self.root.tag_bind(self.bbtg, "<Button>", lambda e : self.root.event_generate("<Escape>"))
+                    self.root.tag_bind(self.besc, "<Button>", lambda e : app.quit())
+
+            elif e == "Escape":
+                self.root['cursor'] = 'none'
+                
+                ts = self.dtn2.total_seconds()
+
+                if ts <= 3:
+                    self.no1 = app.after(int(round((3-ts)*1000)), self.attack, True)
+                    self.no0 = app.after(int(round((15-ts)*1000)), self.move, "Random")
+                elif self.dtn2.total_seconds() <= 15:
+                    self.no0 = app.after(int(round((15-ts)*1000, 0)), self.move, "Random")
+
+                self.stop = False
+
+                counter = 0
+
+                for ele in self.creation:
+                    self.root.after(int(round(self.tfa[counter]-(ts*1000))), self.attack(ele))
+                    counter += 1
+                counter = 0
+
+                for key, val in self.d.items():
+                    if self.root.itemcget(key, 'tag') != 'torn':
+                        self.root.after(int(round(self.tfm[counter]-(ts*1000))), self.movit(key, val))
+                        counter += 1
+
+                self.root.coords(self.bbtg, -10, -10, -2, -2)
+                self.root.coords(self.btg, -10, -10)
+                
+                self.root.coords(self.besc, -10, -10, -2, -2)
+                self.root.coords(self.esc, -10, -10)
+                
+                self.root.coords(self.bret, -10, -10, -2, -2)
+                self.root.coords(self.ret, -10, -10)
+
+                self.root.after(10, self.switch, 10)
+
+                if self.reshoot == "Hello":
+                    self.root.after(int(round(900-(ts*1000))), self.pushed, 10, 900)
+
+            elif e == 'space' and self.reshoot and not self.stopper:
+                self.reshoot = False
+                
+                if self.angle > 360:
+                    ang = self.angle//360
+                    self.angle = (360*ang)/self.angle
+                elif self.angle < 0:
+                    self.angle = 360 + self.angle
+
+                x = (50*math.cos(math.radians(self.angle+90)))+x0
+                y = (50*math.sin(math.radians(self.angle+90)))+y0
+
+                y = y0-(y-y0)
+
+                shoot = self.root.create_oval(x-5, y-5, x+5, y+5, fill = 'yellow', tag = "Shoot")
+
+                fdist = [0, 0]
+                dist = [x-x0, y-y0]
+
+                if dist[0] < 0:
+                    dist[0] = 0-dist[0]
+                    fdist[0] = 1
+                
+                if dist[1] < 0:
+                    dist[1] = 0-dist[1]
+                    fdist[1] = 1
+                
+                total = dist[0] + dist[1]
+                total = 15/total
+                dist[1] = total*dist[1]
+                dist[0] = total*dist[0]
+                
+                if fdist[0] == 1: dist[0] = 0-dist[0]
+
+                if fdist[1] == 1: dist[1] = 0-dist[1]
+
+                self.sod = False
+                self.movit(shoot, dist)
+                self.no9 = self.root.after(900, self.pushed, 10, 900)
+
+        def move(self, event):
+            if self.stop: return
+
+            if event == "Random":
+                ran = random.randrange(0, 10)
+                if ran == 0:
+                    if self.hearts == 1: self.root.itemconfigure(self.heart2, fill = 'red')
+                    elif self.hearts == 2: self.root.itemconfigure(self.heart3, fill = 'red')
+                    self.hearts += 1
+                    h1 = self.root.create_text(775, 100, text = "+1 Heart", fill = '#000fff000', font = ("Algerian", 15, 'bold'))
+                    self.no10 = self.root.after(3000, self.root.delete, h1)
+                self.no11 = self.root.after(15000, self.move, "Random")
+                return
+            app.unbind("<Motion>")
+            x, y = event.x-775, event.y-400
+            self.angle -= (y+x)/3
+            self.angle %= 360
+            if self.stop: return
+            self.image = ImageTk.PhotoImage(self.img.rotate(self.angle))
+
+            self.root.itemconfig(self.ball, image = self.image)
+            app.event_generate('<Motion>', warp = True, x = 775, y = 400)
+            app.bind("<Motion>", self.move)
+
+        def switch(self, event = None):
+            """Switches between root and root_2\n\nParameters are - None"""
+            global astroot
+
+            if event == 10:
+                self.stopper = False
+                return
+            
+            elif event:
+                self.attr = not self.attr
+                app.attributes('-fullscreen', self.attr)
+                return
+            
+            # makes a global variable the self.root and ungrids it. Grids the home screen
+            astroot = self.root
+            root_2.grid()
+            
+            app.title('Home screen')
+            app.configure(bg = root_2.cget('bg'))
+            
+            self.root.grid_remove()
+
 
     # If Control + W exit
     app.bind('<Control_L> <w>', lambda e : rating(app, root_2))
     app.geometry('1600x900+1+1')
-    
+    app.state('zoomed')
+
     # Root_2 the frame for all the apps faces
     root_2 = tk.Frame()
     root_2.grid()
@@ -4245,9 +4620,12 @@ def saep(app):
     p12 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\images_for_gcpy\\xcelsheet.png")
     p12 = p12.subsample(2, 2)
 
+    # Spaceship
+    p13 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\images_for_gcpy\\rocket.png")
+    p13 = p13.subsample(10, 10)
 
     # Defining variables for reusing the same app frame
-    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = 0
+    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = astroot = 0
     count = tk.IntVar(app, 0)
 
     # The buttons, putting images, binding for changing color
@@ -4294,6 +4672,13 @@ def saep(app):
     bcl.grid(row = 2, column = 3, sticky = 'nsew')
     bcl.bind('<Enter>', colorchanger)
     bcl.bind('<Leave>', colorchanger)
+
+    # Asteroids(An arcade game)
+    bast = tk.Button(root_2, image = p13, compound = 'top', text = "Asteroids", command = lambda : Asteroids(root_2, app), font = myfont, relief = 'flat', activebackground = "#0E131C")
+    bast.image = p13
+    bast.grid(row = 2, column = 4, sticky = 'nsw', ipadx = 30)
+    bast.bind('<Enter>', colorchanger)
+    bast.bind('<Leave>', colorchanger)
 
     # Dots and Boxes
     bb = tk.Button(root_2, image = p6, compound = 'top', text = "dots and boxes", command = lambda : boxes(root_2, app), font = myfont, relief = 'flat', activebackground = 'deep pink')
@@ -4584,6 +4969,8 @@ def loading(tf = False):
         if not exit_now: root.after(250, loading, True)
         return
 
+    root.configure(cursor = 'arrow')
+    
     # Destroying the bar and the label which says "One second..."
     bar.destroy()
     lab.destroy()
@@ -4667,7 +5054,7 @@ def openinger(event):
         
         # If wrong 6 times
         if b == 6:
-            a = messagebox.showinfo("THIEF!!!", "You have tried to many times\nIf you have any doubts contact\n9848140153")
+            a = messagebox.showinfo("THIEF!!!", "You have tried to many times\nIf you have any doubts contact\n1234567890")
             root.destroy()
 
 # If user forgot the password do this
@@ -4682,7 +5069,7 @@ def forgot_pass(e = 0):
         b = 'Hint: subed YTer\nRemember password?'
         c = lambda : forgot_pass(1)
     
-        fina = "advaith.yellai@gmail.com"
+        fina = "idk"
     
     else:
         # Resets 
@@ -4717,6 +5104,8 @@ lab = tk.Label(root, text = "One sec", font = ('Algerian', 15, 'bold'))
 # Gridding them
 lab.grid()
 bar.grid()
+
+root.configure(cursor = 'watch')
 
 # After 100 secs it updates bar
 if not exit_now: root.after(250, loading, True)

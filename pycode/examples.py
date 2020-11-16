@@ -205,3 +205,27 @@
 
 # self.root.grid(row = 0, column = 2)
 # # Running the whole code
+
+import tkinter as tk
+from tkinter import font
+
+app = tk.Tk()
+app.state('zoomed')
+# app.attributes('-fullscreen', True)
+app.configure(bg = 'grey15')
+app.title('Quit the game and you WIN!!!')
+
+def enter(event):
+    win.unbind('<Enter>')
+    win.place_forget()
+
+tk.Label(app, text = "QUIT THE GAME TO WIN", bg = 'grey15', fg = 'white', font = ('Times', 32, 'bold')).place(relx = 0.34, rely = 0)
+app.event_generate('<Motion>', warp = True, x = 50, y = 50)
+
+win = tk.Button(app, text = "Quit", bg = 'grey15', fg = 'white', font = ('Times', 32, 'bold'), relief = 'flat', command = quit)
+win.place(relx = 0.46, rely = 0.5)
+win.bind('<Enter>', enter)
+
+tk.Label(app, text = "'Esc' and 'Alt-F4' won't work either", bg = 'grey15', fg = 'white', font = ("times", 32, 'bold')).place(relx = 0.315, rely = 0.9)
+
+app.mainloop()

@@ -21,9 +21,9 @@ The apps and games are -;
 """
 To do -;
 
-1) Meme app
-2) Click The Button
-3) Monopoly
+1) Click The Button
+2) Minesweeper
+3) Capture the Flag
 """
 
 # Importing modules from datetime for the clock application

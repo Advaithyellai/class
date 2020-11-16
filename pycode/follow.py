@@ -49,22 +49,3 @@
 # canvas.grid(row = 0, column = 0)
 # scrollbar.grid(row = 0, column = 1, sticky = 'ns')
 # self.root.mainloop()
-
-
-
-import tkinter as tk
-import random, math
-from PIL import ImageTk, Image
-from datetime import datetime, timedelta
-
-app = tk.Tk()
-astroot = 0
-root_2 = tk.Frame(app)
-
-tk.Button(root_2, text = "Click Me!!!", command = lambda : Asteroids(root_2, app)).grid()
-
-root_2.grid()
-
-
-
-app.mainloop()

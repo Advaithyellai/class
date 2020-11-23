@@ -5,16 +5,16 @@
 # # Changing the self.name from tkinter to tk
 # import tkinter as tk
 
-# # App is Tk
+# # self.root is Tk
 # root_2 = tk.Tk()
 
 # # Putting a title to this
 # root_2.title("All the widgets in tkiner and in ttk")
 
 # # Frame
-# self.root = ttk.Notebook(root_2)
-# # Gridding means placing it on the app
-# self.root.grid(row = 0, column = 2)
+# self.self.root = ttk.Notebook(root_2)
+# # Gridding means placing it on the self.root
+# self.self.root.grid(row = 0, column = 2)
 
 # # This updates progress bar(Downloading bar)
 # def change():
@@ -24,7 +24,7 @@
 #     # Checking if it is 100% done
 #     if nb['value'] != 100:
 #         # If it is not 100% then countinue
-#         self.root.after(250, change)
+#         self.self.root.after(250, change)
 #     else:
 #         # if it is 100% then update user
 #         msg = messagebox.askyesno("Done", "Hello, You're program is done.\nDo you want to run it?")
@@ -33,21 +33,21 @@
 #         if msg == True: quit()
 
 # # Just like integer variable(rbv = 0) but better
-# rbv = tk.IntVar(self.root, 0)
+# rbv = tk.IntVar(self.self.root, 0)
 
 # # Radiobutton - Means Button but can select only one at a time
-# ttk.Radiobutton(self.root, variable = rbv, text = "Food", value = 1, command = lambda : print("Food")).grid(row = 3, column = 2)
-# ttk.Radiobutton(self.root, variable = rbv, text = "Water", value = 0, command = lambda : print("Water")).grid(row = 3, column = 2)
+# ttk.Radiobutton(self.self.root, variable = rbv, text = "Food", value = 1, command = lambda : print("Food")).grid(row = 3, column = 2)
+# ttk.Radiobutton(self.self.root, variable = rbv, text = "Water", value = 0, command = lambda : print("Water")).grid(row = 3, column = 2)
 
 # # Separates two or more widgets
-# ttk.Separator(self.root).grid(row = 4, column = 2, sticky = 'ew')
-# ttk.Separator(self.root, orient = 'vertical').grid(sticky = 'ns', row = 6, column = 2)
+# ttk.Separator(self.self.root).grid(row = 4, column = 2, sticky = 'ew')
+# ttk.Separator(self.self.root, orient = 'vertical').grid(sticky = 'ns', row = 6, column = 2)
 
 # # self.style makes the widget look better
 # self.style = ttk.Style()
 
 # # Like microsoft excel but can not edit
-# self.tree = ttk.Treeview(self.root, columns = ("1", "2", "3", "4"))
+# self.tree = ttk.Treeview(self.self.root, columns = ("1", "2", "3", "4"))
 # self.tree.grid(row = 6, column = 2)
 
 # # It makes the columns
@@ -66,29 +66,29 @@
 # self.tree.insert("", 'end', text = "Mustard", values = ("x", "✓", "x", "x"))
 # self.tree.insert("", 'end', text = "White", values = ("x", "x", "x", "✓"))
 
-# # This lets user resize the app
-# ttk.Sizegrip(self.root).grid(row = 5, column = 2)
+# # This lets user resize the self.root
+# ttk.Sizegrip(self.self.root).grid(row = 5, column = 2)
 
 # # This is the Entry which can only have values from 0 - 10
-# spinner = ttk.Spinbox(self.root, from_ = 0, to = 10)
+# spinner = ttk.Spinbox(self.self.root, from_ = 0, to = 10)
 # spinner.grid(row = 7, column = 2)
 
 # # If you change the value it prints it
 # spinner['command'] = lambda : print(spinner.get())
 
 # # This s just like a string Variable(sv = "Menu") but better
-# sv = tk.StringVar(self.root, "Menu")
+# sv = tk.StringVar(self.self.root, "Menu")
 
 # # This is the dropdown Menu
 # # First is master then is variable then default value then n number of values then you can do whatever you want
-# ttk.OptionMenu(self.root, sv, "Menu", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", command = print).grid()
+# ttk.OptionMenu(self.self.root, sv, "Menu", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", command = print).grid()
 
 # # It is like a dropdown Menu but with an Entry
-# cbb = ttk.Combobox(self.root, values = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+# cbb = ttk.Combobox(self.self.root, values = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
 
 # # This is the scrollbar but it does not scroll anything
 # # This unlike Scale shows the value of it's position
-# lbs = ttk.LabeledScale(self.root, from_ = 0, to = 10)
+# lbs = ttk.LabeledScale(self.self.root, from_ = 0, to = 10)
 
 # # Another Style
 # s = ttk.Style()
@@ -97,28 +97,28 @@
 # s.configure("red.Horizontal.TProgressbar", foreground='red', background='black')
 
 # # This is just like LabledScale but does not shaw it's value
-# ttk.Scale(self.root, from_ = 0, orient = 'vertical', to = 10).grid(row = 0, column = 2)
+# ttk.Scale(self.self.root, from_ = 0, orient = 'vertical', to = 10).grid(row = 0, column = 2)
 
 # # A normal text showing widget
-# ttk.Label(self.root, text = "Hello").grid()
+# ttk.Label(self.self.root, text = "Hello").grid()
 
 # # Accepts string self.data from the user
-# e = ttk.Entry(self.root)
+# e = ttk.Entry(self.self.root)
 # e.grid()
 # # This does not have text option so we have to insert the text
 # e.insert(0, "hello")
 
 # # A button
-# ttk.Button(self.root, text = "Hello", command = lambda : print("click")).grid()
+# ttk.Button(self.self.root, text = "Hello", command = lambda : print("click")).grid()
 
 # # A button but looks different and has more self.options
-# ttk.Checkbutton(self.root, text = "Food", command = lambda : print("check food")).grid()
-# ttk.Checkbutton(self.root, text = "Water", command = lambda : print("check water")).grid()
+# ttk.Checkbutton(self.self.root, text = "Food", command = lambda : print("check food")).grid()
+# ttk.Checkbutton(self.self.root, text = "Water", command = lambda : print("check water")).grid()
 
 # # The downloading bar
-# nb = ttk.Progressbar(self.root, value = 0, self.style = "red.Horizontal.TProgressbar", length = 300)
+# nb = ttk.Progressbar(self.self.root, value = 0, self.style = "red.Horizontal.TProgressbar", length = 300)
 # # Calling a function to Update it
-# self.root.after(250, change)
+# self.self.root.after(250, change)
 # nb.grid(row = 2, column = 2)
 # lbs.grid(row = 0, column = 2)
 # cbb.insert(0, 'Select')
@@ -127,37 +127,37 @@
 # # Done with the ttk part moving on to the tkinter part
 
 # # The container of other widgets
-# self.root = tk.Frame(root_2, bg = 'red')
+# self.self.root = tk.Frame(root_2, bg = 'red')
 
 # # Tkinter Button just like ttk button but simpler
-# tk.Button(self.root, text = "Click me!!!", command = lambda : print("Clicked")).grid()
+# tk.Button(self.self.root, text = "Click me!!!", command = lambda : print("Clicked")).grid()
 
 # # Canvas for painting
-# c = tk.Canvas(self.root, bg = 'blue', width = 30, height = 30)
+# c = tk.Canvas(self.self.root, bg = 'blue', width = 30, height = 30)
 # c.create_polygon(10, 10, 20, 10, 20, 20, 10, 20, 10, 10, fill = '#000fff000')
 # c.grid()
 
 # # Just like button but slightly different
-# tk.Checkbutton(self.root, text = "Mustard", command = lambda : print("mustard")).grid(column = 2, row = 2)
-# tk.Checkbutton(self.root, text = "Ketchup", command = lambda : print("Ketchup")).grid(column = 2, row = 2)
+# tk.Checkbutton(self.self.root, text = "Mustard", command = lambda : print("mustard")).grid(column = 2, row = 2)
+# tk.Checkbutton(self.self.root, text = "Ketchup", command = lambda : print("Ketchup")).grid(column = 2, row = 2)
 
 # # just like ttk Entry
-# e = tk.Entry(self.root)
+# e = tk.Entry(self.self.root)
 # e.insert('end', "Hello")
 # e.grid()
 
 # # Label + Frame
-# lf = tk.LabelFrame(self.root, text = "hello", font = ('Algerian', 15, 'bold'), bg = 'yellow', fg = 'black')
+# lf = tk.LabelFrame(self.self.root, text = "hello", font = ('Algerian', 15, 'bold'), bg = 'yellow', fg = 'black')
 # lf.grid()
 
 # # Just like ttk label
 # tk.Label(lf, text = "This is a label", font = ('Algerian', 15, 'bold'), fg = 'yellow', bg = 'black').grid()
 
 # # A vertical view of a list
-# l = tk.Listbox(self.root)
+# l = tk.Listbox(self.self.root)
 
 # # Scroll bar
-# sb = tk.Scrollbar(self.root, command = l.yview)
+# sb = tk.Scrollbar(self.self.root, command = l.yview)
 # sb.grid(row = 5, column = 2, sticky = 'nsw')
 
 # # Assigning the widget to the scroll bar
@@ -173,7 +173,7 @@
 # l.grid(row = 5, column = 2, sticky = 'ew')
 
 # # The menubar
-# menubar = tk.Menu(self.root)
+# menubar = tk.Menu(self.self.root)
 
 # # assigning menubar as the menu
 # root_2.configure(menu = menubar)
@@ -182,9 +182,9 @@
 # men = tk.Menu(menubar, tearoff = 0)
 
 # # Adding buttons
-# intvar = tk.IntVar(self.root, 0)
-# intvar2 = tk.IntVar(self.root, 0)
-# intvar3 = tk.IntVar(self.root, 0)
+# intvar = tk.IntVar(self.self.root, 0)
+# intvar2 = tk.IntVar(self.self.root, 0)
+# intvar3 = tk.IntVar(self.self.root, 0)
 # men.add_command(label = "Hello", command = lambda : print("hello"))
 # men.add_separator()
 # men.add_radiobutton(label = ":)", variable = intvar, value = 1)
@@ -196,36 +196,12 @@
 # # Adding this men to the menubar and labeling it "Menu"
 # menubar.add_cascade(menu = men, label = "Menu")
 
-# mb = tk.Menubutton(self.root, text = "Hello", relief = 'groove')
+# mb = tk.Menubutton(self.self.root, text = "Hello", relief = 'groove')
 # mb.grid()
 # mb_menu = tk.Menu(mb, tearoff = 0)
 # mb['menu'] = mb_menu
 # mb_menu.add_command(label = "Print", command = lambda : print("Print"))
 # mb_menu.add_command(label = "Quit", command = quit)
 
-# self.root.grid(row = 0, column = 2)
+# self.self.root.grid(row = 0, column = 2)
 # # Running the whole code
-
-import tkinter as tk
-from tkinter import font
-
-app = tk.Tk()
-app.state('zoomed')
-# app.attributes('-fullscreen', True)
-app.configure(bg = 'grey15')
-app.title('Quit the game and you WIN!!!')
-
-def enter(event):
-    win.unbind('<Enter>')
-    win.place_forget()
-
-tk.Label(app, text = "QUIT THE GAME TO WIN", bg = 'grey15', fg = 'white', font = ('Times', 32, 'bold')).place(relx = 0.34, rely = 0)
-app.event_generate('<Motion>', warp = True, x = 50, y = 50)
-
-win = tk.Button(app, text = "Quit", bg = 'grey15', fg = 'white', font = ('Times', 32, 'bold'), relief = 'flat', command = quit)
-win.place(relx = 0.46, rely = 0.5)
-win.bind('<Enter>', enter)
-
-tk.Label(app, text = "'Esc' and 'Alt-F4' won't work either", bg = 'grey15', fg = 'white', font = ("times", 32, 'bold')).place(relx = 0.315, rely = 0.9)
-
-app.mainloop()

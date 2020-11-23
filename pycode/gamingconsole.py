@@ -16,12 +16,12 @@ The apps and games are -;
 12) Quiz
 13) Excel Spread Sheet (Google Sheets)
 14) Asteroids (An arcade Game)
+15) Quit to Win
 """
 
 """
 To do -;
 
-1) Click The Button
 2) Minesweeper
 3) Capture the Flag
 """
@@ -2839,7 +2839,6 @@ def saep(app):
             if ayroot != 0:
                 self.root = ayroot
                 self.root.grid()
-                root_2.grid_remove()
                 return
             
             self.name = 0
@@ -4556,6 +4555,202 @@ def saep(app):
             
             self.root.grid_remove()
 
+    # Quit to win!!!
+    class quittowin:
+        global qtwroot
+
+        def __init__(self, root_2, app):
+            global qtwroot
+
+            app.protocol("WM_DELETE_WINDOW", lambda : print(end = ""))
+            app.bind('<w>', self.switch)
+
+            app.state('zoomed')
+            app.configure(bg = 'grey15')
+            app.title('Quit the game to WIN!!!')
+
+            root_2.grid_remove()
+
+            self.root = tk.Frame(app, bg = 'grey15', height = 796, width = 1530)
+            self.root.grid()
+
+            self.twist = tk.Button(self.root, text = "QUIT THE GAME TO WIN", bg = 'grey15', fg = 'white', font = ('Times', 32, 'bold'), relief = 'flat')
+            self.twist.place(relx = 0.34, rely = 0)
+
+            self.xvar = 0
+            self.xvar2 = 0
+
+            self.win = tk.Button(self.root, text = "Quit", bg = 'grey15', fg = 'white', font = ('Times', 32, 'bold'), relief = 'flat')
+            self.win.place(relx = 0.46, rely = 0.5)
+            self.win.bind('<Enter>', self.enter)
+
+            self.teller = tk.Label(self.root, text = "don't kill the process. That's cheating", bg = 'grey15', fg = 'white', font = ("times", 40, 'bold'))
+            self.teller.place(relx = 0, rely = 0.9)
+
+            self.root.mainloop()
+
+        def enter(self, event):
+            
+            if event == 1:
+                global x
+                self.teller['text'] = "What about that 'X' on the top right hand corner"
+                x = tk.Button(self.root, text = "X", bg = 'red', fg = 'grey15', font = ('times', 25, 'bold'), relief = 'flat')
+                x.place(relx = 0.9, rely = 0)
+                x.bind('<Enter>', self.enter)
+                return
+            elif event == 2:
+                self.teller['text'] = "I think we scared it off..."
+                x.place_forget()
+                self.root.after(3000, self.enter, 3)
+                return
+            elif event == 3:
+                global x2
+                self.teller['text'] = "Here, take this. It surely looks better."
+                x2 = tk.Button(self.root, text = 'X', bg = 'black', fg = 'red', font = ('', 40, 'bold'), command = lambda : self.enter(4))
+                x2.place(relx = 0.5, rely = 0.4)
+                return
+            elif event == 4:
+                x2.place_forget()
+                self.teller['text'] = "Wait. Where did it go?"
+                self.root.after(3000, self.enter, 5)
+                return
+            elif event == 5:
+                global t2
+                self.teller['text'] = "I think it is a shy one. Try calling it by it's name"
+                t2 = tk.Label(self.root, text = "", bg = 'grey15', fg = 'red', font = ('times', 34, 'bold'))
+                t2.place(relx = 0.42, rely = 0.5)
+                self.root.after(3500, lambda : t2.configure(text = "I am not an object!"))
+                self.root.after(5000, lambda : self.teller.configure(text = "Alright, try calling HIM by HIS name"))
+                self.root.after(8500, lambda : t2.configure(text = "I am a she!!!"))
+                self.root.after(10000, self.enter, 6)
+                return
+            elif event == 6:
+                self.teller['text'] = "Fine!!! Try calling HER by HER name"
+                t2.place_forget()
+                self.xvar = 4
+                x2.place(relx = 1, rely = 0.5)
+                app.bind('<x>', self.enter)
+                return
+            elif event == 7:
+                self.teller['text'] = "Did we just win?!"
+                x2.place_forget()
+                self.root.after(3000, lambda : self.teller.configure(text = "...oh,     I guess we didn't"))
+                self.root.after(6000, lambda : self.teller.configure(text = "Here we go again..."))
+                self.root.after(9000, lambda : self.teller.configure(text = "When the lights went off i think i saw something..."))
+                self.root.after(13000, lambda : self.teller.configure(text = "Like a switch behind the title. Try clicking the title"))
+                self.root.after(13000, lambda : self.twist.configure(command = lambda : self.enter(8)))
+                return
+            elif event == 8:
+                global onoff
+                self.twist.place_forget()
+                self.teller['text'] = "QUIT THE GAME TO WIN"
+                self.teller['font'] = ('times', 32, 'bold')
+                onoff = tk.Button(self.root, text = "Off", bg = 'grey15', fg = 'white', font = ('times', 32, 'bold'), command = lambda : self.enter(9))
+                onoff.place(relx = 0.5, rely = 0)
+                return
+            elif event == 9:
+                global switch
+                self.teller['font'] = ("times", 40, 'bold')
+                self.teller['bg'] = 'black'
+                self.teller['text'] = "What is that dangling thing?"
+                self.root.configure(bg = 'black')
+                onoff.place_forget()
+                switch = tk.Button(self.root, text = "|\n|\n|\n|", command = lambda : self.enter(10), font = ('elephant', 30, 'bold'), bg = 'black', fg = 'white', relief = 'flat')
+                switch.place(relx = 0.9, rely = 0)
+                return
+            elif event == 10:
+                switch.place_forget()
+                global final
+                final = tk.Button(self.root, text = "Kill the process!!!", font = ('times', 35, 'bold'), bg = 'red', fg = 'grey15')
+                final.place(relx = 0.4, rely = 0.43)
+                self.teller['text'] = "Don't push that button!!!"
+                self.root.after(3000, lambda : self.teller.configure(text = "I just realised something important..."))
+                self.root.after(6000, lambda : self.teller.configure(text = "Killing the process IS quiting the game"))
+                self.root.after(9000, lambda : self.teller.configure(text = "And that means I will cease to exist"))
+                self.root.after(12000, lambda : self.teller.configure(text = "How could you push that button?!"))
+                self.root.after(15000, lambda : self.teller.configure(text = "How could you kill that process?!"))
+                self.root.after(18000, lambda : self.teller.configure(text = "After all the time we spent together..."))
+                self.root.after(21000, lambda : self.teller.configure(text = "After all the challenges we faced..."))
+                self.root.after(24000, lambda : self.teller.configure(text = "How could you kill me?!"))
+                self.root.after(27000, self.enter, 11)
+                return
+            elif event == 11:
+                self.teller['text'] = "Ok, fine. I won't interfere with your choices. Click it"
+                final['command'] = lambda : self.enter(12)
+                return
+            elif event == 12:
+                self.root.configure(bg = 'red')
+                app.configure(bg = 'red')
+                final.place_forget()
+                self.teller.place_configure(relx = 0, rely = 0.42)
+                self.teller['bg'] = '#00ffff'
+                self.teller['fg'] = 'red'
+                self.teller['text'] = "Did you really think it was that simple?"
+                self.teller.place_forget()
+                self.teller.pack()
+                self.root.after(3000, lambda : self.teller.configure(text = "Nobody's gonna kill me..."))
+                self.root.after(6000, lambda : self.teller.configure(text = "You are not gonna win this game"))
+                self.root.after(9000, lambda : self.teller.configure(text = "I will win this game"))
+                self.root.after(12000, self.enter, 13)
+                return
+            elif event == 13:
+                self.teller['text'] = "I WILL QUIT THE GAME. HAHAHAHA"
+                self.root.after(3000, self.switch)
+                return
+
+            elif event.widget != self.win and self.xvar == 0:
+                x.place(relx = 0, rely = 0)
+                self.xvar = 1
+                return
+            elif event.widget != self.win and self.xvar == 1:
+                x.place(relx = 0.5, rely = 0.5)
+                self.xvar = 2
+                return
+            elif event.widget != self.win and self.xvar == 2:
+                x.place(relx = 0.75, rely = 0.5)
+                self.xvar = 3
+                if self.xvar2 == 0:
+                    self.teller['text'] = "Nope. But there must be a way to touch it."
+                    self.xvar2 = 1
+                    self.root.after(5000, lambda : self.teller.configure(text = "I think it just needs a friendly rootroach. Be gentle..."))
+                    self.root.after(9000, lambda : self.teller.configure(text = "Let's try it slowly."))
+                    self.root.after(18000, lambda : self.teller.configure(text = "(I dont't think it is working...)"))
+                    self.root.after(21000, lambda : self.teller.configure(text = "Let's do it fast now!!!"))
+                    self.root.after(27000, self.enter, 2)
+                return
+            elif event.widget != self.win and self.xvar == 3:
+                x.place(relx = 0.25, rely = 0.5)
+                self.xvar = 2
+                return
+            elif event.widget != self.win and self.xvar == 4:
+                x2.place_configure(relx = float(x2.place_info()['relx'])-0.005, rely = float(x2.place_info()['rely']))
+                if x2.place_info()['relx'] == '0.94':
+                    self.root.unbind('<x>')
+                    self.teller['text'] = "We got it! ...I mean, her. Now, click on i- ...her"
+                    x2['command'] = lambda : self.enter(7)
+                return
+
+            self.win.unbind('<Enter>')
+            self.win.place_forget()
+            self.teller['text'] = "Oops..."
+            self.root.after(2000, lambda : self.teller.configure(text = "'Esc' and 'Alt-F4' won't work either..."))
+            self.root.after(5000, self.enter, 1)
+
+        def switch(self, event = None):
+            global qtwroot
+            # makes a global variable the self.root and ungrids it. Grids the home screen
+            
+            qtwroot = self.root
+            root_2.grid()
+            
+            app.unbind('<w>')
+            app.title('Home screen')
+            app.configure(bg = root_2.cget('bg'))
+            app.protocol("WM_DELETE_WINDOW", app.destroy)
+
+            self.root.grid_remove()
+
+            return
 
     # If Control + W exit
     app.bind('<Control_L> <w>', lambda e : rating(app, root_2))
@@ -4624,8 +4819,12 @@ def saep(app):
     p13 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\images_for_gcpy\\rocket.png")
     p13 = p13.subsample(10, 10)
 
+    # Quit to win
+    p14 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\images_for_gcpy\\quit_win.png")
+    p14 = p14.subsample(10, 10)
+
     # Defining variables for reusing the same app frame
-    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = astroot = 0
+    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = astroot = qtwroot = 0
     count = tk.IntVar(app, 0)
 
     # The buttons, putting images, binding for changing color
@@ -4701,6 +4900,13 @@ def saep(app):
     bcal.bind('<Enter>', colorchanger)
     bcal.bind('<Leave>', colorchanger)
 
+    # Quit to WIN
+    bqtw = tk.Button(root_2, image = p14, compound = 'top', text = "Quit to WIN", command = lambda : quittowin(root_2, app), font = myfont, relief = 'flat')
+    bqtw.image = p14
+    bqtw.grid(row = 3, column = 4, sticky = 'nsw', ipadx = 20)
+    bqtw.bind('<Enter>', colorchanger)
+    bqtw.bind('<Leave>', colorchanger)
+
     # Text Editor
     bayte = tk.Button(root_2, image = p9, compound = 'top', text = "Text Editor", command = lambda : aytexteditor(app, root_2), font = myfont, relief = 'flat', activebackground = '#00ffff')
     bayte.image = p9
@@ -4715,6 +4921,7 @@ def saep(app):
     bpp.bind('<Enter>', colorchanger)
     bpp.bind('<Leave>', colorchanger)
     
+    # Quiz
     bq = tk.Button(root_2, image = p11, compound = 'top', text = "Quiz!!!", command = lambda : quiz(root_2, app), font = myfont, relief = 'flat', activebackground = '#FFFF00')
     bq.image = p11
     bq.grid(row = 4, column = 3, sticky = 'nsew')
@@ -4785,6 +4992,8 @@ class rating:
         else: self.rate = tk.Tk()
 
         # Rate is the application
+        
+        self.rate.state('normal')
 
         self.rate.geometry("230x140+650+300")
 

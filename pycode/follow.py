@@ -6,9 +6,9 @@
 #         c.coords(rect, x, y)
 #     else:
 #         c.coords(rect, -10, -10)
-# self.root = tk.Tk()
-# self.root.geometry('500x500')
-# c = tk.Canvas(self.root, width = 1600, height = 850, cursor = 'none')
+# root = tk.Tk()
+# root.geometry('500x500')
+# c = tk.Canvas(root, width = 1600, height = 850, cursor = 'none')
 # rr = ["error", "gray75", "gray50", "gray25", "gray12", "hourglass", "info", "questhead", "question", "warning"]
 # bit = rr[random.randrange(0, len(rr))]
 # print(bit)
@@ -16,7 +16,7 @@
 # c.bind('<Motion>', callthiswhatevs)
 # c.bind('<Leave>', callthiswhatevs)
 # c.grid()
-# self.root.mainloop()
+# root.mainloop()
 
 # import pyttsx3
 # cump = pyttsx3.init()
@@ -37,9 +37,9 @@
 # Canvas size = 795x1530
 
 # import tkinter as tk
-# self.root = tk.Tk()
-# canvas = tk.Canvas(self.root)
-# scrollbar = tk.Scrollbar(self.root, orient="vertical", command=canvas.yview)
+# root = tk.Tk()
+# canvas = tk.Canvas(root)
+# scrollbar = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
 # scrollable_frame = tk.Frame(canvas)
 # scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
 # canvas.create_window((0, 0), window=scrollable_frame, anchor = 'nw')
@@ -48,5 +48,23 @@
 #     tk.Label(scrollable_frame, width = 20, text = "Label").grid()
 # canvas.grid(row = 0, column = 0)
 # scrollbar.grid(row = 0, column = 1, sticky = 'ns')
-# self.root.mainloop()
+# root.mainloop()
 
+import tkinter as tk
+import random
+from tkinter import ttk
+
+app = tk.Tk()
+root_2 = tk.Frame()
+root_2.grid()
+msroot = 0
+
+class Mazes:
+    
+    def __init__(self, root_2, app):
+        
+        root = tk.Canvas()
+
+Mazes(root_2, app)
+
+app.mainloop()

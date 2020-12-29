@@ -17,13 +17,12 @@ The apps and games are -;
 13) Excel Spread Sheet (Google Sheets)
 14) Asteroids (An arcade Game)
 15) Quit to Win
+16) Minesweeper
 """
 
 """
 To do -;
 
-2) Minesweeper
-3) Capture the Flag
 """
 
 # Importing modules from datetime for the clock application
@@ -47,7 +46,7 @@ def saep(app):
     """The main function saep runs the app\n\nParameters are -\n1) app (tk.Tk)"""
 
     # Globalizing some variables
-    global clroot, colroot, broot, hroot, hgroot, calroot, ayroot, cgroot, kroot, proot, exit_now, qroot, eroot
+    global clroot, colroot, broot, hroot, hgroot, calroot, ayroot, cgroot, kroot, proot, exit_now, qroot, eroot, msroot
     
     # If you hover over any button than change the color
     def colorchanger(event):
@@ -1153,7 +1152,7 @@ def saep(app):
             tk.Label(self.root, text = " ", width = 100).grid(row = 0, column = 0)
             tk.Label(self.root, text = " ", height = 20).grid(row = 0, column = 1)
             
-            self.counting = tk.Label(self.root, text = "wrongs: %s/6\nit is %s long" %(self.count.get(), len(self.word)), width = 25, height = 5, bg = 'green')
+            self.counting = tk.Label(self.root, text = "wrongs: %s/6\nit is %s long" %(self.count.get(), len(self.word)), width = 25, height = 5, bg = '#00FFFF')
             self.counting.grid(row = 1, column = 1)
             self.counting['font'] = self.myfont
             
@@ -4752,6 +4751,241 @@ def saep(app):
 
             return
 
+    # Minesweeper
+    class minesweeper:
+        global msroot
+
+        def __init__(self, root_2, app):
+            global msroot
+            
+            app.bind('<Escape>', lambda e : self.setting(1))
+            app.bind('<Control_L> <s>', self.setting)
+            app.configure(bg = 'grey10')
+            app.state('zoomed')
+
+            root_2.grid_remove()
+
+            if msroot:
+                root_2.grid_remove()
+                self.root, self.settings = msroot
+                self.root.grid()
+                return
+
+            self.root = tk.Frame(app, bg = 'grey10')
+            self.root.grid(padx = 400, pady = 50)
+
+            self.inst = tk.Label(self.root, text = "Left click if it's not bomb,\nRight click if it's a bomb,\nPress Ctrl+S for settings.", font = ('Algerian', 20, 'bold'), bg = 'grey10', fg = 'white')
+            self.inst.grid(row = 0, column = 0, columnspan = 5)
+
+            self.size = self.nobombs = 5
+            self.blist = []
+            self.bombs = []
+
+            for rount in range(1, 6):
+                for count in range(0, 5):
+                    b = tk.Button(self.root, width = 16, height = 6, font = ('Helvetica', 11, 'bold'), bg = "#00ff00")
+                    b.grid(row = rount, column = count)
+                    self.blist.append(b)
+                    b.bind('<1>', self.pressed)
+                    b.bind('<3>', self.flagged)
+
+            while len(self.bombs) != 5:
+                rr = random.randrange(0, 25)
+                
+                if rr not in self.bombs:
+                    self.bombs.append(rr)
+
+            self.settings = tk.Frame(app, bg = self.root.cget('bg'))
+                
+            self.width = ttk.Combobox(self.settings, values = ["5x5 (5 bombs)", "10x10 (20 bombs)", "15x15 (50 bombs)", "20x20 (90 bombs)"], font = ('Helvetica', 20, 'bold'))
+            self.width.insert(0, "Enter Grid Size")
+            self.width.grid(sticky = 'ew')
+            app.option_add('*TCombobox*Listbox.font', ('Helvetica', 20, 'bold'))
+
+            self.reset = tk.Button(self.settings, text = "Reset Game", font = ('Helvetica', 20, 'bold'), anchor = 'center', bg = '#D3d3d3', fg = "#000fff", command = self.setting)
+            self.reset.grid(sticky = 'ew', pady = 20)
+
+            self.quit = tk.Button(self.settings, text = "Quit", command = exit, font = ('Helvetica', 20, 'bold'), bg = '#00ffff')
+            self.quit.grid(sticky = 'ew', pady = 10)
+
+            self.hs = tk.Button(self.settings, text = "Home Screen", command = self.switch, font = ('Helvetica', 20, 'bold'), bg = "#fff000", fg = 'saddle brown')
+            self.hs.grid(sticky = 'ew', pady = 10)
+
+        def pressed(self, event):
+
+            if "tkinter.Button" in str(type(event)): wid = event
+            else: wid = event.widget
+
+            if self.blist.index(wid) in self.bombs:
+                self.size = 0
+                
+                self.width.delete(0, 'end')
+                self.width.insert('end', ":x You Lost!!! :(")
+                self.setting(torf = 2)
+                
+                return
+            
+            count = 0
+
+            if self.blist.index(wid)+self.size in self.bombs: count += 1
+            if self.blist.index(wid)-self.size in self.bombs: count += 1
+            
+            if self.blist.index(wid)%self.size != 0:
+                if self.blist.index(wid)-self.size-1 in self.bombs: count += 1
+                if self.blist.index(wid)-1 in self.bombs: count += 1
+                if self.blist.index(wid)+self.size-1 in self.bombs: count += 1
+            
+            if self.blist.index(wid)%self.size != (self.size-1):
+                if self.blist.index(wid)+(self.size+1) in self.bombs: count += 1
+                if self.blist.index(wid)+1 in self.bombs: count += 1
+                if self.blist.index(wid)-(self.size-1) in self.bombs: count += 1
+
+            wid['text'] = count
+
+            if not count:
+                if self.blist.index(wid)+self.size < self.size**2:
+                    if self.blist[self.blist.index(wid)+self.size]['text'] == "": self.pressed(self.blist[self.blist.index(wid)+self.size])
+
+                if self.blist[self.blist.index(wid)-self.size]['text'] == "" and self.blist.index(wid)-self.size >= 0: self.pressed(self.blist[self.blist.index(wid)-self.size])
+
+                if self.blist.index(wid)%self.size != 0:
+                    
+                    if self.blist[self.blist.index(wid)-(self.size+1)]['text'] == "" and self.blist.index(wid)-(self.size+1) >= 0: self.pressed(self.blist[self.blist.index(wid)-(self.size+1)])
+                    
+                    if self.blist[self.blist.index(wid)-1]['text'] == "" and self.blist.index(wid)-1 >= 0: self.pressed(self.blist[self.blist.index(wid)-1])
+                    
+                    if self.blist.index(wid)+(self.size-1) < self.size**2:
+                        if self.blist[self.blist.index(wid)+(self.size-1)]['text'] == "": self.pressed(self.blist[self.blist.index(wid)+(self.size-1)])
+                
+                if self.blist.index(wid)%self.size != (self.size-1):
+                    
+                    if self.blist.index(wid)+(self.size+1) < self.size**2:
+                        if self.blist[self.blist.index(wid)+(self.size+1)]['text'] == "": self.pressed(self.blist[self.blist.index(wid)+(self.size+1)])
+                    
+                    if self.blist.index(wid)+1 < self.size**2:
+                        if self.blist[self.blist.index(wid)+1]['text'] == "": self.pressed(self.blist[self.blist.index(wid)+1])
+                    
+                    if self.blist[self.blist.index(wid)-(self.size-1)]['text'] == "" and self.blist.index(wid)-(self.size-1) >= 0: self.pressed(self.blist[self.blist.index(wid)-(self.size-1)])
+
+            counter = 0
+            
+            for x in self.blist:
+                if x['text'] == "" or x['text'] == "⚐": counter += 1
+            
+            if counter == self.nobombs:
+                self.size = 0
+                
+                self.width.delete(0, 'end')
+                self.width.insert('end', "=D You Won!!! :)")
+                self.setting(torf = 2)
+                
+                return
+
+        def flagged(self, event):
+            
+            if "tkinter.Button" not in str(type(event)):
+                
+                wid = event.widget
+                
+                if wid['text'] != "": return
+                
+                wid.unbind('<1>')
+                wid['text'] = "⚐"
+                wid.bind('<3>', lambda e : self.flagged(wid))
+                
+                return
+            
+            wid = event
+            wid.bind('<1>', self.pressed)
+            wid['text'] = ""
+            wid.bind('<3>', self.flagged)
+
+        def setting(self, torf = None):
+            
+            if torf == 1:
+                self.settings.grid_remove()
+                self.root.grid()
+
+                app.bind('<Control_L> <s>', self.setting)
+
+            elif torf:
+                self.root.grid_remove()
+
+                self.width.focus_set()
+                self.width.selection_range(0, 'end')            
+                
+                self.settings.grid(padx = 650, pady = 275)
+
+                app.bind('<Control_L> <s>', lambda e : self.setting(1))
+            
+            else:
+                grid = self.width.get()
+                
+                if grid not in self.width['values']:
+                    self.width.delete(0, 'end')
+                    self.width.insert(0, "Error")
+                    return
+
+                if "5x5" in grid: grid = 5
+                else: grid = int(grid[0:2])
+                
+                if self.size == grid:
+                    self.setting(1)
+                    return
+
+                count = 0
+                for ele in self.root.winfo_children():
+                    if count == 0:
+                        count = 1
+                        continue
+                    ele.destroy()
+
+                self.blist = []
+                self.bombs = []
+
+                loop = [5, 17, 45, 80]
+
+                for rount in range(1, grid+1):
+                    for count in range(0, grid):
+                        if 30/grid != round(30/grid): x = 1
+                        else: x = round(30/grid)
+                    
+                        b = tk.Button(self.root, width = round(90/grid), height = x, font = ('Helvetica', 9, 'bold'), bg = '#00ff00')
+                        b.grid(row = rount, column = count)
+
+                        self.blist.append(b)
+                        
+                        b.bind('<1>', self.pressed)
+                        b.bind('<3>', self.flagged)
+
+                while len(self.bombs) != loop[int(grid/5-1)]:
+                    rr = random.randrange(0, grid**2)
+                
+                    if rr not in self.bombs:
+                        self.bombs.append(rr)
+
+                self.inst.grid(row = 0, column = 0, columnspan = grid)
+                self.size = grid
+                self.nobombs = len(self.bombs)
+                self.setting(1)
+
+        def switch(self):
+            global msroot
+            
+            msroot = [self.root, self.settings]
+            
+            root_2.grid()
+            
+            app.unbind('<Return>')
+            app.unbind('<Control_L> <s>')
+            app.unbind('<Escape>')
+
+            app.title('Home Screen')
+            app.configure(bg = root_2.cget('bg'))
+            
+            self.settings.grid_remove()
+            self.root.grid_remove()
+
     # If Control + W exit
     app.bind('<Control_L> <w>', lambda e : rating(app, root_2))
     app.geometry('1600x900+1+1')
@@ -4823,8 +5057,11 @@ def saep(app):
     p14 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\images_for_gcpy\\quit_win.png")
     p14 = p14.subsample(10, 10)
 
+    p15 = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\images_for_gcpy\\minesweeper_bomb.png")
+    p15 = p15.subsample(2, 2)
+
     # Defining variables for reusing the same app frame
-    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = astroot = qtwroot = 0
+    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = astroot = qtwroot = msroot = 0
     count = tk.IntVar(app, 0)
 
     # The buttons, putting images, binding for changing color
@@ -4928,6 +5165,13 @@ def saep(app):
     bq.bind('<Enter>', colorchanger)
     bq.bind('<Leave>', colorchanger)
 
+    # Minesweeper
+    bms = tk.Button(root_2, image = p15, compound = 'top', text = "Minesweeper", command = lambda : minesweeper(root_2, app), font = myfont, relief = 'flat', activebackground = "#C6F644")
+    bms.image = p15
+    bms.grid(row = 4, column = 4, sticky = "nsw", ipadx = 10)
+    bms.bind('<Enter>', colorchanger)
+    bms.bind('<Leave>', colorchanger)
+
     # Opens the class happybirthday
     def opclass(e, a = 0):
         """Opens the class happybirthday"""
@@ -4968,8 +5212,8 @@ def saep(app):
     chb.bind('<Leave>', colorchanger)
 
     # Copyrighting and otherstuff
-    tk.Label(root_2, text = "© 2020 Copyright", font = (11)).grid(row = 5, column = 4, pady = 70, sticky = 'n')
-    tk.Label(root_2, text = "D:\\Advaith\\Code\\class\\pycode\\gamingconsole.py\nAll rights reserved\n version 1.3.2 full release 30-06-20", font = myfont).grid(row = 5, column = 4, sticky = 'n', pady = 100)
+    tk.Label(root_2, text = "© 2020 Copyright", font = (11)).grid(row = 5, column = 4, pady = 60, sticky = 'n')
+    tk.Label(root_2, text = "D:\\Advaith\\Code\\class\\pycode\\gamingconsole.py\nAll rights reserved\n version 1.16.4 full release 30-06-20", font = myfont).grid(row = 5, column = 4, sticky = 'n', pady = 90)
 
     # If user closed it
     app.bind('<Destroy>', colorchanger)

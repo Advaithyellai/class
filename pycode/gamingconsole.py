@@ -22,7 +22,10 @@ The apps and games are -;
 
 """
 To do -;
-
+1) Mazes and more
+2) Plants vs Zombies
+3) Fix all bugs
+4) CTF
 """
 
 # Importing modules from datetime for the clock application

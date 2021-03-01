@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title onclick="myfunction('title', 'black');" id="title">My First Webpage</title>
+        <meta charset="UTF-8"> <meta name="description" content="This field contains information about your page. It is usually around two sentences long."> <meta name="author" content="Conor Sheils">
+    </head>
+    <body id = "body">
+        <h1>Welcome to my Page!</h1>
+        <p>
+            Welcome to <em>my</em> brand new website. This site will be my <strong>new</strong> home on the web.
+            <a href="page_2.html">Visit Page 2 here!!!</a>
+            <img src = "images_for_gcpy/lol.gif" alt = "just lol" style = "width:200; height:200; float:right; align-self: stretch; border:5px solid black; margin: 50px 30px; padding-top: 20px; padding-right: 20px; padding-left: 20px; padding-bottom: 20px;" usemap = "#workmap">
+            <map name="#workmap">
+                <area shape="rect" coords="34,44,270,350" alt="Computer">
+                <area shape="rect" coords="290,172,333,250" alt="Phone">
+                <area shape="circle" coords="337,300,44" alt="Cup of coffee">
+            </map>
+            <ol>
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ol>
+            <ul>
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ul>
+            <dl>
+                <dt>Cake</dt>
+                <dd>It is made with eggs, milk and Maida(or Wheat)</dd>
+            </dl>
+            <table>
+                <thead>The table heading</thead>
+                <tbody>The table body</tbody>
+                <tr>
+                    <td>Row 1 - Column 1 </td>
+                    <td>Row 1 - Colunm 2 </td>
+                    <td>Row 1 - Column 3 </td>
+                </tr> <tr>
+                    <td>Row 2 - Column 1 </td>
+                    <td>Row 2 - Column 2 </td>
+                    <td>Row 2 - Column 3 </td>
+                </tr>
+            </table>
+            <button type="button;" onclick="myfunction()" id="button">Click Me!!!</button>
+            <p>Click me for red background</p>
+            <script type="text/javascript" src="js_tests.js"></script>
+        </p>
+        <script>
+            function myfunction() {
+                var b = document.getElementById("button");
+                b.innerHTML = "Hello there"
+                b.style = "background: cyan;"
+            }
+        </script>
+    </body>
+</html>

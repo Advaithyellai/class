@@ -63,7 +63,7 @@ class Mazes:
     
     def __init__(self, root_2, app):
         
-        root = tk.Canvas()
+        self.root = tk.Canvas()
 
 Mazes(root_2, app)
 

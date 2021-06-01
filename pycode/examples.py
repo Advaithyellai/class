@@ -207,6 +207,8 @@
 # # Running the whole code
 # root_2.mainloop()
 
+
+
 # import tkinter as tk
 # import tkinter.ttk as ttk
 
@@ -236,3 +238,109 @@
 # insert_something_to_combobox(combo_box)
 
 # root.mainloop()
+
+# import tkinter as tk
+# import random
+# def callthiswhatevs(event):
+#     if 'Motion' in str(event):
+#         x, y = event.x, event.y
+#         c.coords(rect, x, y)
+#     else:
+#         c.coords(rect, -10, -10)
+# root = tk.Tk()
+# root.geometry('500x500')
+# c = tk.Canvas(root, width = 1600, height = 850, cursor = 'none')
+# rr = ["error", "gray75", "gray50", "gray25", "gray12", "hourglass", "info", "questhead", "question", "warning"]
+# bit = rr[random.randrange(0, len(rr))]
+# print(bit)
+# rect = c.create_bitmap(-10, -10, bitmap = bit)
+# c.bind('<Motion>', callthiswhatevs)
+# c.bind('<Leave>', callthiswhatevs)
+# c.grid()
+# root.mainloop()
+
+# import pyttsx3
+# cump = pyttsx3.init()
+# cump.setProperty('rate', 120)
+# cump.setProperty('volume', 1)
+# cump.runAndWait()
+
+# from datetime import datetime
+# a = datetime.self.now()
+# b = "%z%Z\n%a = %A = %w\n%Y = %y / %b = %B = %m / %self.d\n%H = %I(24hrs) %p : %M : %S.%f\n%U(week no. first day of week is Sunday) = %W(Monday)\n%c | %x | %X | %%"
+# print(a.strftime(b))
+
+# tk.Tk size  = 1600x900
+# Canvas size = 795x1530
+
+# import tkinter as tk
+# root = tk.Tk()
+# canvas = tk.Canvas(root)
+# scrollbar = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
+# scrollable_frame = tk.Frame(canvas)
+# scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
+# canvas.create_window((0, 0), window=scrollable_frame, anchor = 'nw')
+# canvas.configure(yscrollcommand=scrollbar.set)
+# for i in range(50):
+#     tk.Label(scrollable_frame, width = 20, text = "Label").grid()
+# canvas.grid(row = 0, column = 0)
+# scrollbar.grid(row = 0, column = 1, sticky = 'ns')
+# root.mainloop()
+
+
+
+# import sqlite3
+# con = sqlite3.connect("face_rec.db")
+
+# c = con.cursor()
+
+# class Employees():
+#     def __init__(self, first="", last="", pay=0, updated_pay=0):
+#         self.first = first
+#         self.last = last
+#         self.pay = pay
+#         self.upay = updated_pay
+#         if not last: self.ret = True
+#         else: self.ret = False
+
+#     def getEmpByName(self):
+#         if self.ret: return "Incorrect Employee"
+
+#         c.execute("SELECT * FROM employees WHERE last=:last", {"last": self.last})
+        
+#         empl = ""
+#         for emps in c.fetchall():
+#             empl += str(emps)+"\n"
+        
+#         return empl
+
+#     def addEmp(self):
+#         if not self.first or not self.pay or self.ret: return "The emplyee is incorrect"
+
+#         c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {"first": self.first, "last": self.last, "pay": pay})
+        
+#         return "Successfuly added {}".format(self.first)
+
+#     def updatePay(self):
+#         if not self.first or (not self.upay or self.ret): return "Something went wrong. Please try again"
+
+#         c.execute("UPDATE employees SET pay=:pay WHERE first=:first AND last=:last", {"first": self.first, "last": self.last, "pay": self.upay})
+
+#         return "Successfuly updated {}'s pay".format(self.first)
+    
+#     def deleteEmp(self):
+#         if not self.first or self.ret: return "The emplyee is incorrect"
+
+#         c.execute("DELETE FROM employees WHERE first=:first AND last=:last", {"first": self.first, "last": self.last})
+        
+#         return "Successfuly deleted {}".format(self.first)
+
+# emp3 = Employees("Adithi", "Yellai", updated_pay=1000).updatePay()
+# print(emp3)
+
+# emp2 = Employees(last="Yellai").getEmpByName()
+# print(emp2)
+
+# con.commit()
+
+# con.close()

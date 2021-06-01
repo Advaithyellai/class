@@ -22,10 +22,10 @@ The apps and games are -;
 
 """
 To do -;
-1) Mazes and more
-2) Plants vs Zombies
-3) Fix all bugs
-4) CTF
+1) Face Recognition
+2) Number recognition
+3) Letter Recognition
+4) Security app
 """
 
 # Importing modules from datetime for the clock application

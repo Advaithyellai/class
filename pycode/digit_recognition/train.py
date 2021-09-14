@@ -1,14 +1,14 @@
-# import os
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 from tensorflow.keras.utils import to_categorical
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten
 import numpy as np
 from sklearn.metrics import classification_report
+from datetime import datetime
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+NUMBER_OF_EPOCHS = 3
 
 x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
 x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
@@ -23,6 +23,9 @@ x_test /= 255
 
 model = Sequential()
 
+print("Successfully created a new model.")
+print("Now Training the model\n")
+
 model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 
@@ -36,9 +39,19 @@ model.add(Dropout(0.5))
 
 model.add(Dense(10, activation='sigmoid'))
 
-model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
-hist = model.fit(x_train, y_train, epochs=1, validation_data=(x_test, y_test))
+print("Starting the training process. This might take a few minutes\n")
+start_time = datetime.now()
 
-print(hist.history['accuracy'][0]*100)
+model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
+hist = model.fit(x_train, y_train, epochs=NUMBER_OF_EPOCHS, validation_data=(x_test, y_test))
+
+end_time = datetime.now()
+diff = end_time-start_time
+
+print("\nDone with the training process")
+print("Time taken to train: {} minutes, {} seconds".format(diff.seconds//60, diff.seconds%60))
+print("Accuracy of model: {}%".format(round(hist.history['accuracy'][0]*100, 2)))
 
 model.save("digit_rec_model")
+
+print("\nModel successfully saved")

@@ -2,15 +2,15 @@ import face_recognition
 import cv2
 import numpy as np
 import tkinter as tk
-import pyttsx3
 
 def nameget(event):
     if event:
         global name
         
         name = nam.get()
+        nam.grid_forget()
         
-        label["text"] = "Welcome aboard {}!!!".format(name)
+        label["text"] = "Run the app again for recognition."
         
         nameget(None)
     
@@ -18,18 +18,16 @@ def nameget(event):
 
 video = cv2.VideoCapture(0)
 
-comp = pyttsx3.init()
-
-comp.setProperty('rate', 140)
-comp.setProperty('volume', 1)
-
 counter = correct = incorrect = c = 0
 text = "  "
 penc = -1
 
-f = open("D:\\Advaith\\Code\\class\\pycode\\Recognition\\faceData.txt", "r")
+try: f = open("faceData.txt", "r")
+except:
+    f2 = open("faceData.txt", "w")
+    f2.close()
+    f = open("faceData.txt", "r")
 fr = f.read()
-f2 = open("D:\\Advaith\\Code\\class\\pycode\\Recognition\\faceData.txt", "r")
 
 lenc = []
 
@@ -52,7 +50,7 @@ while True:
         
         if torf2:
             
-            cv2.imshow("Face", img)
+            cv2.imshow("Face Recognition", img)
             if cv2.waitKey(1) & 0xFF == ord('q'): break
         
         continue
@@ -65,7 +63,6 @@ while True:
 
     try:
         lLoc = face_recognition.face_locations(bw_img)
-        # faceLoc = lLoc[0]
 
     except Exception as ex:
         if not lLoc: continue
@@ -133,25 +130,23 @@ while True:
                     root = tk.Tk()
                     
                     root.title("Register for Face Recognition")
-                    root.configure(bg= "red")
                     root.geometry("+600+300")
 
-                    label = tk.Label(root, text= "Welcome! Type in your name\n to registering for Face Recognition!",\
-                                    font=("Elephant", 15), bg= "cyan", fg= "saddle brown")
+                    label = tk.Label(root, text= "Enter your name now\nfor further recognition",\
+                                    font=("Algerian", 15))
                     label.pack()
 
-                    nam = tk.Entry(root, font=("Elephant", 15), fg="Blue")
+                    nam = tk.Entry(root, font=("Algerian", 15))
                     nam.pack(pady = 20)
                     nam.bind("<Return>", nameget)
 
                     root.mainloop()
+
+                    if not name: name = "unknown"
                     
                     f3.write(str(faceEnc+[name])+"\n")
 
                     f3.close()
-
-                    comp.say("Welcome aboard "+name)
-                    comp.runAndWait()
 
                     exit()
                         
@@ -175,10 +170,7 @@ while True:
             
             if text not in ppl:
                 ppl.append(text)
-                if text == "Advaith": text2 = "Hello Advaith sire u are the greatest of the great"
-                else: text2 = "Hello {}, you are recognised".format(text)
-                comp.say(text2)
-                comp.runAndWait()
 
 video.release()
 cv2.destroyAllWindows()
+f.close()

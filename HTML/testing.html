@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rubik's cube tutorial</title>
+</head>
+
+<style>
+    h1.main{
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 45px;
+        padding-bottom: 50px;
+    }
+
+    .hyperlink{
+        position:fixed;
+        height: 100%;
+        padding-left: 10px;
+        background-color: #bec7c7;
+        padding-right: 10px;
+    }
+    .main{
+        padding-left:200px;
+    }
+    
+    dt{
+        font-size:large;
+        padding-top:5px;
+        padding-bottom:5px;
+        text-align: center;
+    }
+    a{
+        color:black;
+        text-decoration-line: none;
+    }
+    dt:hover{
+        background-color: aquamarine;
+    }
+    h3:not(.first){
+        font-size: x-large;
+        padding-top: 10px;
+        border-top: 1px solid red;
+    }
+    div.main:not(#time){
+        padding-top: 10px;
+        border-top: 2px solid yellow;
+    }
+    #time{
+        padding-top: 10px;
+        border-top: 1px solid chartreuse;
+    }
+    div#time h3{border-top:none;}
+
+    button, p, li{
+        font-size: large;
+    }
+
+    button{
+        margin-bottom: 50px;
+    }
+
+</style>
+
+<body style="margin: 0px 0px 0px 0px;">
+
+    <div class="hyperlink">
+        <h1>Jump to</h1>
+        <dl>
+        <dt><a href="#step1">Step 1</a></dt>
+        <dt><a href="#step2">Step 2</a></dt>
+        <dt><a href="#step3">Step 3</a></dt>
+        <dt><a href="#step4">Step 4</a></dt>
+        <dt><a href="#time">Stopwatch</a></dt>
+        </dl>
+    </div>
+
+    <h1 class="main"><center>How to solve a rubik's cube</center></h1>
+
+    <div class="main">
+        
+        <h3 id="step1" class="first" style="font-size: x-large;">Step 1(The White Cross):</h3>
+        <ul>
+        <li>The White cross is done intuitively.</li>
+        <li>It takes about 20% of the total time for solving the Rubiks cube.</li>
+        <li>here are no algorithms for this step.</li>
+        <li>Having a good way to construct the white cross greatly improves your solve time.</li>
+        </ul>
+        
+        <br>
+        <h3 id="step2">Step 2(F2L):</h3>
+        <ul>
+        <li>The full form of F2L is First 2 Layers.</li>
+        <li>In F2L, you need to do the first 2 layers together.</li>
+        <li>F2L has 3 variations. They are-;</li>
+        <ol>
+            <li>Begginer's F2L or Intuitive F2L - Can be done intuitively and is easy to learn. But, the method is extremely slow</li>
+            <li>Intermediate F2L - This method is fast and has all the algorithms needed for every case. But, a few exceptional cases are not dealt with efficiently.</li>
+            <li>Advanced F2L - The most optimal F2L. This method can be completed in 3 to 5 seconds</li>
+        </ol>
+        <li>The number of algorithms are dependant on the type of F2L.</li>
+        <li>There are 4 pairs(of 1 white corner and 1 edge) needed to be done</li>
+        </ul>
+        <br>
+        <h3 id="step3">Step 3(OLL):</h3>
+        <ul>
+            <li>The full form for OLL is Orienting Last Layer</li>
+            <li>In OLL, you complete the entire yellow face. But you need not solve blue, green, red and orange.</li>
+            <li>OLL has 3 variations. They are-;</li>
+            <ol>
+                <li>2 look OLL - The slow method. You need to solve the yellow cross with 1 algorithm and then the yellow face with another algorithm</li>
+                <li>1 look OLL - The fast method. You can directly solve the yellow face with 1 algorithm.</li>
+                <li>Hybrid OLL - The method where you use 1 look OLL in some cases and 2 look OLL in others. This is neither fast nor slow.</li>
+            </ol>
+            <li>2 look OLL only requires 10 algorithms while 1 look OLL requires 57 algorithms needed to learn.</li>
+        </ul>
+        <br>
+        <h3 id="step4">Step 4(PLL):</h3>
+        <ul>
+            <li>The full form for PLL is Permuting Last Layer</li>
+            <li>In PLL, you completely solve the cube.</li>
+            <li>PLL has 3 variations. They are-;</li>
+            <ol>
+                <li>2 look PLL - The slower method. You need to solve the yellow corners with 1 algorithm and then the yellow edges with another algorithm</li>
+                <li>1 look PLL - The faster method. You can directly solve the cube with 1 algorithm.</li>
+                <li>Hybrid PLL - The method where you use 1 look PLL in some cases and 2 look PLL in others. This is neither fast nor slow.</li>
+            </ol>
+            <li>2 look OLL only requires 6 algorithms while 1 look OLL requires 21 algorithms needed to learn.</li>
+            <li>PLL has far lesser algorithms than OLL.</li>
+        </ul>
+    </div>
+
+    <br>
+
+    <div class="main" id="time">
+        <h3 class="first" style="font-size: x-large; padding-bottom: 20px;">Stopwatch:</h3>
+        <p id="timer" style="margin-left: 20px; border:2px dashed coral; width:fit-content; padding: 10px 10px 10px 10px;">0 seconds</p>
+        <button onclick="start()" id="but" style="margin-right: 30px; margin-left: 20px;">Start the stopwatch</button>
+        <button onclick="restart()">Restart the stopwatch</button>
+    </div>
+
+</body>
+
+<script>
+    let seconds = 0;
+    let interval;
+
+    function start(){
+        document.getElementById("but").innerHTML = "Stop the stopwatch";
+        document.getElementById("but").setAttribute("onclick", "stop()");
+        
+        interval = setInterval(function() {
+            document.getElementById("timer").innerHTML = seconds+" seconds";
+            seconds++;
+            }, 1000);
+        }
+    
+    function stop(){
+        document.getElementById("but").innerHTML = "Start the stopwatch";
+        document.getElementById("but").setAttribute("onclick", "start()");
+
+        clearInterval(interval);
+    }
+
+    function restart(){
+        seconds = 0;
+        document.getElementById("timer").innerHTML = "0 seconds"
+    }
+
+</script>
+
+</html>

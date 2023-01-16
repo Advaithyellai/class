@@ -248,15 +248,17 @@
 #     else:
 #         c.coords(rect, -10, -10)
 # root = tk.Tk()
-# root.geometry('500x500')
-# c = tk.Canvas(root, width = 1600, height = 850, cursor = 'none')
+# root.configure(bg= "blue")
+# c = tk.Canvas(root, width = 100, height = 100, cursor = 'none')
 # rr = ["error", "gray75", "gray50", "gray25", "gray12", "hourglass", "info", "questhead", "question", "warning"]
 # bit = rr[random.randrange(0, len(rr))]
 # print(bit)
+# for bits in rr:
+#     tk.Label(root, bitmap= bits, text= bits).grid(row= 1, column= rr.index(bits))
 # rect = c.create_bitmap(-10, -10, bitmap = bit)
 # c.bind('<Motion>', callthiswhatevs)
 # c.bind('<Leave>', callthiswhatevs)
-# c.grid()
+# c.grid(row= 0, column= 0)
 # root.mainloop()
 
 # import pyttsx3
@@ -345,62 +347,67 @@
 
 # con.close()
 
+# import tkinter as tk
 
-from keras.models import load_model
-from tkinter import *
-import tkinter as tk
-import win32gui
-from PIL import ImageGrab, Image
-import numpy as np
+# root = tk.Tk()
+# root.geometry('650x450')
 
-model = load_model('digit_recognition\\digit_rec_model')
+# frame = tk.Frame(root, bg = 'blue')
 
-def predict_digit(img):
-    #resize image to 28x28 pixels
-    img = img.resize((28,28))
-    #convert rgb to grayscale
-    img = img.convert('L')
-    img = np.array(img)
-    #reshaping to support our model input and normalizing
-    img = img.reshape(1,28,28,1)
-    img = img/255.0
-    #predicting the class
-    res = model.predict([img])[0]
-    return np.argmax(res), max(res)
+# button = tk.Button(frame, text= "CLICK ME!!!")
+# button.grid()
 
-class App(tk.Tk):
+# frame.grid(row= 0, column= 0, sticky= "NSEW")
+
+# root.rowconfigure(0, weight= 1)
+# root.columnconfigure(0, weight= 1)
+
+# frame.rowconfigure(0, weight= 1)
+# frame.columnconfigure(0, weight= 1)
+
+# root.mainloop()
+
+# #Import the required libraries
+# from tkinter import *
+
+# #Create an instance of Tkinter Frame
+# win = Tk()
+
+# #Set the geometry
+# win.geometry("700x250")
+
+# #Adding transparent background property
+# win.wm_attributes('-transparentcolor', '#ab23ff')
+
+# #Create a Label
+# Label(win, text= "This is a New line Text", font= ('Helvetica 18'), bg= '#ab23ff').pack(ipadx= 50, ipady=50, padx= 20)
+
+# win.mainloop()
+
+# import tkinter as tk
+# from PIL import ImageTk, Image
+# import os
+
+# def func(e):
+#     new_img = img.resize((canvas.winfo_width(), canvas.winfo_height()))
+#     new_photo_img = ImageTk.PhotoImage(new_img)
     
-    def __init__(self):
-        tk.Tk.__init__(self)
-        self.x = self.y = 0
-        # Creating elements
-        self.canvas = tk.Canvas(self, width=300, height=300, bg = "white", cursor="cross")
-        self.label = tk.Label(self, text="Thinking..", font=("Helvetica", 48))
-        self.classify_btn = tk.Button(self, text = "Recognise", command =         self.classify_handwriting) 
-        self.button_clear = tk.Button(self, text = "Clear", command = self.clear_all)
-        # Grid structure
-        self.canvas.grid(row=0, column=0, pady=2, sticky=W, )
-        self.label.grid(row=0, column=1,pady=2, padx=2)
-        self.classify_btn.grid(row=1, column=1, pady=2, padx=2)
-        self.button_clear.grid(row=1, column=0, pady=2)
-        #self.canvas.bind("<Motion>", self.start_pos)
-        self.canvas.bind("<B1-Motion>", self.draw_lines)
-    
-    def clear_all(self):
-        self.canvas.delete("all")
-    
-    def classify_handwriting(self):
-        HWND = self.canvas.winfo_id() 
-        rect = win32gui.GetWindowRect(HWND) # get the coordinate of the canvas
-        im = ImageGrab.grab(rect).save("first.jpeg")
-        digit, acc = predict_digit(im)
-        self.label.configure(text= str(digit)+', '+ str(int(acc*100))+'%')
-    
-    def draw_lines(self, event):
-        self.x = event.x
-        self.y = event.y
-        r=8
-        self.canvas.create_oval(self.x-r, self.y-r, self.x + r, self.y + r, fill='black')
+#     canvas.img = new_photo_img
+#     canvas.coords(item, canvas.winfo_width()/2, canvas.winfo_height()/2)
+#     canvas.itemconfig(item, image= new_photo_img)
 
-app = App()
-mainloop()
+# root = tk.Tk()
+
+# img = Image.open("Main\\images_for_gcpy\\gcpy_background.jpg")
+# photo_img = ImageTk.PhotoImage(img)
+
+# canvas = tk.Canvas(root, bg= 'blue')
+# item = canvas.create_image(100, 100, image= photo_img)
+
+# canvas.grid(sticky= 'nsew')
+# canvas.bind('<Configure>', func)
+
+# root.rowconfigure(0, weight= 1)
+# root.columnconfigure(0, weight= 1)
+
+# root.mainloop()

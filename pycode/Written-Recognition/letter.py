@@ -1,27 +1,22 @@
+# Work In Progress
+
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import numpy as np
 import tkinter as tk
 from PIL import ImageGrab, Image
 import win32gui
-from keras.models import load_model
-
-try: model = load_model("digit_rec_model")
-except Exception() as ex:
-    print("Error: There is no model")
-    print("Need to create a new model\n")
-    import train
-    model = load_model("digit_rec_model")
+import pytesseract as pytes
 
 root = tk.Tk()
-root.title('Handwritten Single Digit Recognition')
+root.title('Letter Recognition')
 root.geometry("+300+125")
 root.config(bg= "#00FF00")
 root.update()
 
 r = 10
 font = ("arial", 20)
+pytes.pytesseract.tesseract_cmd = r"C:\Users\Gayathri\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\pytesseract\pytesseract.exe"
 
 def draw(e):
     board.create_oval(e.x-r, e.y-r, e.x+r, e.y+r, fill= "black")
@@ -33,27 +28,8 @@ def predict():
 
     img = ImageGrab.grab(rect)
     
-    img = img.resize((28,28))
-    img = img.convert('L')
-    img.save('first.jpeg')
-
-    img = np.array(img)
-    img = img.reshape(1,28,28,1)
-    img = img/255.0
-
-    numbers = list(range(10))
-    predicted_results = list(model.predict([img])[0])
-
-    predicted_number['text'] = ""
-
-    for i in range(3):
-        if i != 0:
-            numbers.remove(predicted_result)
-            predicted_results.remove(prob)
-
-        prob = max(predicted_results)
-        predicted_result = numbers[predicted_results.index(prob)]
-        predicted_number['text'] += "{}. {} ({}%)\n".format(i+1, predicted_result, round(prob*100, 2))
+    words = pytes.image_to_string(img)
+    predicted_number["text"] = words
 
 board = tk.Canvas(root, width= 500, height= 400)
 board.grid(row= 0, column= 0, padx= 10, pady= 10)

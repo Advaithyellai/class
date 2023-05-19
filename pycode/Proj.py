@@ -1,5 +1,3 @@
-import random
-
 b = 100
 k = 3
 

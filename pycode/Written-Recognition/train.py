@@ -1,57 +1,28 @@
-from tensorflow.keras.utils import to_categorical
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten
-import numpy as np
-from sklearn.metrics import classification_report
-from datetime import datetime
+import tensorflow as tf
+# Note tensorflow version greater than 2.10.1 is incompatible with windows
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+EPOCHS = 3
 
-NUMBER_OF_EPOCHS = 3
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
-x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
-x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
+x_train = tf.keras.utils.normalize(x_train, axis=1).reshape(x_train.shape[0], 28, 28, 1)
+x_test = tf.keras.utils.normalize(x_test, axis=1).reshape(x_test.shape[0], 28, 28, 1)
 
-y_train = to_categorical(y_train, 10)
-y_test = to_categorical(y_test, 10)
+model = tf.keras.models.Sequential()
 
-x_train = x_train.astype('float32')
-x_test = x_test.astype('float32')
-x_train /= 255
-x_test /= 255
+model.add(tf.keras.layers.Conv2D(32, kernel_size=(3, 3),activation='relu',input_shape=(28, 28, 1)))
+model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+model.add(tf.keras.layers.Dropout(0.1))
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(256, activation='relu'))
+model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
-model = Sequential()
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(x_train, y_train, epochs = EPOCHS)
 
-print("Successfully created a new model.")
-print("Now Training the model\n")
+score = model.evaluate(x_test, y_test)
+print("Accuracy: {}%".format(round(score[1]*100, 2)))
+print("Loss: {}%".format(round(score[0]*100, 2)))
 
-model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)))
-model.add(Conv2D(64, (3, 3), activation='relu'))
-
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
-
-model.add(Flatten())
-
-model.add(Dense(81, activation='relu'))
-model.add(Dropout(0.5))
-
-model.add(Dense(10, activation='sigmoid'))
-
-print("Starting the training process. This might take a few minutes\n")
-start_time = datetime.now()
-
-model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
-hist = model.fit(x_train, y_train, epochs=NUMBER_OF_EPOCHS, validation_data=(x_test, y_test))
-
-end_time = datetime.now()
-diff = end_time-start_time
-
-print("\nDone with the training process")
-print("Time taken to train: {} minutes, {} seconds".format(diff.seconds//60, diff.seconds%60))
-print("Accuracy of model: {}%".format(round(hist.history['accuracy'][0]*100, 2)))
-
-model.save("digit_rec_model")
-
-print("\nModel successfully saved")
+model.save("digit_rec")

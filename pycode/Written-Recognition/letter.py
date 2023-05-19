@@ -14,7 +14,7 @@ root.geometry("+300+125")
 root.config(bg= "#00FF00")
 root.update()
 
-r = 10
+r = 5
 font = ("arial", 20)
 pytes.pytesseract.tesseract_cmd = r"C:\Users\Gayathri\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\pytesseract\pytesseract.exe"
 
@@ -27,9 +27,11 @@ def predict():
     rect = [rect[0]+100, rect[1]+100, rect[2]+100, rect[3]+100]
 
     img = ImageGrab.grab(rect)
+    img.save("picture.jpg")
     
-    words = pytes.image_to_string(img)
-    predicted_number["text"] = words
+    words = pytes.image_to_string('picture.jpg', timeout=2)
+    print(words)
+    # predicted_number["text"] = words
 
 board = tk.Canvas(root, width= 500, height= 400)
 board.grid(row= 0, column= 0, padx= 10, pady= 10)

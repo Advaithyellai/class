@@ -1,0 +1,197 @@
+country,capital,continent,clue 1,clue 2,currency,language
+Afghanistan,Kabul,Asia,The home country of the Taliban,The country with highest terrorism rates,Afghan Afghani,Pashto/Dari
+Algeria,Algiers,Africa,Largest African country,90% of the country is covered in desert,Algerian Dinar,Arabic
+Australia,Canberra,Oceania,Has 3 times more sheep than people,Is famous for the Outback,Australian Dollar,English
+Bangladesh,Dhaka,Asia,Has the highest population density(Excluding microstates),Gained independence on 16th December 1971,Bangladeshi Taka,Bengali
+Bhutan,Thimphu,Asia,Has negative carbon emissions,Landlocked between India and China,Bhutanese Ngultrum,Dzongkha
+Brazil,Brasilia,South America,Biggest coffee exporter,Contains most of the Amazon Rainforest,Brazilian Rial,Portugese
+Cambodia,Phnom Penh,Asia,Asian country to have building on the flag,Has the Angkor Wat temple,Cambodian Riel,Khmer
+Canada,Ottawa,North America,Largest exporter of timber,Most of the population is concentrated near the Great lakes,Canadian Dollar,English/French
+China,Beijing,Asia,Has the second largest population,The Covid-19 virus started here,Chinese Yuan,Mandarin
+Cyprus,Nicosia,Europe,Has the countries map on the flag,Most of the Northern territory is occupied by Turkey,Euro,Greek/Turkish
+Democratic Republic of the Congo,Kinshasa,Africa,Formerly called Zaire,Borders 9 countries,Congolese Franc,French
+Egypt,Cairo,Africa,Has the second highest number of pyramids with 118 pyramids,Has the delta of the longest river,Egyptian Pound,Arabic
+Ethiopia,Addis Ababa,Africa,The only african nation to not have been colonized by Europeans,It was the birthplace of coffee,Ethiopian Birr,Somali
+France,Paris,Europe,Has the most tourists anually,Shares longest border with Brazil,Euro,French
+Germany,Berlin,Europe,Was home to the most infamous dictator,Largest European economy,Euro,German
+Iceland,Reykjavik,Europe,Country without mosquitoes,Has the lowest crime rate,Icelandic Krona,Icelandic
+India,New Delhi,Asia,Has the highest population,7th Largest country,Indian Rupee,Hindi/English
+Indonesia,Jakarta,Asia,The biggest archipelago,World's 4th most populated country,Indonesian Rupiah,Indonesian
+Iran,Tehran,Asia,OPEC country sanctioned by USA,Also called Persia,Iranian Rial,Persian/Farsi
+Italy,Rome,Europe,Boot shaped country in Europe,The Renaissance started here,Euro,Italian
+Japan,Tokyo,Asia,About 10% of the population live in the capital,Origin of animes,Japanese Yen,Japanese
+Kazakhstan,Astana,Asia,Largest Landlocked country,Borders Caspian Sea,Kazakhstani Tenge,Kazakh/Russian
+Kuwait,Kuwait City,Asia,Highest currency value,Borders Saudi Arabia and Iraq,Kuwaiti Dinar,Arabic
+Luxembourg,Luxembourg,Europe,Has the highest GDP per Capita in the world,Is landlocked by Belgium/France and Germany,Euro,Luxembourgish/French/German
+Madagascar,Antananarivo,Africa,Has a movie named after it,Largest island in Africa,Madagasy Ariary,Malagasy/French
+Malaysia,Kuala Lumpur,Asia,Is home to The Petronas Towers,Occupies most of the Southern part of the Malay peninsula,Malaysian Ringgit,Malay
+Mexico,Mexico City,North America,Has an eagle on flag,The mayan civilization flourished here,Mexican Peso,Spanish
+Mongolia,Ulaanbaatar,Asia,Occupies most of the Gobi desert,Is landlocked by Russia and China,Mongolian Tugrik,Mongolian
+Morocco,Rabat,Africa,Had the highest rank for an African country in FIFA till 2024,Western Sahara is an autonomous region in this country,Moroccon Dirham,Arabic
+Nauru,Yaren,Oceania,Most obese country,Lost 80% of vegetation due to phosphate mining,Australian Dollar,English/Nauruan
+Nepal,Kathmandu,Asia,Is home to the World's highest mountain,Has the highest percentage of Hindus,Nepalese Rupee,Nepalese
+Netherlands,Amsterdam,Europe,Lowest average elevation in Europe,Also called Holand,Euro,Dutch
+Nigeria,Abuja,Africa,Most populous African country,Largest economy in Africa,Nigerian Naira,English
+North Korea,Pyongyang,Asia,Least percentage of people who use internet,Ruled by an infamous dictator,North Korean Won,Korean
+Norway,Oslo,Europe,Home to the No. 1 Chess player,Has the most number of Winter Olympic medals,Norwegian Krone,Norwegian
+Pakistan,Islamabad,Asia,70% of the worlds footballs are made here,Home to the Indus Valley Civilization,Pakistani Rupee,Urdu/English
+Papua New Guinea,Port Moresby,Oceania,Has the most number of spoken languages,Named after an African country,Papua New Guinean Kina,Papua New Guinean Sign language/English
+Qatar,Doha,Asia,Smallest country to host the FIFA World Cup,Borders only 1 country that is Saudi Arabia,Qatari Riyal,Arabic
+Russia,Moscow,Europe,Largest country in the world,2nd Biggest crude oil producer,Russian Ruble,Russian
+South Africa,Pretoria/Bloemfontein/Cape Town,Africa,Southern most point in Africa,Completely surrounds another country,South African Rand,Afrikaans/English
+South Korea,Seoul,Asia,Has the most number of plastic surgeries per capita,Has a disagreement with all of its neighbours,South Korean Won,Korean
+South Sudan,Juba,Africa,Most recently gained independence,Still locked in a civil war,South Sudanese Pound,English
+Spain,Madrid,Europe,Colonized most of America,Biggest country in the Iberian peninsula,Euro,Spanish
+Switzerland,Bern,Europe,Most neutral country,European country which is not a part of EU nor the NATO,Swiss Franc,German/Italian/French 
+Turkiye,Ankara,Asia,Changed its name in 2023,Only Asian country to be part of the NATO,Turkish Lira,Turkish
+Ukraine,Kyiv,Europe,Lowest GDP per capita in Europe,Under attack by Russia,Ukrainian Hryvnia,Ukranian
+United Arab Emirates,Abu Dhabi,Asia,Has the world's tallest building,Has 222 men for every 100 women,United Arab Emirates Dirham,Arabic
+United Kingdom,London,Europe,Had the biggest colonial empire,Has a disagreement with Argentina over Falkland islands,British Pound,English
+United States,Washington,North America,Has the largest Economy,Has the 3rd largest population,United States Dollar,English/Hawaiian
+Vatican City,Vatican City,Europe,Smallest country in the world,Has a huge military comprising of a total 110 soldiers,Euro,Latin/Italian
+Albania,Tirana
+Andorra,Andorra la Vella
+Angola,Luanda
+Antigua and Barbuda,Saint John's
+Argentina,Buenos Aires
+Armenia,Yerevan
+Austria,Vienna
+Azerbaijan,Baku
+Bahamas,Nassau
+Bahrain,Manama
+Barbados,Bridgetown
+Belarus,Minsk
+Belgium,Brussels
+Belize,Belmopan
+Benin,Porto Novo
+Bolivia,La Paz
+Bosnia and Herzegovina,Sarajevo
+Botswana,Gaborone
+Brunei,Bandar Seri Begawan
+Bulgaria,Sofia
+Burkina Faso,Ouagadougou
+Burundi,Gitega
+Cameroon,Yaounde
+Cape Verde,Praia
+Central African Republic,Bangui
+Chad,N'Djamena
+Chile,Santiago
+Colombia,Bogota
+Comoros,Moroni
+Republic of the Congo,Brazzaville
+Costa Rica,San Jose
+Croatia,Zagreb
+Cuba,Havana
+Czech Republic,Prague
+Ivory Coast,Yamoussoukro
+Denmark,Copenhagen
+Djibouti,Djibouti
+Dominica,Roseau
+Dominican Republic,Santo Domingo
+East Timor,Dili
+Ecuador,Quito
+El Salvador,San Salvador
+Equatorial Guinea,Malabo
+Eritrea,Asmara
+Estonia,Tallinn
+Eswatini,Mbabana
+Federated States of Micronesia,Palikir
+Fiji,Suva
+Finland,Helsinki
+Gabon,Libreville
+Gambia,Banjul
+Georgia,Tbilisi
+Ghana,Accra
+Greece,Athens
+Grenada,Saint George's
+Guatemala,Guatemala City
+Guinea,Conakry
+Guinea-Bissau,Bissau
+Guyana,Georgetown
+Haiti,Port au Prince
+Honduras,Tegucigalpa
+Hungary,Budapest
+Iraq,Baghdad
+Ireland,Dublin
+Israel,Jerusalem
+Jamaica,Kingston
+Jordan,Amman
+Kenya,Nairobi
+Kiribati,Tarawa Atoll
+Kosovo,Pristina
+Kyrgyzstan,Bishkek
+Laos,Vientiane
+Latvia,Riga
+Lebanon,Beirut
+Lesotho,Maseru
+Liberia,Monrovia
+Libya,Tripoli
+Liechtenstein,Vaduz
+Lithuania,Vilnius
+Malawi,Lilongwe
+Maldives,Male
+Mali,Bamako
+Malta,Valletta
+Marshall Islands,Majuro
+Mauritania,Nouakchott
+Mauritius,Port Louis
+Moldova,Chisinau
+Monaco,Monaco
+Montenegro,Podgorica
+Mozambique,Maputo
+Myanmar,Nay Pyi Taw
+Namibia,Windhoek
+New Zealand,Wellington
+Nicaragua,Managua
+Niger,Niamey
+North Macedonia,Skopje
+Oman,Muscat
+Palau,Melekeok
+Panama,Panama City
+Paraguay,Asuncion
+Peru,Lima
+Philippines,Manila
+Poland,Warsaw
+Portugal,Lisbon
+Romania,Bucharest
+Rwanda,Kigali
+Saint Kitts and Nevis,Basseterre
+Saint Lucia,Castries
+Saint Vincent and the Grenadines,Kingstown
+Samoa,Apia
+San Marino,San Marino
+Sao Tome and Principe,Sao Tome
+Saudi Arabia,Riyadh
+Senegal,Dakar
+Serbia,Belgrade
+Seychelles,Victoria
+Sierra Leone,Freetown
+Singapore,Singapore
+Slovakia,Bratislava
+Slovenia,Ljubljana
+Solomon Islands,Honiara
+Somalia,Mogadishu
+Sri Lanka,Sri Jayawardenapura Kotte
+Sudan,Khartoum
+Suriname,Paramaribo
+Sweden,Stockholm
+Syria,Damascus
+Taiwan,Taipei
+Tajikistan,Dushanbe
+Tanzania,Dodoma
+Thailand,Bangkok
+Togo,Lome
+Tonga,Nuku'alofa
+Trinidad and Tobago,Port of Spain
+Tunisia,Tunis
+Turkmenistan,Ashgabat
+Tuvalu,Funafuti
+Uganda,Kampala
+Uruguay,Montevideo
+Uzbekistan,Tashkent
+Vanuatu,Port Vila
+Venezuela,Caracas
+Vietnam,Hanoi
+Yemen,Sana'a
+Zambia,Lusaka
+Zimbabwe,Harare

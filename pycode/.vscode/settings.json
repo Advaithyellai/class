@@ -1,4 +1,5 @@
 {
     "python.pythonPath": "C:\\Users\\Gayathri\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoImportCompletions": false
 }

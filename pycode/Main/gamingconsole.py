@@ -2,39 +2,33 @@
 Gaming console has a variety of apps and games
 
 The apps and games are -;
-01) A text editor
-02) Clock app
-03) calculator
-04) A birthday celebration
-05) Hangman game
-06) Virtual Cube
-07) Colour game
-08) Trex run 
-09) X and O (Knaughts and crosses)
-10) Dots and Boxes
-11) Ping Pong (Table Tennis)
-12) Quiz
-13) Excel Spread Sheet (Google Sheets)
-14) Asteroids (An arcade Game)
-15) Quit to Win
-16) Minesweeper
-
-To do -;
-1) Security app
+01) Hangman
+02) Colour Game
+03) X and O
+04) Dots and Boxes
+05) Clock App
+06) Calculator
+07) Text Editor
+08) Ping Pong
+09) General Knowledge Quiz
+10) Excel Sheets
+11) Asteroids
+12) Quit To Win
+13) Minesweeper
+14) Geography Quiz
+15) Birthday(idk why)
 """
 
-from datetime import datetime, timedelta, date
-
+from datetime import datetime, timedelta
 import pytz, pyttsx3, random, math, os, sys
-
 import tkinter as tk
 from tkinter import font, ttk, colorchooser, filedialog, messagebox
-
 from PIL import Image, ImageTk
+import pandas as pd
 
 
 def saep(app):
-    global clroot, colroot, broot, hroot, hgroot, calroot, ayroot, cgroot, kroot, proot, exit_now, qroot, eroot, msroot, colors
+    global clroot, broot, hroot, hgroot, calroot, cgroot, kroot, proot, exit_now, qroot, eroot, msroot, colors
     
     def colorchanger(event):
         global colors
@@ -92,13 +86,13 @@ def saep(app):
                 self.myfont5 = font.Font(self.root, family = 'Courier', size = 18, weight = 'bold')
 
                 self.b1 = tk.Button(self.root, text = "C l o c k", width = 47, height = 6, bg = 'red2', relief = 'flat', command = lambda : self.clickedb(self.f1), font = self.myfont)
-                self.b1.grid(row = 0, column = 0)
+                self.b1.grid(row = 0, column = 0, sticky="n")
 
                 self.b2 = tk.Button(self.root, text = "T i m e r", width = 47, height = 6, bg = 'cyan', relief = 'flat', command = lambda : self.clickedb(self.f2), font = self.myfont)
-                self.b2.grid(row = 0, column = 1)
+                self.b2.grid(row = 0, column = 1, sticky="n")
 
                 self.b4 = tk.Button(self.root, text = "S t o p w a t c h", width = 46, height = 6, bg = 'green2', relief = 'flat', command = lambda : self.clickedb(self.f4), font = self.myfont)
-                self.b4.grid(row = 0, column = 2)
+                self.b4.grid(row = 0, column = 2, sticky="n")
 
                 self.b1.bind('<Enter>', colorchanger)
                 self.b2.bind('<Enter>', colorchanger)
@@ -117,7 +111,7 @@ def saep(app):
                 self.f = tk.Label(self.root, image = self.im, text = self.idk, compound = "top", font = self.myfont5, bg = 'white', justify = 'left')
                 self.f.grid(row = 1, column = 0, columnspan=3)
                 self.prevcatsvar = self.f
-
+                
                 self.f1 = tk.Frame(self.root, bg = 'red2')
                 self.f2 = tk.Frame(self.root, bg = 'cyan')
                 self.f4 = tk.Frame(self.root, height = 700, width = 1530, bg = 'green2')
@@ -127,8 +121,6 @@ def saep(app):
                 self.root.columnconfigure(0, weight= 1)
                 self.root.columnconfigure(1, weight= 1)
                 self.root.columnconfigure(2, weight= 1)
-                app.rowconfigure(0, weight= 1)
-                app.columnconfigure(0, weight= 1)
 
             if True:
                 self.lv = []
@@ -158,16 +150,7 @@ def saep(app):
                     'Russia(East)', 'France', 'Germany', 'Indonesia(West)', 'Indonesia(East)'
                     ]
                 
-                self.fl = [
-                    'Egypt', 'Argentina', 'Chicago', 'Indiana', 'Los Angeles', 'New York', 'Panama', \
-                    'New Zealand', 'India', 'Iraq/Iran', 'UAE/Dubai', 'Hong Kong', 'Saudi Arabia', 'Singapore',\
-                    'Japan', 'Ireland', 'Australia', 'Central Europe', 'Greenwich', 'England/Britain', \
-                    'Italy', 'Alaska', 'Ethopia', 'Zimbawe', 'Afghanistan', 'Albania', 'Algeria', 'Andorra'\
-                    , 'Angola', 'Antigua and Barbados', 'Armenia', 'Azerbaijan', 'The Bahamas', 'Bahrain',\
-                    'Barbados', 'Bangladesh', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Cambodia'\
-                    , 'Canada', 'Central Africa', 'Chile', 'North/South Korea', 'Russia(West)', 'Russia(West-Central)', 'Russia(East-Central)', \
-                    'Russia(East)', 'France', 'Germany', 'Indonesia(West)', 'Indonesia(East)'
-                    ]
+                self.fl = [ele for ele in self.fl2]
 
                 self.fl.sort()
                 for ele in self.fl:
@@ -191,7 +174,7 @@ def saep(app):
                 self.lbfrl.bind('<Shift_L> <Tab>', lambda e: self.presed(0))
                 self.lbfrl.grid(row = 1, column = 0, sticky = 'ew')
 
-                for ele in self.fl: self.lbfrl.insert(x, ele)
+                for ele in self.fl: self.lbfrl.insert("end", ele)
 
                 self.sb = tk.Scrollbar(self.f1, command = self.lbfrl.yview, orient = 'vertical')
                 self.lbfrl.configure(yscrollcommand = self.sb.set)
@@ -203,15 +186,16 @@ def saep(app):
                 self.l2 = tk.Listbox(self.f1, font = self.myfont2, height = 15, selectbackground = 'gray80', selectforeground = 'black', activestyle = 'dotbox', bg = 'brown3')
                 self.l2.bind('<Button>', lambda e : self.root.after(10, self.ctz, 0, 1))
                 self.l2.bind('<space>', lambda e : self.root.after(10, self.ctz, 0, 1))
-
+                
+                tk.Label(self.f1, text=" ", bg="red2", fg="red2", width=100).grid(row=1, column=2)
                 self.ltz = tk.Label(self.f1, text = "IT IS NOT FAST\nMost Countries are there on the list\n(Warning not every country\nVERY FEW cities are there)", bg = 'red2', font = self.myfont3, justify = 'left')
                 self.ltz.grid(row = 1, column = 2, sticky = 'e')
 
                 self.searcher.bind('<Tab>', self.checking)
                 
                 tk.Button(self.f1, text = "Return to Home Screen", command = self.switch, font = myfont).grid(row = 2, column = 0, sticky = 'nsew')
-                tk.Button(self.f1, text = "Return to App Screen - Escape", command = lambda : self.clickedb(self.f), font = myfont).grid(row = 3, column = 0, sticky = 'nsew')
-                tk.Button(self.f1, text = "Quit                 - Ctrl+W", command = root.destroy, font = myfont).grid(row = 4, column = 0, sticky = 'nsew')
+                tk.Button(self.f1, text = "Return to App Screen", command = lambda : self.clickedb(self.f), font = myfont).grid(row = 3, column = 0, sticky = 'nsew')
+                tk.Button(self.f1, text = "Quit", command = root.destroy, font = myfont).grid(row = 4, column = 0, sticky = 'nsew')
 
             if True:
                 self.secondstext = self.hourstext = self.minutestext = self.colcount = 0
@@ -245,7 +229,7 @@ def saep(app):
                 self.nametimer = tk.Entry(self.fat, bg = 'LightSkyBlue2', font = self.myfont3, width = 15)
                 self.nametimer.grid(row = 3, column = 4, sticky = 'nsew')
                 self.nametimer.insert(0, "Name of the timer")
-                self.nametimer.bind('<Return>', self.settimer)
+                self.nametimer.bind('<Return>', lambda e: self.settimer)
 
                 self.submitb = tk.Button(self.fat, text = "Submit", command = self.settimer, bg = 'dodger blue', font = self.myfont4, activebackground = 'dodger blue')
                 self.submitb.grid(row = 4, column = 4, sticky = 'ew')
@@ -274,9 +258,9 @@ def saep(app):
                 self.stop = tk.Button(self.f4, text = "||", state = 'disabled', command = lambda : self.stopwatch(1), font = self.myfont5, bg = 'PaleGreen3')
                 self.stop.grid(row = 1, column = 1, sticky = 'e')
 
-                tk.Button(self.f4, text = "Return to Home Screen", command = self.switch, font = myfont).grid(sticky = 'ew', row = 2, column = 2)
-                tk.Button(self.f4, text = "Return to App Screen", command = lambda : self.clickedb(self.f), font = myfont).grid(sticky = 'ew', row = 3, column = 2)
-                tk.Button(self.f4, text = "Quit", command = lambda : self.checking(1), font = myfont).grid(sticky = 'ew', row = 4, column = 2)
+                tk.Button(self.f4, text = "Return to Home Screen", command = self.switch, font = myfont).grid(sticky = 'nsew', row = 2, column = 2)
+                tk.Button(self.f4, text = "Return to App Screen", command = lambda : self.clickedb(self.f), font = myfont).grid(sticky = 'nsew', row = 3, column = 2)
+                tk.Button(self.f4, text = "Quit", command = lambda : self.checking(1), font = myfont).grid(sticky = 'nsew', row = 4, column = 2)
         def switch(self):
             global clroot
             
@@ -430,16 +414,14 @@ def saep(app):
                 if self.counter == 0: self.counter = 1
                 else: return
             
-            else:
-                if self.sev2.get() == '': return
-                
-                now_time = self.sev2.get()
-                now_time = datetime.now(pytz.timezone(now_time))
-                
-                s3 = self.fv[self.rv.index(self.sev2.get())]
-                self.ltz.configure(text = s3+"\n"+str(now_time.strftime(fmt)))
+            if self.sev2.get() == '': return
             
-            if self.torf: return
+            now_time = self.sev2.get()
+            now_time = datetime.now(pytz.timezone(now_time))
+            
+            s3 = self.fv[self.rv.index(self.sev2.get())]
+            self.ltz.configure(text = s3+"\n"+str(now_time.strftime(fmt)))
+            self.root.after(1000, self.ctz, 1, 1)
         def presed(self, event):
             if event == 0:
                 self.searcher.delete(0, 'end')
@@ -456,11 +438,10 @@ def saep(app):
                     self.root.after(10, self.presed, 1)
         def dust_bin(self, wid, col):
             if col == 10:
-                vl = list(self.lt2.values())
-                keyinval = vl.index(self.lt2[wid])
                 wid.grid_remove()
-                self.lt2.update({wid : ""})
-                self.lotimers[self.lotimers[keyinval]] = ""
+                index = list(self.lt2.keys()).index(wid)
+                self.lotimers.pop(index)
+                self.lt2.pop(wid)
                 self.db.grid_remove()
             
             else:
@@ -535,7 +516,7 @@ def saep(app):
                         self.hours['text'] = str(self.hourstext)+" : "
                 else:
                     if self.hourstext == 23:
-                        self.hourstext == "0 : "
+                        self.hourstext = 0
                         self.hours['text'] = "0 : "
                     else:
                         self.hourstext += 1
@@ -584,14 +565,13 @@ def saep(app):
                     self.count2 = 0
         def looping(self, rco):
             if rco == 1 and self.loovar == 0:
-                self.starttime = datetime.strptime(self.starttime, "%X") + timedelta(seconds=1)
-                self.starttime = self.starttime.strftime("%X")
+                self.starttime = self.starttime + timedelta(milliseconds=10)
+        
+                self.sw['text'] = self.starttime.strftime("%X.%f")[:-4]
             
-                self.sw['text'] = self.starttime
-            
-                if not exit_now: self.root.after(1000, self.looping, 1)
+                self.root.after(10, self.looping, 1)
             elif rco == 2:
-                self.sw['text'] = self.starttime
+                self.sw['text'] = self.starttime.strftime("%X.%f")[:-4]
             
                 self.loovar = 0
             
@@ -601,7 +581,7 @@ def saep(app):
                 self.stop['text'] = '||'
                 self.stop['command'] = lambda : self.stopwatch(1)
             
-                if not exit_now: self.root.after(1000, self.looping, 1)
+                self.root.after(10, self.looping, 1)
         def stopwatch(self, choice):
             if choice == 0:
                 self.loovar = 0
@@ -609,18 +589,17 @@ def saep(app):
                 dn = datetime.now()
                 
                 self.starttime = datetime.now()-timedelta(hours=dn.hour, minutes=dn.minute, seconds=dn.second)
-                self.starttime = self.starttime.strftime("%X")
                 
-                self.fst = datetime.now()
+                self.fst = self.starttime
                 
-                self.sw['text'] = self.starttime
+                self.sw['text'] = self.starttime.strftime("%X.%f")[:-4]
                 
                 self.start['text'] = "⚐"
                 self.start['command'] = lambda : self.stopwatch(2)
                 
                 self.stop['state'] = 'normal'
                 
-                if not exit_now: self.root.after(1000, self.looping, 1)
+                self.root.after(10, self.looping, 1)
             elif choice == 1:
                 self.counting = 0
                 
@@ -632,14 +611,15 @@ def saep(app):
                 
                 self.loovar = 1
             elif choice == 2:
-                texoll = datetime.now()-timedelta(hours = self.fst.hour, minutes = self.fst.minute, seconds = self.fst.second, microseconds = self.fst.microsecond)
-                
-                lilof = tk.Label(self.f4, text = texoll.strftime("%X.%f"), bg = 'yellow green', font = self.myfont3)
-                lilof.grid(row = self.rocount, column = 1)
+                texoll = self.starttime-timedelta(hours = self.fst.hour, minutes = self.fst.minute, seconds = self.fst.second, microseconds = self.fst.microsecond)
+
+                text = texoll.strftime("{}. %X.%f".format(len(self.lof)+1))
+                lilof = tk.Label(self.f4, text=text[:-4], bg = 'yellow green', font = self.myfont3, highlightbackground="brown", highlightthickness=1)
+                lilof.grid(row = self.rocount, column = 1, sticky='nsew')
                 
                 self.rocount += 1
                 self.lof.append(lilof)
-                self.fst = datetime.now()
+                self.fst = self.starttime
             else:
                 for ele in self.lof:
                     ele.destroy()
@@ -882,7 +862,6 @@ def saep(app):
 
                 if self.guess.get() in self.listword[1:]:
                     if self.guess.get() in self.prevguess[0:-1]:
-                        self.count.set(int(self.count.get())+1)
                         self.counting.configure(text = "wrongs: %s/6\nit is %s long" %(self.count.get(), len(self.word)))
                         self.guest.set('You guessed it before')
                     
@@ -931,25 +910,14 @@ def saep(app):
             self.guess.select_range(0, 'end')
 
     class cg:
-        global colroot
         def __init__(self, root_2, app):
             self.qui = 0
-            
-            if colroot != 0:
-                root_2.grid_remove()
-                self.root = colroot
-                self.counting = count.get()
-                self.root.grid()
-                self.qui = 0
-            
-                self.lesgo()
-                return
             
             root_2.grid_remove()
             
             self.counting = 60
-            self.colours = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
             self.counter = 0
+            self.colours = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
             self.words = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
             
             self.root = tk.Frame(app)
@@ -963,7 +931,7 @@ def saep(app):
             self.myfont_4 = font.Font(size = 40)
             
             tk.Label(self.root, text = " ", width = 75).grid(row = 0, column = 0)
-            tk.Label(self.root, text = "Game Description: Enter the colour of the self.words displayed below.", fg = 'grey', font = self.myfont).grid(row = 0, column = 1)
+            tk.Label(self.root, text = "Game Description: Enter the colour of the words displayed below.", fg = 'grey', font = self.myfont).grid(row = 0, column = 1)
             tk.Label(self.root, text = "And keep in mind not to enter the word text itself", fg = 'grey', font = self.myfont).grid(row = 1, column = 1)
             
             self.score = tk.Label(self.root, text = "Your score : {}".format(self.counter), fg = 'forest green', font = self.myfont_2)
@@ -986,26 +954,35 @@ def saep(app):
             self.starter = tk.Button(self.root, text = "Start", width = 20, height = 3, font = self.myfont, bg = 'peach puff', command = self.lesgo)
             self.starter.grid(row = 8, column = 1)
             
-            tk.Button(self.root, text = "Return to Home Screen", command = self.switch, font = myfont).grid(sticky = 'nw', row = 3, column = 0)
+            self.rethome = tk.Button(self.root, text = "Return to Home Screen", command = self.switch, font = myfont)
+            self.rethome.grid(sticky = 'nw', row = 3, column = 0)
             tk.Button(self.root, text = "Quit", command = root.destroy, font = myfont).grid(sticky = 'nw', row = 3, column = 0, pady = 33)
-            
-            self.root.grid()
-        def switch(self):
-            global colroot
-            
-            self.qui = 1
-            
-            colroot = self.root
-            root_2.grid()
-            count.set(self.counting)
-            
-            app.title('Home screen')
-            app.configure(bg = root_2.cget('bg'))
-            
-            self.root.grid_remove()
-        def lestart(self, event):
-            if self.counting == 0: self.ges['state'] = 'disabled'
 
+            self.root.grid()
+        def switch(self, game_over=0):
+            global colroot
+
+            if game_over == 0:                
+                self.qui = 1
+                
+                root_2.grid()
+                count.set(self.counting)
+                
+                app.title('Home screen')
+                app.configure(bg = root_2.cget('bg'))
+                
+                self.root.grid_remove()
+                colroot = self.root
+            else:
+                self.timer['text'] = "Game has ended"
+                self.code["text"] = ""
+                self.rethome["state"] = "normal"
+                self.starter["state"] = "normal"
+                self.ges['state'] = 'disabled'
+                self.counting = 60
+                self.root.after_cancel(self.loop)
+
+        def lestart(self, event):
             a = self.ges.get()
             if a.lower() == self.colours[self.iv1.get()]:
                 self.counter += 1
@@ -1033,9 +1010,16 @@ def saep(app):
             if self.qui: return
             
             if self.counting == 60:
+                self.starter["state"] = "disabled"
+                self.rethome["state"] = "disabled"
                 self.ges['state'] = 'normal'
                 self.geser.set('')
                 
+                
+                self.colours = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
+                self.words = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
+                
+                                
                 self.colours = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
                 self.words = ['black', 'blue', 'green', 'orange', 'yellow', 'red', 'brown', 'purple', 'pink']
                 
@@ -1050,9 +1034,9 @@ def saep(app):
             
             if self.counting > 0:
                 self.counting -= 1
-                if not exit_now: self.root.after(1000, self.lesgo)
+                if not exit_now: self.loop = self.root.after(1000, self.lesgo)
             
-            if self.counting == 0: self.switch()
+            if self.counting == 0: self.switch(game_over=1)
 
     class kacg:
         global kroot
@@ -1387,8 +1371,8 @@ def saep(app):
             self.answer.bind('<Key>', lambda e : self.root.after(10, self.number, 'self.key', e))
             
             self.ans = 0
-            self.keys = {'clear' : None, 'del' : None, 'equal' : None, 'asterisk' : '×', 'slash' : '÷', 'percent' : '%', 'aiicircum' : '^'}
-            self.key = {'*' : '×', '/' : '÷', '/100' : '%', '**' : '^'}
+            self.keys = {'clear' : None, 'del' : None, 'equal' : None, 'asterisk' : 'x', 'slash' : '÷', 'percent' : '%', 'aiicircum' : '^'}
+            self.key = {'*' : 'x', '/' : '÷', '/100' : '%', '**' : '^'}
             self.key2 = ['plus', 'minus']
             self.keys3 = {'x' : '*', '÷' : '/', '%' : '/100', '^' : '**'}
             self.sc = self.ans2 = 0
@@ -1409,7 +1393,7 @@ def saep(app):
             tk.Button(self.root, text = "Clear", bg = '#000fff000', font = myfont, command = lambda : self.number('clear'), borderwidth = 5).grid(row = 4, column = 1, sticky = 'nsew')
             tk.Button(self.root, text = " = ", bg = '#000fff000', font = myfont, command = lambda : self.number('equal'), borderwidth = 5).grid(row = 4, column = 2, sticky = 'nsew')
             tk.Button(self.root, text = " ÷ ", bg = '#00ffff', font = myfont, command = lambda : self.number('/'), borderwidth = 5).grid(row = 1, column = 3, sticky = 'nsew')
-            tk.Button(self.root, text = " × ", bg = '#00ffff', font = myfont, command = lambda : self.number('*'), borderwidth = 5).grid(row = 2, column = 3, sticky = 'nsew')
+            tk.Button(self.root, text = " x ", bg = '#00ffff', font = myfont, command = lambda : self.number('*'), borderwidth = 5).grid(row = 2, column = 3, sticky = 'nsew')
             tk.Button(self.root, text = " + ", bg = '#00ffff', font = myfont, command = lambda : self.number('+'), borderwidth = 5).grid(row = 3, column = 3, sticky = 'nsew')
             tk.Button(self.root, text = " - ", bg = '#00ffff', font = myfont, command = lambda : self.number('-'), borderwidth = 5).grid(row = 4, column = 3, sticky = 'nsew')
             tk.Button(self.root, text = " √ ", bg = 'saddle brown', font = myfont, command = lambda : self.number('sqrt'), borderwidth = 5, width = 15).grid(row = 0, column = 1, sticky = 'ns')
@@ -1497,8 +1481,13 @@ def saep(app):
             
             elif no == 'fact':
                 self.answer.delete(0, 'end')
-                self.answer.insert('end', math.factorial(eval(self.cal.get())))
-                self.cal.set(math.factorial(eval(self.cal.get())))
+                try:
+                    self.answer.insert('end', math.factorial(eval(self.cal.get())))
+                    self.cal.set(math.factorial(eval(self.cal.get())))
+                except SyntaxError:
+                    self.answer.insert(0, 'Error')
+                    self.cal.set("")
+                    self.ans = 0
                 return
             
             elif no == 'expo':
@@ -1512,19 +1501,19 @@ def saep(app):
                 return
             
             elif event:
-                if event.self.keysym == 'BackSpace' and self.ans2 == 1:
+                if event.keysym == 'BackSpace' and self.ans2 == 1:
                     self.answer.delete(0, 'end')
                     self.ans2 = 0
                     self.cal.set("")
                     return
                 
-                elif event.self.keysym == 'Return':
+                elif event.keysym == 'Return':
                     self.number('equal')
                 
-                if event.self.keysym in self.keys.keys():
-                    if self.keys[event.self.keysym] == None:
+                if event.keysym in self.keys.keys():
+                    if self.keys[event.keysym] == None:
                         self.answ3 = list(self.keys.keys())
-                        if self.answ3.index(event.self.keysym) == 2:
+                        if self.answ3.index(event.keysym) == 2:
                             try:
                                 if self.sc == 1: 
                                     self.sc = 0
@@ -1546,10 +1535,10 @@ def saep(app):
                                 self.answer.insert(0, 'Error')
                                 self.ans = 0
                     else:
-                        if event.self.keysym == 'asterisk': ek = '*'
-                        elif event.self.keysym == 'slash': ek = '/'
-                        elif event.self.keysym == 'percent': ek = '/100'
-                        elif event.self.keysym == 'aself.sciicircum': ek = '**'
+                        if event.keysym == 'asterisk': ek = '*'
+                        elif event.keysym == 'slash': ek = '/'
+                        elif event.keysym == 'percent': ek = '/100'
+                        elif event.keysym == 'aself.sciicircum': ek = '**'
                         self.cal.set(self.cal.get()+ek)
                         
                         try: a = list(self.answer.get()).index(ek)
@@ -1557,7 +1546,7 @@ def saep(app):
                         
                         self.answer.delete(a)
                         vallist, self.keylist = list(self.keys.values()), list(self.keys.keys())
-                        self.answer.insert('end', vallist[self.keylist.index(event.self.keysym)])
+                        self.answer.insert('end', vallist[self.keylist.index(event.keysym)])
                 
                 if self.answer.get() != "":
                     
@@ -1569,7 +1558,7 @@ def saep(app):
                         self.answer.insert('end', math.factorial(eval(self.cal.get())))
                         self.cal.set(math.factorial(eval(self.cal.get())))
                     elif b in self.keys3.keys(): self.cal.set(self.cal.get()+self.keys3[b]) 
-                    elif b == event.self.keysym or event.self.keysym in self.key2: self.cal.set(self.cal.get()+b)
+                    elif b == event.keysym or event.keysym in self.key2: self.cal.set(self.cal.get()+b)
                 return
             
             elif no in self.keys: pass
@@ -1590,22 +1579,13 @@ def saep(app):
             self.root.grid_remove()
 
     class aytexteditor:
-        global ayroot
-
-        def __init__(self, root_2, app):
-            global ayroot
-            
+        def __init__(self, root_2, app):            
             app.title('Default.txt - AY text editor(AYTE)')
             
             app.bind('<Control Key>', self.binding)
             app.bind('<Control Shift Key>', self.bind2)
             
             root_2.grid_forget()
-            
-            if ayroot != 0:
-                self.root = ayroot
-                self.root.grid()
-                return
             
             self.name = 0
             self.job = None
@@ -1695,9 +1675,9 @@ def saep(app):
 
             self.root.grid()
         def switch(self):
-            global ayroot
-            
-            ayroot = self.root
+            ex = messagebox.askokcancel("Changes left pending", "Unsaved changes will be abandoned if you exit")
+            if not ex: return
+
             root_2.grid()
             app.title('Home screen')
             app.configure(bg = root_2.cget('bg'))
@@ -1744,7 +1724,7 @@ def saep(app):
             self.name = opened
             app.title("{} - AY text self.editor(AYTE)".format(self.name.name))
             
-            fil = open(self.name.self.name, "r")
+            fil = open(self.name.name, "r")
             self.editor.insert(1.0, fil.read())
             fil.close()
 
@@ -1753,7 +1733,7 @@ def saep(app):
                 self.save_as_file()
                 return
             
-            fil2 = open(self.name.self.name, "w")
+            fil2 = open(self.name.name, "w")
             fil2.writelines(self.editor.get(1.0, 'end'))
             fil2.close()
         def save_as_file(self):
@@ -1762,17 +1742,15 @@ def saep(app):
             if opened is None: return
             
             self.name = opened
-            app.title("{} - AY text self.editor(AYTE)".format(self.name))
+            app.title("{} - AY text self.editor(AYTE)".format(self.name.name))
             self.save_file()
 
         def fonter(self, ty, ty2):
             try:
                 if self.editor.selection_get():
                     myfont = font.Font(self.editor, self.editor.cget('font'))
-                
-                    if myfont: myfont[ty2] = ty
-                    else: myfont = font.Font(self.editor, ty2 = ty)
-                
+                    myfont[ty2] = ty
+                    
                     self.editor.tag_configure(ty, font = myfont)
                     bold = self.editor.tag_names("sel.first")
                 
@@ -1821,14 +1799,11 @@ def saep(app):
             elif e == 'w': root.destroy()
             elif e == 'z': self.editor.edit_undo()
             elif e == 'y': self.editor.edit_redo()
-            elif e == 'c': self.editor.edit_redo()
-            elif e == 'x': self.editor.edit_redo()
-            elif e == 'v': self.editor.edit_redo()
-            elif e == 'b': self.editor.edit_redo()
-            elif e == 'u': self.editor.edit_redo()
-            elif e == 'h': self.editor.edit_redo()
-            elif e == 't': self.editor.edit_redo()
-            elif e == 'quoteleft': self.editor.edit_redo()
+            elif e == 'c': self.copy()
+            elif e == 'x': self.cut()
+            elif e == 'v': self.paste()
+            elif e == 'b': self.fonter("Algerian", "Font")
+            elif e == 'u': self.fonter(True, "Underline")
         def bind2(self, e):
             e = e.keysym
             
@@ -1870,8 +1845,6 @@ def saep(app):
                 self.f.grid()
                 return
 
-            self.root = tk.Canvas(app, bg = '#000fff000')
-
             self.f = tk.Frame(app)
             self.f.grid()
 
@@ -1883,9 +1856,9 @@ def saep(app):
 
         def game_start(self, cop):
             global proot
-            
-            self.root.focus_set()
 
+            self.root = tk.Canvas(app, bg = '#000fff000')
+            
             if proot:
                 self.root = proot[0]
                 
@@ -1905,13 +1878,18 @@ def saep(app):
             self.f.grid_remove()
             self.root.grid()
 
-            self.stop = False
+            self.ft = True
+            self.opposite = False
+            self.stop = True
+            self.inc = 0
+            self.starter = "red"
+
+            self.paused = self.root.create_text(1000, 1000, text="PAUSED", font=("Times New Roman", 30))
 
             self.blue = self.root.create_rectangle(0, 155, 10, 245, fill = 'blue')
             self.red = self.root.create_rectangle(390, 155, 400, 245, fill = 'red')
-
-            if not exit_now: self.root.after(1000, self.motion, 'red')
-            if not cop and not exit_now: self.root.after(100, self.checker)
+            
+            self.root.coords(self.paused, 200, 50)
 
             self.root.create_oval(150, 150, 250, 250)
             self.root.create_line(200, 0, 200, 400)
@@ -1933,15 +1911,14 @@ def saep(app):
                 app.bind('<s>', self.move_down)
             else: self.bscore = self.root.create_text(200, 473, text = "CPU - 0", font = ('Palatino', 15, 'bold'))
 
-            self.root.create_text(200, 538, text = "Space - Pause / Play\nUp / Down - Moving Player 1\nW / S - Moving Player 2", fill = 'black', font = ("Arial", 15))
+            self.root.create_text(200, 538, text = "Space - Pause / Play\nUp / Down - Moving Red(Player 1)\nW / S - Moving Blue(Player 2)", fill = 'black', font = ("Arial", 15))
             myfont = font.Font(self.root, family = "Algerian", slant = 'italic', size = 15)
 
-            self.root.create_rectangle(400, 0, 575, 575, fill = '#e0ba87')
             self.root.create_rectangle(400, 0, 575, 100, fill = 'saddle brown')
             self.root.create_rectangle(400, 100, 575, 200, fill = 'silver')
             self.root.create_rectangle(400, 200, 575, 300, fill = 'gold')
             self.root.create_rectangle(400, 300, 575, 400, fill = 'white')
-            self.root.create_text(483, 50, text = "Quit", font = myfont)
+            self.root.create_text(483, 50, text = "Quit", font = myfont, fill="white")
             self.root.create_text(483, 150, text = "Return to \nHome Screen", font = myfont, justify = 'center')
             self.root.create_text(483, 250, text = "Return to \nApp Screen", font = myfont, justify = 'center')
             self.root.create_text(483, 350, text = "Replay", font = myfont, justify = 'center')
@@ -1952,7 +1929,6 @@ def saep(app):
             self.root.create_line(400, 400, 575, 400, dash = (4, 2))
 
             self.root.bind('<Button-1>', self.click)
-            app.bind('<Control_L> <w>', root.destroy())
             app.bind('<space>', self.move_up)
 
         def move_up(self, event):
@@ -1970,13 +1946,15 @@ def saep(app):
                 if self.stop:
                     # If user is unpausing it
                     self.stop = False
+                    self.root.coords(self.paused, 1000, 1000)
 
                     if not self.cop: self.checker()
                     
-                    self.motion(starter, inc)
+                    self.motion(self.starter, self.inc)
                     
                     return
                 
+                self.root.coords(self.paused, 200, 50)
                 self.stop = True
                 return
             elif event.keysym == 'Up':
@@ -1995,17 +1973,19 @@ def saep(app):
                 self.root.grid()
                 return
 
-            if self.stop:
-                return
+            elif self.stop: return
             
-            if event == 'down':
+            elif event == 'down':
                 coords = self.root.coords(self.blue)
                 if coords[1] == 400: return
                 self.root.coords(self.blue, coords[0], coords[1]+20, coords[2], coords[3]+20)
-                return
 
-
-            if event.keysym == 'Down':
+            elif event == "up":
+                coords = self.root.coords(self.blue)
+                if coords[1] == 400: return
+                self.root.coords(self.blue, coords[0], coords[1]+20, coords[2], coords[3]+20)
+            
+            elif event.keysym == 'Down':
                 coords = self.root.coords(self.red)
                 if coords[3] == 400: return
                 self.root.coords(self.red, coords[0], coords[1]+20, coords[2], coords[3]+20)
@@ -2019,11 +1999,8 @@ def saep(app):
             if exit_now: return
 
             if self.stop:
-                global inc, starter
-                
-                inc = increase
-                starter = start
-                
+                self.inc = increase
+                self.starter = start                
                 return
 
             coords = self.root.coords(self.pong)
@@ -2039,14 +2016,15 @@ def saep(app):
             
                 if coords[2] == 390:
                     if coords[1] > self.redcoords[1] and coords[1] < self.redcoords[3]:
+                        self.ft = True
                         raverage = (self.redcoords[1]+self.redcoords[3])/2
                         caverage = (coords[1]+coords[3])/2
             
                         if caverage != raverage:
-                            self.root.after(100, self.motion, 'self.blue', (caverage-raverage)/8)
+                            self.root.after(100, self.motion, 'blue', (caverage-raverage)/8)
                             return
             
-                        self.root.after(100, self.motion, 'self.blue')
+                        self.root.after(100, self.motion, 'blue')
                         return
             
                 self.root.coords(self.pong, coords[0]+20, coords[1]+increase, coords[2]+20, coords[3]+increase)
@@ -2071,65 +2049,72 @@ def saep(app):
 
             redcoords = self.root.coords(self.blue)
             coords = self.root.coords(self.pong)
-            
-            opposite = False
 
             updown = random.randrange(0, 2)
-            
-            if coords[0] == 50 and not torf:
-                choice = random.randrange(0, 5)
-                choices = [True, False, True, True, True, True]
-                choice = choices[choice]
 
-                opposite = not choice
+            if coords[0] < 150 and self.ft == True:
+                self.ft = False
+                choice = random.randrange(0, 5)
+                choices = [False, True, True, True, True]
+                choice = choices[choice]
+                self.opposite = not choice
 
             elif coords[0] == 30: torf = True
 
             if redcoords[1] < coords[1] and redcoords[3] > coords[1]: 
-                if not opposite:
+                if not self.opposite:
                     if (coords[1] + coords[3])/2 == (redcoords[1] + redcoords[3])/2 and coords[0] == 50:
                         if updown: self.move_up('up')
                         else: self.move_down('down')
-                else:
+                elif redcoords[3] <= 390:
                     if exit_now: return
                     self.move_down('down')
                     self.move_down('down')
                     self.move_down('down')
                     self.move_down('down')
+                else:
+                    self.move_down('up')
+                    self.move_down('up')
+                    self.move_down('up')
+                    self.move_down('up')
             
             elif redcoords[1] > coords[1]:
-                if not opposite:
+                if not self.opposite:
                     self.move_up('up')
                     if updown:
                         self.move_up('up')
                         self.move_up('up')
                 
-                else:
+                elif redcoords[3] <= 390:
                     self.move_down('down')
                     self.move_down('down')
                     self.move_down('down')
                     self.move_down('down')
 
             elif redcoords[3] < coords[3]:
-                if not opposite:
+                if not self.opposite:
                     self.move_down('down')
                     if updown:
                         self.move_down('down')
                         self.move_down('down')
                 
-                else:
+                elif redcoords[3] >= 10:
                     self.move_up('up')
                     self.move_up('up')
                     self.move_up('up')
                     self.move_up('up')
 
-            if not opposite and not exit_now: self.root.after(55, self.checker, torf)
+            if not self.opposite and not exit_now: self.root.after(55, self.checker, torf)
             elif not exit_now: self.root.after(750, self.checker, torf)
 
-        def update(self):
-            coords = self.root.coords(self.pong)
+        def update(self, coords=[]):
+            if coords == []: coords = self.root.coords(self.pong)
+
+            self.ft = True
+            self.opposite = False
             
             if coords[0] <= 0:
+                self.ft = True
                 self.score[0] = self.score[0] + 1
             
                 self.root.coords(self.pong, 190, 190, 210, 210)
@@ -2139,6 +2124,7 @@ def saep(app):
                 self.root.itemconfigure(self.rscore, text = "Player 1 - "+str(self.score[0]))
             
             else:
+                self.ft = True
                 self.score[1] = self.score[1] + 1
             
                 self.root.coords(self.pong, 190, 190, 210, 210)
@@ -2182,7 +2168,7 @@ def saep(app):
         def click(self, event):
             x, y = event.x, event.y
             
-            if not (x > 400 and x < 500): return
+            if not (x > 400 and x < 575): return
             elif y > 0 and y < 100: root.destroy()
             elif y > 100 and y < 200: self.switch()
             elif y > 200 and y < 300:
@@ -2190,6 +2176,14 @@ def saep(app):
                 self.switch(1)
             elif y > 300 and y < 400:
                 self.score = [0, 0]
+
+                self.ft = True
+                self.stop = True
+            
+                self.root.coords(self.pong, 190, 190, 210, 210)
+                self.root.coords(self.red, 390, 155, 400, 245)
+                self.root.coords(self.blue, 0, 155, 10, 245)
+                self.root.coords(self.paused, 200, 50)
                 
                 self.root.itemconfigure(self.rscore, text = "Player 1 - 0")
 
@@ -2208,7 +2202,7 @@ def saep(app):
                 root_2.grid_remove()
 
                 self.st = datetime.now()
-                self.root.after(840000, self.move, 5)
+                self.root.after(540000, self.move, 5)
 
                 app.geometry("300x450+650+200")
                 app.title("!! Quiz !!")
@@ -2242,13 +2236,13 @@ def saep(app):
                             "Capital of equador" : "quito", "Who is Rajya\nSabha head?" : "Venkaiah Naidu", \
                             "When did telangana form?\nType day, month, ex\n 15, February" : "2, June", \
                             "What party formed first\ngovernment in TS\nWrite Full Form" : "Telangana Rashtra Samiti", \
-                            "Which district is\nPV Narasimha Rao From\nWrite full form" : "Karim nagar", \
+                            "Which state is\nPV Narasimha Rao From" : "Telangana", \
                             "What is the most grown\ncrop by area" : "rice", \
                             "Which State has most\nsugar mills" : "Uttar Pradesh", \
                             "Where are the currency\nnotes printed in" : "Nasik", \
                             "Who invented 0\nClue :No space in\nhis name" : "Aryabhatta", \
                             "How many edges\ndoes a cube have" : "12", \
-                            "How many milliseconds\nare there in an day" : "86400000", \
+                            "How many milliseconds\nare there in a day" : "86400000", \
                             "Largest non-extinct animal" : "Blue Whale", "Largest asteroid in the\nAsteroid belt" : "Ceres", \
                             "Who said 'I have not\nfailed. I have found 10,000\nways to not work'" : "Thomas Edison", \
                             "which year did WW2 start" : "1939", "What country's capital\nis Vienna" : "Austria", \
@@ -2287,7 +2281,7 @@ def saep(app):
                 self.eans.bind('<Return>', self.move)
 
                 self.prev = tk.Button(self.root, text = "Previous\nQuestion", bg = "red", font = self.myfont, command = self.move)
-                self.bnex = tk.Button(self.root, text = "Start\nQuiz", bg = "gold", font = self.myfont, command = lambda : self.move("self.prev"))
+                self.bnex = tk.Button(self.root, text = "Start\nQuiz", bg = "gold", font = self.myfont, command = lambda : self.move("prev"))
 
                 self.replay = tk.Button(self.root, text = "Replay", bg = 'white', font = self.myfont, command = lambda : self.switch(True), state = "disabled")
                 self.replay.grid(row = 4, column = 0, sticky = 'ew')
@@ -2323,11 +2317,13 @@ def saep(app):
                     print("Wrongs -;\n")
 
                     for no in range(0, len(self.usersansw)):
-                        if self.usersansw[no] is None: print(self.questions[no], "\n"+self.actualans[no], "\n")
-                        elif self.usersansw[no].lower() == self.actualans[no].lower(): score += 1
-                        else: print(self.questions[no], "\n"+self.actualans[no], "\n")
-                    
-                    if round((score/(no+1))*100, 2) == 100: print(None)
+                        given_ans = self.usersansw[no]
+                        if given_ans.lower() == self.actualans[no].lower(): score += 1
+                        else:
+                            if not given_ans or given_ans == "You left some qs":
+                                print("\nQuestion:", self.questions[no], "\nCorrect Answer:", self.actualans[no], "\nYou did not attempt this question.", "\n")
+                            else:
+                                print("\nQuestion:", self.questions[no], "\nCorrect Answer:", self.actualans[no], "\nYour answer:", given_ans, "\n")
 
                     self.torf = True
                     self.eans.delete(0, 'end')
@@ -2629,7 +2625,6 @@ def saep(app):
             app.bind('<Key>', self.pushed)
             app.bind('<1>', lambda e : self.pushed("space"))
             app.bind("<Motion>", self.move)
-            app.bind("<Control_L> <w>", lambda e : app.destroy())
 
             self.no0 = app.after(15000, self.move, "Random")
             self.no1 = app.after(3000, self.attack, True, 3000)
@@ -2752,7 +2747,7 @@ def saep(app):
                         self.no4 = self.root.after(3000, self.root.delete, h1)
                         if self.hearts == 2: self.root.itemconfigure(self.heart3, fill = 'black')
                         elif self.hearts == 1: self.root.itemconfigure(self.heart2, fill = 'black')
-                        elif self.hearts == 0: exit("Game Over")
+                        elif self.hearts == 0: self.switch()
                         self.root.coords(ele, -100, 0, -100, 0)
                         self.root.itemconfigure(ele, tag = "torn")
                         rr = random.randrange(0, len(self.bwords))
@@ -2774,7 +2769,6 @@ def saep(app):
             self.root.coords(obj, x+dist[0]-5, y+dist[1]-5, x+dist[0]+5, y+dist[1]+5)
 
             met = self.root.find_withtag("Metior")
-
             objc = self.root.coords(obj)
 
             if objc[0] > 1550 or objc[2] < 0 or objc[1] > 800 or objc[3] < 0:
@@ -2811,7 +2805,7 @@ def saep(app):
 
         def pushed(self, e, time = 0):
 
-            if e != 'space' and e != 10: e = e.keysym
+            if e != 'space' and e != 10 and e != "Escape": e = e.keysym
             
             if self.stop and e != "Escape":
                 if e == 10:
@@ -2860,7 +2854,7 @@ def saep(app):
                     self.once = True
                     self.root.tag_bind(self.bret, "<Button>", lambda e : self.switch())
                     self.root.tag_bind(self.bbtg, "<Button>", lambda e : self.root.event_generate("<Escape>"))
-                    self.root.tag_bind(self.besc, "<Button>", lambda e : app.quit())
+                    self.root.tag_bind(self.besc, "<Button>", lambda e : app.destroy())
 
             elif e == "Escape":
                 self.root['cursor'] = 'none'
@@ -2939,7 +2933,7 @@ def saep(app):
 
                 self.sod = False
                 self.movit(shoot, dist)
-                self.no9 = self.root.after(900, self.pushed, 10, 900)
+                self.no9 = self.root.after(200, self.pushed, 10, 900)
 
         def move(self, event):
             if self.stop: return
@@ -2976,6 +2970,16 @@ def saep(app):
                 app.attributes('-fullscreen', self.attr)
                 return
             
+            app.attributes('-fullscreen', False)
+            self.root.delete("Metior")
+            self.root.delete("Shoot")
+            self.root.coords(self.ball, 775, 400)
+            app.unbind('<f>')
+            app.unbind('<Key>')
+            app.unbind('<1>')
+            app.unbind("<Motion>")
+            if not self.stop: self.pushed("Escape")
+            
             astroot = self.root
             root_2.grid()
             
@@ -2996,6 +3000,7 @@ def saep(app):
             app.state('zoomed')
             app.configure(bg = 'grey15')
             app.title('Quit the game to WIN!!!')
+            app.event_generate('<Motion>', warp = True, x = 100, y = 100)
 
             root_2.grid_remove()
 
@@ -3193,7 +3198,6 @@ def saep(app):
             root_2.grid_remove()
 
             if msroot:
-                root_2.grid_remove()
                 self.root, self.settings = msroot
                 self.root.grid()
                 return
@@ -3413,10 +3417,301 @@ def saep(app):
             self.settings.grid_remove()
             self.root.grid_remove()
 
-    app.minsize(900, 740)
+    class geoquiz:
+        global gqroot
+
+        def __init__(self, app, root_2=None, game=0, gametype=""):
+            global gqroot
+
+            self.app = app
+            self.game = game
+            self.gt = gametype
+
+            if gqroot:
+                self.root = gqroot
+                self.root.grid()
+                return
+
+            self.app.rowconfigure(0, weight=1)
+            self.app.columnconfigure(0, weight=1)
+            self.app.title("Geography Quiz!")
+
+            self.root = tk.Frame(self.app)
+            self.root.grid(sticky="nsew")
+            self.BREAKLENGTH = 30
+            
+            self.myfont = font.Font(self.root, family="Helvetica", size=17)
+            self.myfont2 = font.Font(self.root, family="Times", size=15)
+            self.ds = pd.read_csv("test.txt")
+            self.cluecounter = 0
+
+            if self.game == 0:
+                self.app.minsize(100, 100)
+                self.app.geometry("650x350+400+200")
+                tk.Label(self.root, text="Which quiz do you want to play?", font=self.myfont2, bg="blue2", fg="White").grid(row=0, column=0, sticky="nsew")
+                tk.Button(self.root, text="Guess the Country", font=self.myfont2, command= lambda: self.replay("", 1), bg="MediumPurple4", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=1, column=0, sticky="nsew")
+                tk.Button(self.root, text="Guess the Capital", font=self.myfont2, command= lambda: self.replay("", 2, "capital"), bg="saddlebrown", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=2, column=0, sticky="nsew")
+                tk.Button(self.root, text="Guess the Currency", font=self.myfont2, command= lambda: self.replay("", 2, "currency"), bg="#004d39", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=3, column=0, sticky="nsew")
+                tk.Button(self.root, text="Guess the Languages", font=self.myfont2, command= lambda: self.replay("", 2, "language"), bg="#334d00", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=4, column=0, sticky="nsew")
+                self.root.columnconfigure(0, weight=1)
+                self.root.rowconfigure(0, weight=1)
+                self.root.rowconfigure(1, weight=2)
+                self.root.rowconfigure(2, weight=2)
+                self.root.rowconfigure(3, weight=2)
+                self.root.rowconfigure(4, weight=2)
+                self.submit = tk.Button(self.root, text="Submit!", justify="center", font=self.myfont2, relief="groove", activeforeground="white", bg="rosybrown1", activebackground="gray20")
+
+            else:
+                self.index = self.ds.loc[random.randint(0, 49)]
+                self.frame = tk.Frame(self.root)
+                self.hint = tk.Button(self.root, text="Reveal the next clue", justify="center", font=self.myfont2, relief="solid", activeforeground="brown", command=self.reveal, disabledforeground="blue", bg="lightsalmon")
+                self.stringvar = tk.StringVar(self.root)
+                self.guess = tk.Entry(self.frame, font=self.myfont, justify="center", textvariable=self.stringvar)
+                self.lbofcont = tk.Listbox(self.frame, background="khaki1", font=self.myfont2, selectbackground = 'gray80', selectforeground = 'black', activestyle = 'dotbox')
+                self.sb = tk.Scrollbar(self.frame, command = self.lbofcont.yview, orient = 'vertical')
+                self.submit = tk.Button(self.root, text="Submit!", justify="center", font=self.myfont2, relief="groove", activeforeground="white", bg="rosybrown1", activebackground="gray20")
+                self.guess.focus_set()
+                self.guess.selection_range(0, "end")
+                self.guess.icursor("end")
+                self.lbofcont.configure(yscrollcommand = self.sb.set)
+            
+            if self.game == 1:
+                self.app.minsize(750, 600)
+                self.app.geometry("750x600+375+60")
+                self.app.title("Guess the Country - A Geography Quiz.")
+
+                self.stringvar.set("Guess the country!")
+
+                self.specialcountrynames = {"usa":"United States", "united states of america":"United States",\
+                    "drc":"Democratic Republic of the Congo", "Democratic republic of congo":"Democratic Republic of the Congo",\
+                    "turkey":"Turkiye", "uae":"United Arab Emirates", "uk":"United Kingdom", "car":"Central African Republic",\
+                    "burma":"Myanmar", "swaziland":"Eswatini", "cote divoire": "Ivory Coast"}
+                self.locountries = list(self.ds["country"])
+                self.locountries.sort()
+
+                self.clue1 = tk.Label(self.root, text=self.bettervisuals(self.index["clue 1"]), font=self.myfont, justify="center", bg="light green")
+                self.clue2 = tk.Label(self.root, text=self.bettervisuals(self.index["clue 2"]), font=self.myfont, justify="center", bg="light blue")
+                self.continent = tk.Label(self.root, text="Continent: "+self.index["continent"], font=self.myfont, justify="center", bg="light gray")
+                self.capital = tk.Label(self.root, text="Capital: "+self.bettervisuals(self.index["capital"]), font=self.myfont, justify="center", bg="lavender")
+                self.country = tk.Label(self.root, text="Country: "+self.index["country"], font=self.myfont, justify="center", bg="light goldenrod")
+
+                for ele in self.locountries: self.lbofcont.insert("end", ele)
+
+                self.guess.bind("<Key>", self.pressed_key)
+                self.lbofcont.bind('<Button 1>', self.pressed_key)
+                self.lbofcont.bind('<Key>', self.pressed_key)
+                self.submit.bind("<Button 1>", self.pressed_key)
+
+            elif self.game == 2:
+                self.app.minsize(750, 600)
+                self.app.geometry("750x600+375+60")
+                self.app.title("Guess the {} - A Geography Quiz.".format(self.gt.capitalize()))
+
+                self.stringvar.set("Guess the {}!".format(self.gt.capitalize()))
+
+                self.specialcountrynames = {"usa":"United States", "united states of america":"United States",\
+                    "drc":"Democratic Republic of the Congo", "Democratic republic of congo":"Democratic Republic of the Congo",\
+                    "turkey":"Turkiye", "uae":"United Arab Emirates", "uk":"United Kingdom", "car":"Central African Republic",\
+                    "burma":"Myanmar", "swaziland":"Eswatini", "cote divoire": "Ivory Coast"}
+                
+                self.locaps2 = list(self.ds[self.gt])
+                self.locaps = []
+                for ele in self.locaps2:
+                    if type(ele) != type(1.2) and ele not in self.locaps: self.locaps.append(ele)
+                self.locaps.sort()
+
+                self.clue1 = tk.Label(self.root, text=self.bettervisuals("First Country Clue: "+self.index["clue 1"]), font=self.myfont, justify="center", bg="light green")
+                self.clue2 = tk.Label(self.root, text=self.bettervisuals("Second Country Clue: "+self.index["clue 2"]), font=self.myfont, justify="center", bg="light blue")
+                self.country = tk.Label(self.root, text="Country: "+self.index["country"], font=self.myfont, justify="center", bg="light goldenrod")
+                self.capital = tk.Label(self.root, text=self.gt.capitalize()+": "+self.bettervisuals(self.index[self.gt]), font=self.myfont, justify="center", bg="lavender")
+
+                for ele in self.locaps: self.lbofcont.insert("end", ele)
+
+                self.guess.bind("<Key>", self.pressed_key)
+                self.lbofcont.bind('<Button 1>', self.pressed_key)
+                self.lbofcont.bind('<Key>', self.pressed_key)
+                self.submit.bind("<Button 1>", self.pressed_key)
+                self.root.bind("<Control w>", lambda e: self.root.destroy())
+
+            if self.game !=0:
+                self.submit.grid(row=7, column=0, sticky="nsew")
+                self.hint.grid(row=6, column=0, sticky="nsew")
+                self.clue1.grid(row=0, column=0, sticky="nsew")
+                self.frame.grid(row=5, column=0, sticky="nsew")
+
+                self.guess.grid(row=0, column=0, sticky="nsew")
+                self.lbofcont.grid(row=1, column=0, sticky="nsew")
+                self.sb.grid(row=1, column=0, sticky="nse")
+
+                self.frame.rowconfigure(0, weight=1)
+                self.frame.rowconfigure(1, weight=1)
+                self.frame.columnconfigure(0, weight=1)
+
+                self.root.rowconfigure(0, weight=2)
+                self.root.rowconfigure(5, weight=2)
+                self.root.rowconfigure(6, weight=1)
+                self.root.rowconfigure(7, weight=1)
+                self.root.columnconfigure(0, weight=1)
+                
+                self.root.bind("<Control w>", lambda e: self.root.destroy())
+
+        def bettervisuals(self, string):
+            splitstring = string.replace("/", ", ")
+            splitstring = splitstring.split(" ")
+
+            totallen = 0
+            eleind = -1
+            for ele in splitstring:
+                lenele = len(ele)
+                eleind += 1
+                totallen += lenele+1
+                if totallen >= self.BREAKLENGTH:
+                    totallen = 0
+                    splitstring[eleind] = ele+"\n"
+
+            if splitstring[-1][-1] == "\n": splitstring[-1] = splitstring[-1][:-1]
+            return " ".join(splitstring)
+
+        def reveal(self, rev_all=False):
+            if rev_all:
+                for i in range(4): self.reveal()
+            if self.cluecounter == 0:
+                self.root.rowconfigure(1, weight=2)
+                self.clue2.grid(row=1, column=0, sticky="nsew")
+                if self.game == 1: self.hint["text"] = "Reveal the Continent"
+                else: self.hint["text"] = "Reveal the Country"
+            elif self.cluecounter == 1 and self.game == 1:
+                self.root.rowconfigure(2, weight=2)
+                self.continent.grid(row=2, column=0, sticky="nsew")
+                self.hint["text"] = "Reveal the Capital"
+            elif self.cluecounter == 1 and self.game == 2:
+                self.root.rowconfigure(2, weight=2)
+                self.country.grid(row=2, column=0, sticky="nsew")
+                self.hint["text"] = "I give up!"
+            elif self.cluecounter == 2 and self.game == 1:
+                self.root.rowconfigure(3, weight=2)
+                self.capital.grid(row=3, column=0, sticky="nsew")
+                self.hint["text"] = "I give up!"
+            elif self.cluecounter == 2 and self.game == 2:
+                self.root.rowconfigure(3, weight=2)
+                self.capital.grid(row=3, column=0, sticky="nsew")
+                
+                self.guess["state"] = "disabled"
+                self.guess["disabledbackground"] = "black"
+                self.guess["disabledforeground"] = "white"
+
+                self.hint["state"] = "disabled"
+                self.hint["relief"] = "flat"
+                self.hint["text"] = "Well played!"
+                
+                self.submit["text"] = "Play Again"
+                self.guess.unbind("<Key>")
+                self.submit.unbind("<Button 1>")
+                self.submit.bind("<Button 1>", self.replay)
+                self.lbofcont.delete(0, "end")
+
+                if self.stringvar.get() == "Correct Answer!":
+                    self.lbofcont.insert("end", "YAY!")
+                else:
+                    self.lbofcont.insert("end", "OH NO!")
+            elif self.cluecounter == 3 and self.game == 1:
+                self.root.rowconfigure(4, weight=2)
+                self.country.grid(row=4, column=0, sticky="nsew")
+                
+                self.guess["state"] = "disabled"
+                self.guess["disabledbackground"] = "black"
+                self.guess["disabledforeground"] = "white"
+
+                self.hint["state"] = "disabled"
+                self.hint["relief"] = "flat"
+                self.hint["text"] = "Well played!"
+                
+                self.submit["text"] = "Play Again"
+                self.guess.unbind("<Key>")
+                self.submit.unbind("<Button 1>")
+                self.submit.bind("<Button 1>", self.replay)
+                self.lbofcont.delete(0, "end")
+
+                if self.stringvar.get() == "Correct Answer!":
+                    self.lbofcont.insert("end", "YAY!")
+                else:
+                    self.lbofcont.insert("end", "OH NO!")
+            self.cluecounter += 1
+
+        def pressed_key(self, event, ft=0):
+            if not ft:
+                self.root.after(10, self.pressed_key, event, 1)
+                return
+            elif event.widget == self.submit or event.keysym == "Return":
+                if self.game == 1:
+                    if self.guess.get().lower() not in [x.lower() for x in self.locountries]:
+                        self.stringvar.set(self.guess.get()+" is not a country!")
+                        self.guess.focus_set()
+                        self.guess.selection_range(0, "end")
+                        self.guess.icursor("end")
+                        return
+                    if self.guess.get().lower() == self.index["country"].lower():
+                        self.stringvar.set("Correct Answer!")
+                        self.reveal(True)
+                        return
+                    else:
+                        self.reveal()
+                        self.stringvar.set("Wrong Answer!")
+                        self.guess.focus_set()
+                        self.guess.selection_range(0, "end")
+                        self.guess.icursor("end")
+                        return
+                else:
+                    if self.guess.get().lower() not in [x.lower() for x in self.locaps]:
+                        self.stringvar.set(self.guess.get()+" is not a {}!".format(self.gt))
+                        self.guess.focus_set()
+                        self.guess.selection_range(0, "end")
+                        self.guess.icursor("end")
+                        return
+                    if self.guess.get().lower() == self.index[self.gt].lower():
+                        self.stringvar.set("Correct Answer!")
+                        self.reveal(True)
+                        return
+                    else:
+                        self.reveal()
+                        self.stringvar.set("Wrong Answer!")
+                        self.guess.focus_set()
+                        self.guess.selection_range(0, "end")
+                        self.guess.icursor("end")
+                        return
+            elif event.widget == self.lbofcont:
+                selected = self.lbofcont.selection_get()
+                self.stringvar.set(selected)
+                return
+            elif self.guess.get().lower() == "guess the country!" or self.guess.get().lower() == "guess the {}!".format(self.gt):
+                self.stringvar.set("")
+                return
+            else:
+                self.lbofcont.delete(0, "end")
+                displayedcounts = []
+                if self.game == 1:
+                    for ele in self.locountries:
+                        if self.guess.get().lower() in ele.lower() or ele.lower() in self.guess.get().lower():
+                            displayedcounts.append(ele)
+                
+                    for ele2 in self.specialcountrynames.keys():
+                        if (self.guess.get().lower() in ele2.lower() or ele2.lower() in self.guess.get().lower()) and (self.specialcountrynames[ele2] not in displayedcounts):
+                            displayedcounts.append(self.specialcountrynames[ele2])
+                else:
+                    for ele in self.locaps:
+                        if self.guess.get().lower() in ele.lower() or ele.lower() in self.guess.get().lower():
+                            displayedcounts.append(ele)
+                    
+                displayedcounts.sort()
+                for ele in displayedcounts: self.lbofcont.insert("end", ele)
+
+        def replay(self, e, gn=0, gt=""):
+            self.root.destroy()
+            self.__init__(self.app, game=gn, gametype=gt)
 
     root_2 = tk.Frame()
     root_2.grid()
+    app.title('Home screen')
 
     colors = []
 
@@ -3425,26 +3720,29 @@ def saep(app):
     thumbnails = {"hangman.png": (2, 2), "coloursg.png": (5, 5), "x_and_o.png": (2, 2),\
                 "dot_box.png": (2, 2), "tick_toclock.png": (10, 10), "calculator.png": (2, 2),
                 "AYtexteditor.png": (2, 2), "table_tennis.png": (2, 2), "think_emoji.png": (2, 2),
-                "xcelsheet.png": (2, 2), "rocket.png": (10, 10), "quit_win.png": (7, 7), "minesweeper_bomb.png": (2, 2)}
+                "xcelsheet.png": (2, 2), "rocket.png": (10, 10), "quit_win.png": (7, 7), "minesweeper_bomb.png": (2, 2),\
+                "Earth.png": (3, 3)}
+
     p = []
 
     for pics, size in thumbnails.items():
         picture = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\"+pics)
         p.append(picture.subsample(size[0], size[1]))
     
-    cgroot = clroot = calroot = hroot = hgroot = colroot = broot = ayroot = kroot = exit_now = proot = qroot = eroot = astroot = qtwroot = msroot = 0
+    cgroot = clroot = calroot = hroot = hgroot = broot = kroot = exit_now = proot = qroot = eroot = astroot = qtwroot = msroot = gqroot = 0
     count = tk.IntVar(app, 0)
-    b1 = b2 = b3 = b4 = b5 = b6 = b7 = b8 = b9 = b10 = b11 = b12 = b13 = b14 = b15 = b16 = 0
+    b1 = b2 = b3 = b4 = b5 = b6 = b7 = b8 = b9 = b10 = b11 = b12 = b13 = b14 = b15 = b16 = b17 = 0
 
-    b = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16]
+    b = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17]
 
     b_info = [("Hangman", lambda: hangmang(root_2, app)), ("Colour Game", lambda: cg(root_2, app)),\
             ("X and O", lambda: kacg(root_2, app)), ("Dots and Boxes", lambda: boxes(root_2, app)),\
             ("Clock", lambda: clock(root_2, app)), ("Calculator", lambda: calculator(root_2, app)),\
             ("Text Editor", lambda: aytexteditor(root_2, app)), ("Ping Pong", lambda: pingpong(root_2, app)),\
-            ("Quiz!", lambda: quiz(root_2, app)), ("Excel", lambda: excel(root_2, app)),\
+            ("GK Quiz", lambda: quiz(root_2, app)), ("Excel", lambda: excel(root_2, app)),\
             ("Asteroids", lambda: Asteroids(root_2, app)), ("Quit To Win", lambda: quittowin(root_2, app)),\
-            ("Minesweeper", lambda: minesweeper(root_2, app))]
+            ("Minesweeper", lambda: minesweeper(root_2, app)), ("Geography Quiz", lambda: geoquiz(app, root_2))]
+
     r = 0
     c = 0
 
@@ -3509,18 +3807,18 @@ def showing():
     pwd_hidden = not pwd_hidden
     
 def pwd_check(event):
-    global root, pwd_attempts
+    global can_rate, pwd_attempts
 
-    if attempt_pwd.get().lower() == pwd.lower():
+    if attempt_pwd.get().lower() == pwd.lower() or event == 1:
 
         forgot_pwd.destroy()
         password.destroy()
         show_pwd.destroy()
         hint_pwd.destroy()
         frame.destroy()
-        canvas.destroy()
         root.rowconfigure(0, weight= 0)
         root.columnconfigure(0, weight= 0)
+        can_rate = True
 
         saep(root)
         return
@@ -3545,36 +3843,20 @@ def forgot_pass():
     password.focus_set()
     password.selection_range(0, 'end')
 
-def reshape_img(e):
-    new_img = img.resize((canvas.winfo_width(), canvas.winfo_height()))
-    new_photo_img = ImageTk.PhotoImage(new_img)
-    
-    canvas.img = new_photo_img
-    canvas.coords(item, canvas.winfo_width()/2, canvas.winfo_height()/2)
-    canvas.itemconfig(item, image= new_photo_img)
 
-
-MAX_PWD_ATTEMPTS = 5
+MAX_PWD_ATTEMPTS = 3
 USER = "ADVAITH"
 exit_now = False
+can_rate = False
 
 root = tk.Tk()
 root.state('zoomed')
 root.minsize(350, 400)
 
-img = Image.open("D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\background.png")
-photo_img = ImageTk.PhotoImage(img)
-
-canvas = tk.Canvas(root)
-item = canvas.create_image(100, 100, image= photo_img)
-
-canvas.grid(row= 0, column= 0, sticky= 'nsew')
-canvas.bind('<Configure>', reshape_img)
-
 root.rowconfigure(0, weight= 1)
 root.columnconfigure(0, weight= 1)
 
-pwd = "Python!"
+pwd = "python!"
 
 pwd_hidden = False
 pwd_attempts = 0
@@ -3612,7 +3894,11 @@ root.rowconfigure(0, weight= 1)
 root.columnconfigure(0, weight= 1)
 
 root.bind('<Control_L> <w>', lambda e: root.destroy())
+pwd_check(1)
 root.mainloop()
+if can_rate == False:
+    sys.exit()
+
 str_numbs = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
 def checkforints(string):
@@ -3623,6 +3909,10 @@ def checkforints(string):
 def submit(sure = False):
     user_name = username.get()
     user_name = checkforints(user_name)
+
+    rating_file = open("cluedo.txt", 'r')
+    all_ratings = rating_file.readlines()
+    rating_file.close()
 
     if not sure:
         for ele in all_ratings:
@@ -3658,16 +3948,17 @@ def submit(sure = False):
     for ele in rate_frame.winfo_children():
         if ele: ele.grid_forget()
     
-    ratings_data = []
+    ratings_data = [rater.get()]
     for lines in all_ratings:
         for ele in lines:
             if ele.isnumeric():
                 ratings_data.append(int(ele))
+
     average = sum(ratings_data)/len(ratings_data)
 
     rate_frame['bg'] = 'SystemButtonFace'
     tk.Label(rate_frame, text = "Thanks for rating %s!" %(text), font = ('Algerian', 20, 'bold')).grid(pady= 10)
-    tk.Label(rate_frame, text = "Average - %s" %(round(average, 2)), font = ('Algerian', 20, 'bold')).grid(pady= 10)
+    tk.Label(rate_frame, text = "Average User Rating- %s" %(round(average, 2)), font = ('Algerian', 20, 'bold')).grid(pady= 10)
 
     rate.after(5000, rate.destroy)
 
@@ -3675,24 +3966,10 @@ rate = tk.Tk()
 rate.state('zoomed')
 rate.minsize(500, 500)
 
-img = Image.open("D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\background.png")
-photo_img = ImageTk.PhotoImage(img)
-
-canvas = tk.Canvas(rate)
-item = canvas.create_image(100, 100, image= photo_img)
-
-canvas.grid(row= 0, column= 0, sticky= 'nsew')
-canvas.bind('<Configure>', reshape_img)
-
 rate_frame = tk.Frame(rate, bg= 'black')
-
-rating_file = open("cluedo.txt", 'r')
-all_ratings = rating_file.readlines()
 
 Average = tk.Label(rate_frame, font = ('Algerian', 30, 'bold'), bg = '#00ffff', text= "Please Rate")
 Average.grid(sticky = 'ew', row= 0, column= 0, pady= 20)
-
-rating_file.close()
 
 rater = tk.Scale(rate_frame, from_ = 1, to = 10, orient = 'horizontal', font= ("Arial black", 15))
 rater.grid(row = 2, column = 0, sticky = 'ew', ipady= 10, pady= 10)
@@ -3715,4 +3992,4 @@ rate.rowconfigure(0, weight=1)
 rate.columnconfigure(0, weight=1)
 
 rate.bind("<Control_L>  <w>", lambda e: rate.destroy())
-rate.mainloop()
+# rate.mainloop()

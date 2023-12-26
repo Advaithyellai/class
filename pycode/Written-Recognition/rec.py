@@ -1,17 +1,17 @@
-import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-
+# import os
+# os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import numpy as np
 import tkinter as tk
 from PIL import ImageGrab
 import win32gui
 import tensorflow as tf
 
-try: model = tf.keras.models.load_model("digit_rec")
+try: model = tf.keras.models.load_model("gpt_model")
 except Exception as ex:
     print("Error: There is no model")
-    print("You need to create a new model\n")
+    print("You need to create a new model")
     print("Go to train.py file to create a new model")
+    print(ex)
     quit()
 
 root = tk.Tk()
@@ -36,7 +36,7 @@ def predict():
     img = img.resize((28,28))
     img = img.convert('L')
     
-    img = np.invert(np.array(img))/255
+    img = np.array(img)/255
     img = img.reshape(1, 28, 28, 1)
 
     predicted_results = list(model.predict([img])[0])

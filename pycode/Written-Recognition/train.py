@@ -1,5 +1,5 @@
 import tensorflow as tf
-# Note tensorflow version greater than 2.10.1 is incompatible with windows
+# Note: tensorflow version greater than 2.10.1 is incompatible with windows
 
 EPOCHS = 3
 
@@ -9,7 +9,6 @@ x_train = tf.keras.utils.normalize(x_train, axis=1).reshape(x_train.shape[0], 28
 x_test = tf.keras.utils.normalize(x_test, axis=1).reshape(x_test.shape[0], 28, 28, 1)
 
 model = tf.keras.models.Sequential()
-
 model.add(tf.keras.layers.Conv2D(32, kernel_size=(3, 3),activation='relu',input_shape=(28, 28, 1)))
 model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))

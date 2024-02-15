@@ -76,7 +76,7 @@
 # # If you change the value it prints it
 # spinner['command'] = lambda : print(spinner.get())
 
-# # This s just like a string Variable(sv = "Menu") but better
+# # This is just like a string Variable(sv = "Menu") but better
 # sv = tk.StringVar(root, "Drop")
 
 # # This is the dropdown Menu
@@ -411,3 +411,196 @@
 # root.columnconfigure(0, weight= 1)
 
 # root.mainloop()
+
+# import pandas as pd
+# import numpy as np
+
+# def impute(item):
+#     pclass, sex, title = item.Pclass, item.Sex, item.Title
+#     return round(grp[(grp.Pclass==pclass)&(grp.Sex==sex)&(grp.Title==title)]["Age"].values[0], 2)
+
+# mapping = {"Capt": "Officer","Col": "Officer","Major": "Officer","Jonkheer": "Royalty", \
+#            "Don": "Royalty", "Dona":"Royalty", "Sir" : "Royalty","Dr": "Royalty","Rev": "Royalty", \
+#            "Countess":"Royalty", "Mme": "Mrs", "Mlle": "Miss", "Ms": "Mrs","Mr" : "Mr", \
+#            "Mrs" : "Mrs","Miss" : "Miss","Master" : "Master","Lady" : "Royalty"}
+
+# train_data = pd.read_csv("titanic_data/train.csv")
+# test_data = pd.read_csv("titanic_data/test.csv")
+
+# train_data["Title"] = train_data.Name.str.extract(" ([A-Za-z]+)\.", expand=False)
+# train_data["Title"] = train_data.Title.map(mapping)
+# test_data["Title"] = test_data.Name.str.extract(" ([A-Za-z]+)\.", expand=False)
+# test_data["Title"] = test_data.Title.map(mapping)
+# test_data.index = range(len(train_data), len(train_data)+len(test_data))
+
+# combined = train_data.append(test_data)
+
+# print(round(combined.isnull().sum().sort_values(ascending=False)*100/len(combined), 1))
+# print(round(combined.groupby(["Title", "Pclass"])["Age"].agg(["mean", "count"]), 2))
+
+# grp = combined.groupby(['Pclass','Sex','Title'])['Age'].mean().reset_index()[['Pclass', 'Sex', 'Title', "Age"]]
+# print(combined.loc[combined["Age"].isnull()][["PassengerId", "Pclass", "Sex", "Title"]])
+# combined["Age"] = combined.apply(lambda x: impute(x) if np.isnan(x["Age"]) else x["Age"], axis=1)
+# train_data["Age"] = train_data.apply(lambda x: impute(x) if np.isnan(x["Age"]) else x["Age"], axis=1)
+# test_data["Age"] = test_data.apply(lambda x: impute(x) if np.isnan(x["Age"]) else x["Age"], axis=1)
+# print(combined["Embarked"].value_counts(ascending=True).keys().to_list())
+
+# import os
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+# import pandas as pd
+# from sklearn import preprocessing
+# from tensorflow import keras
+# from datetime import datetime
+
+# start = datetime.now()
+
+# def create_model():
+    
+#     model = keras.Sequential()
+#     model.add(keras.layers.Dense(NEURONS[0], input_dim=x_train.shape[1], activation=ACTIVATION))
+#     model.add(keras.layers.Dropout(DROPOUT))
+    
+#     for i in NEURONS[1: -1]:
+#         model.add(keras.layers.Dense(i, activation=ACTIVATION))
+#         model.add(keras.layers.Dropout(DROPOUT))
+    
+#     model.add(keras.layers.Dense(1, activation='sigmoid'))
+#     model.compile(loss='binary_crossentropy', optimizer=OPTIMIZER, metrics=['accuracy'])
+#     return model
+
+# train = pd.read_csv("titanic_data/train.csv")
+# NEURONS = [14, 28, 42, 28, 14, 1]
+# EPOCHS = 100
+# ACTIVATION = "tanh"
+# DROPOUT = 0
+# OPTIMIZER = "Adam"
+
+# # relation_emb = {"C": 0, "Q": 1, "S": 2}
+# # relation_tit = {'Mr': 0, 'Miss': 1, 'Mrs': 2, 'Master': 3, 'Royalty': 4, 'Officer': 5}
+# # train["Embarked_n"] = train.Embarked.map(relation_emb)
+# # train["Title_n"] = train.Title.map(relation_tit)
+
+# for var in ['Embarked', 'Title']:
+#     train = pd.concat([train, pd.get_dummies(train[var], prefix=var)], axis=1)
+
+# train.drop(['Cabin', "Fare", "Family", 'Name', 'Ticket', 'Sex', "Embarked", "Title", "PassengerId"], axis=1, inplace=True)
+# scaler = preprocessing.StandardScaler()
+# for var in ['Age', 'Parch', 'SibSp']:
+#     train[var] = train[var].astype('float64')
+#     train[var] = scaler.fit_transform(train[var].values.reshape(-1, 1))
+
+# train, test = train.loc[:791], train.loc[791:]
+# x_train, y_train = train.drop(["Survived"], axis=1), train["Survived"]
+# x_test, y_test = test.drop(["Survived"], axis=1), test["Survived"]
+
+# model = create_model()
+# training = model.fit(x_train, y_train, epochs=EPOCHS, batch_size=32, verbose=0, validation_split=0.2)
+# score = model.evaluate(x_test, y_test, verbose=0)
+
+# print("\nFeatures:", x_train.columns.tolist())
+# print("Loss: {:.2f}%".format(score[0]*100))
+# print("Accuracy: {:.2f}%".format(score[1]*100))
+# print()
+
+# hist = training.history
+# for key, value in training.history.items():
+#     print("{}: {:.2f}%".format(key, sum(value)*100/len(value)))
+
+# end = datetime.now()
+# time = end-start
+# print("Time Taken:", round(time.total_seconds(), 2), "seconds")
+
+# import pandas as pd
+# from sklearn import preprocessing, model_selection, tree
+# from datetime import datetime
+# from tensorflow import keras
+
+# start = datetime.now()
+
+# def build_model():
+#     model = keras.models.Sequential()
+
+#     model.add(keras.layers.Dense(NEURONS[0], input_shape=(len(data.drop(["Survived", "PassengerId"], axis=1).columns.tolist()),), activation="relu"))
+#     model.add(keras.layers.Dropout(DROPOUT))
+    
+#     for neuron in NEURONS[1:-1]:
+#         model.add(keras.layers.Dense(neuron, activation="relu"))
+#         model.add(keras.layers.Dropout(DROPOUT))
+    
+#     model.add(keras.layers.Dense(NEURONS[-1], activation="sigmoid"))
+
+#     model.compile(loss='binary_crossentropy', optimizer="Adam", metrics=['accuracy'])
+#     return model
+
+# def preprocess(df):
+#     for var in ['Embarked', 'Title']:
+#         df = pd.concat([df, pd.get_dummies(df[var], prefix=var)], axis=1)
+
+#     scaler = preprocessing.StandardScaler()
+#     for var in ['Age', 'Parch', 'SibSp', "Pclass", "Family", "Fare"]:
+#         df[var] = df[var].astype('float64')
+#         df[var] = scaler.fit_transform(df[var].values.reshape(-1, 1))
+    
+#     df.drop(['Cabin', 'Name', 'Ticket', 'Sex', "Embarked", "Title"], axis=1, inplace=True)
+#     return df
+
+# NEURONS = [14, 28, 42, 28, 14, 1]
+# DROPOUT = 0.12
+# data = pd.read_csv("titanic_data/train.csv")
+# data = preprocess(data)
+# train = data[:791]
+# test = data[791:]
+# x_data, y_data = data.drop(["PassengerId", "Survived"], axis=1), data["Survived"]
+# param_grid_nn = {"batch_size": [16, 32, 64],
+#                  "epochs": [50, 100, 150]}
+
+# model = keras.wrappers.scikit_learn.KerasClassifier(build_fn=build_model, verbose=0)
+# gridsearch = model_selection.GridSearchCV(model, param_grid = param_grid_nn, n_jobs=-1, cv=3, verbose=2)
+# gridsearch.fit(x_data, y_data)
+
+# param_grid2 = {"max_depth": [5, 7, 10],
+#                "criterion": ["gini", "entropy"]}
+# model = tree.DecisionTreeClassifier()
+# gridsearch2 = model_selection.GridSearchCV(model, param_grid = param_grid2, n_jobs=-1, cv=5, verbose=2)
+# gridsearch2.fit(x_data, y_data)
+
+# print("\n\n"+"--"*30)
+# print("Neural Network")
+# means = gridsearch.cv_results_['mean_test_score']
+# params = gridsearch.cv_results_['params']
+# for mean, param in zip(means, params):
+#     print("{:.2%} with: {}".format(mean, param))
+# print("Best: {:.2%} using {}.".format(gridsearch2.best_score_, gridsearch2.best_params_))
+
+# print("\n\n"+"--"*30)
+# print("Decision Tree")
+# means = gridsearch2.cv_results_['mean_test_score']
+# params = gridsearch2.cv_results_['params']
+# for mean, param in zip(means, params):
+#     print("{:.2%} with: {}".format(mean, param))
+# print("Best: {:.2%} using {}.".format(gridsearch2.best_score_, gridsearch2.best_params_))
+
+# end = datetime.now()
+# elapsed_time = end-start
+# print("\n\n"+"--"*30)
+# print("Total time:", elapsed_time.total_seconds())
+
+# t0 = {'gradient_boosting': 84.16, 'neural_network': 81.25, 'support_vector_machine': 81.25, 'linear_discriminant_analysis': 81.25, 'logistic': 81.2, 'naive_bayes': 80.53, 'decision_tree': 80.48, 'k_nearest_neighbor': 80.48, 'random_forest': 79.7}
+# t1 = {'logistic': 84.66, 'gradient_boosting': 83.84, 'support_vector_machine': 81.7, 'linear_discriminant_analysis': 81.59, 'random_forest': 80.89, 'neural_network': 79.79, 'decision_tree': 77.89, 'k_nearest_neighbor': 77.13, 'naive_bayes': 76.83}
+# t2 = {'logistic': 89.51, 'support_vector_machine': 87.96, 'linear_discriminant_analysis': 85.8, 'k_nearest_neighbor': 85.67, 'gradient_boosting': 85.52, 'random_forest': 84.95, 'decision_tree': 83.07, 'neural_network': 81.76, 'naive_bayes': 80.76}
+# t3 = {'random_forest': 91.02, 'support_vector_machine': 90.26, 'linear_discriminant_analysis': 89.52, 'naive_bayes': 87.37, 'logistic': 86.53, 'neural_network': 85.76, 'gradient_boosting': 85.71, 'decision_tree': 83.99, 'k_nearest_neighbor': 78.26}
+# t4 = {'gradient_boosting': 88.74, 'neural_network': 84.16, 'support_vector_machine': 83.58, 'linear_discriminant_analysis': 82.86, 'logistic': 82.86, 'random_forest': 82.74, 'k_nearest_neighbor': 81.86, 'naive_bayes': 80.71, 'decision_tree': 80.6}
+# t5 = {'gradient_boosting': 85.07, 'logistic': 83.72, 'support_vector_machine': 83.66, 'neural_network': 83.5, 'linear_discriminant_analysis': 81.54, 'random_forest': 81.39, 'k_nearest_neighbor': 80.06, 'naive_bayes': 78.71, 'decision_tree': 76.21}
+# t6 = {'support_vector_machine': 88.2, 'linear_discriminant_analysis': 87.49, 'logistic': 86.79, 'neural_network': 86.72, 'random_forest': 86.72, 'gradient_boosting': 86.57, 'decision_tree': 85.87, 'naive_bayes': 85.38, 'k_nearest_neighbor': 82.2}
+# t7 = {'logistic': 85.78, 'support_vector_machine': 85.75, 'linear_discriminant_analysis': 84.28, 'naive_bayes': 83.58, 'random_forest': 83.43, 'k_nearest_neighbor': 81.2, 'gradient_boosting': 81.15, 'decision_tree': 80.36, 'neural_network': 78.68}
+# t8 = {'gradient_boosting': 81.48, 'support_vector_machine': 81.39, 'random_forest': 80.6, 'neural_network': 79.3, 'logistic': 77.9, 'linear_discriminant_analysis': 77.2, 'naive_bayes': 76.51, 'k_nearest_neighbor': 74.75, 'decision_tree': 73.0}
+# t9 = {'gradient_boosting': 79.95, 'neural_network': 79.83, 'support_vector_machine': 79.15, 'random_forest': 79.15, 'linear_discriminant_analysis': 78.42, 'logistic': 78.38, 'k_nearest_neighbor': 76.93, 'decision_tree': 76.61, 'naive_bayes': 73.26}
+
+# t = {}
+# for key in t1.keys():
+#     t[key] = round((t0[key]+t1[key]+t2[key]+t3[key]+t4[key]+t5[key]+t6[key]+t7[key]+t8[key]+t9[key])/10, 2)
+
+# t = {key: val for key, val in sorted(t.items(), key = lambda ele: ele[1], reverse = True)}
+# print(t)
+# print("The best fscore is {} from the model {}".format(list(t.values())[0], list(t.keys())[0]))

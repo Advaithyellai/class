@@ -1,12 +1,12 @@
-# import os
-# os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import numpy as np
 import tkinter as tk
 from PIL import ImageGrab
 import win32gui
 import tensorflow as tf
 
-try: model = tf.keras.models.load_model("gpt_model")
+try: model = tf.keras.models.load_model("digit_rec")
 except Exception as ex:
     print("Error: There is no model")
     print("You need to create a new model")
@@ -16,8 +16,9 @@ except Exception as ex:
 
 root = tk.Tk()
 root.title('Handwritten Digit Recognition')
+root.geometry("914x460+275+150")
 
-r = 3
+r = 7
 font = ("sans-serif", 20)
 
 def draw(e):
@@ -27,24 +28,23 @@ def clear_all():
     board.delete("all")
 
 def predict():
+    root.geometry("914x460+275+150")
     HWND = board.winfo_id()
-    
+
     rect = win32gui.GetWindowRect(HWND)
-    rect = (rect[0]+100, rect[1]+100, rect[2]+100, rect[3]+100)
+    rect = (365, 240, 980, 720)
     
     img = ImageGrab.grab(rect)
     img = img.resize((28,28))
     img = img.convert('L')
-    
-    img = np.array(img)/255
+
+    img = 255-np.array(img)
     img = img.reshape(1, 28, 28, 1)
 
-    predicted_results = list(model.predict([img])[0])
-
+    predicted_results = list(model.predict([img], verbose=0)[0])
     predicted_number['text'] = ""
     
     for i in range(3):
-    
         prob = max(predicted_results)
         pred_numb = predicted_results.index(prob)
     

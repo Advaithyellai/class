@@ -6,6 +6,7 @@ from tensorflow import keras
 from sklearn import metrics, preprocessing, model_selection, svm, tree, linear_model, neighbors, ensemble, discriminant_analysis, naive_bayes
 import numpy as np
 from datetime import datetime
+# Note: tensorflow version greater than 2.10.1 is incompatible with windows
 
 def preprocess(df):
     if PROCESS == 1:
@@ -47,11 +48,11 @@ REAL_PREDS = False
 PROCESS = 1
 NN_VALIDATION = 0.2
 
-data = pd.read_csv("titanic_data/train.csv")
+data = pd.read_csv("train.csv")
 data = preprocess(data)
 
 if REAL_PREDS:
-    test2 = pd.read_csv("titanic_data/test.csv")
+    test2 = pd.read_csv("test.csv")
     test2 = preprocess(test2)
     train = data
     train_nn, test_nn = model_selection.train_test_split(data, test_size=0.2)
@@ -182,7 +183,7 @@ class titanic:
             if ALGORITHM == "all": return (fscore, predict["Survived"])
         
         if ALGORITHM != "all":
-            predict.to_csv("titanic_data/pred4.csv".format(ALGORITHM), index=False)
+            predict.to_csv("pred4.csv".format(ALGORITHM), index=False)
 
         return predict["Survived"]
 
@@ -210,7 +211,7 @@ class titanic:
             print("Best F1-score is {}% with {}".format(best[0], best[1]))
             print("All test scores: {}".format({key: val for key, val in sorted(fscores.items(), key = lambda ele: ele[1], reverse = True)}))
             
-        predict.to_csv("titanic_data/pred4.csv", index=False)
+        predict.to_csv("pred4.csv", index=False)
 
 titanic(ALL_FEATURES)
 

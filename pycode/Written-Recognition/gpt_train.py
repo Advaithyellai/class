@@ -17,12 +17,11 @@ def preprocess_data(batch):
     batch["pixel_values"] = [convert_to_tf_tensor(image.convert("RGB")) for image in batch["image"]]
     return batch
 
-
 batch_size = 16
 num_epochs = 3
 test_split = 0.2
 data_collator = DefaultDataCollator(return_tensors="tf")
-model_name = "bert-base-uncased"
+model_name = "gpt2"
 
 ds = load_dataset("mnist", split="train[:500]")
 ds = ds.train_test_split(test_size=test_split)
@@ -34,8 +33,8 @@ for i in range(10):
 
 data_augmentation = keras.Sequential(
     [
-        layers.RandomCrop(224, 224),
-        layers.Rescaling(scale=1.0 / 127.5, offset=-1)
+        layers.RandomCrop(28, 28),
+        layers.Rescaling(scale=1.0/255)
     ]
 )
 
@@ -51,10 +50,13 @@ test_dataset = ds["test"].to_tf_dataset(
 
 loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 model = TFDeiTModel.from_pretrained(model_name, id2label=id2label, label2id=label2id)
-model.compile(optimizer="adam", loss=loss, metrics=['accuracy', 'loss'])
-model.fit(train_dataset, epochs=num_epochs)
-model.save("gpt_model")
+model.compile(optimizer="adam", loss=loss, metrics=['accuracy'])
+hist = model.fit(train_dataset, epochs=num_epochs)
+model.save("digit_rec")
 
 score = model.evaluate(test_dataset)
+print(hist.history)
 print("Accuracy: {}%".format(round(score[1]*100, 2)))
 print("Loss: {}%".format(round(score[0]*100, 2)))
+
+print(train_dataset[0])

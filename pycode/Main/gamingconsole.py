@@ -28,7 +28,7 @@ import pandas as pd
 
 
 def saep(app):
-    global clroot, broot, hroot, hgroot, calroot, cgroot, kroot, proot, exit_now, qroot, eroot, msroot, colors
+    global clroot, broot, hroot, hgroot, calroot, cgroot, kroot, proot, exit_now, qroot, eroot, msroot, gqroot, colors
     
     def colorchanger(event):
         global colors
@@ -3418,19 +3418,16 @@ def saep(app):
             self.root.grid_remove()
 
     class geoquiz:
-        global gqroot
-
         def __init__(self, app, root_2=None, game=0, gametype=""):
             global gqroot
 
+            if root_2:
+                root_2.grid_remove()
+                self.root_2 = root_2
+            app.state("normal")
             self.app = app
             self.game = game
             self.gt = gametype
-
-            if gqroot:
-                self.root = gqroot
-                self.root.grid()
-                return
 
             self.app.rowconfigure(0, weight=1)
             self.app.columnconfigure(0, weight=1)
@@ -3442,7 +3439,7 @@ def saep(app):
             
             self.myfont = font.Font(self.root, family="Helvetica", size=17)
             self.myfont2 = font.Font(self.root, family="Times", size=15)
-            self.ds = pd.read_csv("test.txt")
+            self.ds = pd.read_csv("test.csv")
             self.cluecounter = 0
 
             if self.game == 0:
@@ -3453,12 +3450,16 @@ def saep(app):
                 tk.Button(self.root, text="Guess the Capital", font=self.myfont2, command= lambda: self.replay("", 2, "capital"), bg="saddlebrown", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=2, column=0, sticky="nsew")
                 tk.Button(self.root, text="Guess the Currency", font=self.myfont2, command= lambda: self.replay("", 2, "currency"), bg="#004d39", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=3, column=0, sticky="nsew")
                 tk.Button(self.root, text="Guess the Languages", font=self.myfont2, command= lambda: self.replay("", 2, "language"), bg="#334d00", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=4, column=0, sticky="nsew")
+                tk.Button(self.root, text="Return to home screen", font=self.myfont2, command= lambda: self.replay("Return"), bg="#465a7a", fg="white", activebackground="black", activeforeground="white", relief="groove").grid(row=5, column=0, sticky="nsew")
+                tk.Button(self.root, text="Quit", font=self.myfont2, command= self.app.destroy, bg="black", fg="White", activebackground="black", activeforeground="white", relief="groove").grid(row=6, column=0, sticky="nsew")
                 self.root.columnconfigure(0, weight=1)
                 self.root.rowconfigure(0, weight=1)
                 self.root.rowconfigure(1, weight=2)
                 self.root.rowconfigure(2, weight=2)
                 self.root.rowconfigure(3, weight=2)
                 self.root.rowconfigure(4, weight=2)
+                self.root.rowconfigure(5, weight=1)
+                self.root.rowconfigure(6, weight=1)
                 self.submit = tk.Button(self.root, text="Submit!", justify="center", font=self.myfont2, relief="groove", activeforeground="white", bg="rosybrown1", activebackground="gray20")
 
             else:
@@ -3539,6 +3540,9 @@ def saep(app):
                 self.clue1.grid(row=0, column=0, sticky="nsew")
                 self.frame.grid(row=5, column=0, sticky="nsew")
 
+                self.guess.focus_set()
+                self.guess.selection_range(0, "end")
+                self.guess.icursor("end")
                 self.guess.grid(row=0, column=0, sticky="nsew")
                 self.lbofcont.grid(row=1, column=0, sticky="nsew")
                 self.sb.grid(row=1, column=0, sticky="nse")
@@ -3706,6 +3710,16 @@ def saep(app):
                 for ele in displayedcounts: self.lbofcont.insert("end", ele)
 
         def replay(self, e, gn=0, gt=""):
+            if e == "Return":
+                self.app.rowconfigure(0, weight=0)
+                self.app.columnconfigure(0, weight=0)
+                
+                self.app.title("Home Screen")
+                self.app.state("zoomed")
+
+                self.root.grid_remove()
+                self.root_2.grid(row=0, column=0)
+                return
             self.root.destroy()
             self.__init__(self.app, game=gn, gametype=gt)
 
@@ -3843,7 +3857,6 @@ def forgot_pass():
     password.focus_set()
     password.selection_range(0, 'end')
 
-
 MAX_PWD_ATTEMPTS = 3
 USER = "ADVAITH"
 exit_now = False
@@ -3894,73 +3907,37 @@ root.rowconfigure(0, weight= 1)
 root.columnconfigure(0, weight= 1)
 
 root.bind('<Control_L> <w>', lambda e: root.destroy())
-pwd_check(1)
 root.mainloop()
 if can_rate == False:
     sys.exit()
 
 str_numbs = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
-def checkforints(string):
-    for ele in string:
-        if ele.isnumeric(): string = string.replace(ele, str_numbs[int(ele)])
-    return string
-
-def submit(sure = False):
+def submit(sure = False, pop_index=None):
+    ratings = pd.read_csv("ratings.csv")
     user_name = username.get()
-    user_name = checkforints(user_name)
-
-    rating_file = open("cluedo.txt", 'r')
-    all_ratings = rating_file.readlines()
-    rating_file.close()
+    raterget = rater.get()
+    feedbackget = " ".join(feedback.get("1.0", "end").split("\n"))
 
     if not sure:
-        for ele in all_ratings:
-            if user_name.lower() in ele.lower():
+        for ele in list(ratings["username"]):
+            if ele and (user_name.lower() in ele.lower() or ele.lower() in user_name.lower()):
                 rate.geometry("290x210")
-                submitb['command'] = lambda : submit(True)
-                submitb['text'] = "You already rated.\n Do you want to re-rate it?\nEnd the program if no,\nelse click me"
+                submitb['command'] = lambda : submit(True, ele)
+                submitb['text'] = "You already rated.\n Do you want to re-rate it?\nEnd the program if no,\nif yes, click me"
                 return
 
-    w_file = open("cluedo.txt", 'w')
-    clued2 = ""
-    
-    for ele in all_ratings:
-        if username.get() in ele: continue
-        clued2 += ele
-    
-    w_file.write(clued2)
-    w_file.close()
-
-    feedbackget = feedback.get('1.0', 'end-1c')
-    while True:
-        index = feedbackget.find("\\")
-        if index == -1: break
-        feedbackget.replace("\n", "")
-    feedbackget = checkforints(feedbackget)
-
-    a_file = open("cluedo.txt", 'a')
-    a_file.write(user_name+" - "+str(rater.get())+" ("+feedbackget+")\n")
-    a_file.close()
-    
-    text = username.get()
+    if sure: ratings.loc[ratings[ratings["username"]==pop_index].index[0]] = [user_name, raterget, feedbackget]
+    else: ratings.loc[len(ratings.index)] = [user_name, raterget, feedbackget]
+    average = sum(ratings["ratings"])/len(ratings["ratings"])
 
     for ele in rate_frame.winfo_children():
         if ele: ele.grid_forget()
-    
-    ratings_data = [rater.get()]
-    for lines in all_ratings:
-        for ele in lines:
-            if ele.isnumeric():
-                ratings_data.append(int(ele))
-
-    average = sum(ratings_data)/len(ratings_data)
-
     rate_frame['bg'] = 'SystemButtonFace'
-    tk.Label(rate_frame, text = "Thanks for rating %s!" %(text), font = ('Algerian', 20, 'bold')).grid(pady= 10)
-    tk.Label(rate_frame, text = "Average User Rating- %s" %(round(average, 2)), font = ('Algerian', 20, 'bold')).grid(pady= 10)
-
-    rate.after(5000, rate.destroy)
+    tk.Label(rate_frame, text = "Thanks for rating %s!" %(user_name), font = ('Algerian', 20, 'bold')).grid(pady= 10)
+    tk.Label(rate_frame, text = "Average User Rating- {:.1f}".format(average), font = ('Algerian', 20, 'bold')).grid(pady= 10)
+    rate.after(2000, rate.destroy)
+    ratings.to_csv("ratings.csv", index=False)
 
 rate = tk.Tk()
 rate.state('zoomed')
@@ -3992,4 +3969,4 @@ rate.rowconfigure(0, weight=1)
 rate.columnconfigure(0, weight=1)
 
 rate.bind("<Control_L>  <w>", lambda e: rate.destroy())
-# rate.mainloop()
+rate.mainloop()

@@ -19,7 +19,7 @@ class geoquiz:
         
         self.myfont = font.Font(self.root, family="Helvetica", size=17)
         self.myfont2 = font.Font(self.root, family="Times", size=15)
-        self.ds = pd.read_csv("test.txt")
+        self.ds = pd.read_csv("Main/test.csv")
         self.cluecounter = 0
 
         if self.game == 0:
@@ -113,7 +113,9 @@ class geoquiz:
             self.clue1.grid(row=0, column=0, sticky="nsew")
             self.frame.grid(row=5, column=0, sticky="nsew")
 
+            self.guess.focus_set()
             self.guess.selection_range(0, "end")
+            self.guess.icursor("end")
             self.guess.grid(row=0, column=0, sticky="nsew")
             self.lbofcont.grid(row=1, column=0, sticky="nsew")
             self.sb.grid(row=1, column=0, sticky="nse")

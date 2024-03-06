@@ -242,4 +242,4 @@ print("Fastest Algorithm:", best_algorithm)
 print()
 
 if ALARM == True:
-    raise ConnectionRefusedError("The program sucks since it is not sorting correctly")
+    raise ArithmeticError("The program sucks since it is not sorting correctly")

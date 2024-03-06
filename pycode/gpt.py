@@ -3,9 +3,9 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 from transformers import TFAutoModelForCausalLM, AutoTokenizer
 
-WORDS_TO_PREDICT = 3
-MODEL_NAME = "gpt2"
-# MODEL_NAME = "bert-base-uncased"
+WORDS_TO_PREDICT = 10
+# MODEL_NAME = "gpt2"
+MODEL_NAME = "bert-base-uncased"
 
 text = input("\nGive an incomplete sentence: ")
 if text[-1] == " ": text = text[:-1]
@@ -29,9 +29,9 @@ for i in range(WORDS_TO_PREDICT):
     text += pred_word
     if i+1 != WORDS_TO_PREDICT:
         print("Sentence with {} extra words: {}".format(i+1, text))
-    else:
-        for ele in tokens.numpy().tolist()[0]:
-            print(ele, ":", tokenizer.decode(ele))
+    # else:
+    #     for ele in tokens.numpy().tolist()[0]:
+    #         print(ele, ":", tokenizer.decode(ele))
 
 print("\nTotal predicted words added:", i+1)
 print("Final sentence:", text)

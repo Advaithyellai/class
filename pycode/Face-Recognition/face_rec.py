@@ -1,26 +1,9 @@
 import face_recognition
 import cv2
-import numpy as np
-import tkinter as tk
 
-def nameget(event):
-    if event:
-        global name
-        
-        name = nam.get()
-        nam.grid_forget()
-        
-        label["text"] = "Run the app again for recognition."
-        
-        nameget(None)
-    
-    else: root.after(3500, root.destroy)
-
-video = cv2.VideoCapture(0)
-
-counter = correct = incorrect = c = 0
-text = "  "
-penc = -1
+vid = cv2.VideoCapture(0)
+counter = -1
+check2 = 0
 
 try: f = open("faceData.txt", "r")
 except:
@@ -28,149 +11,46 @@ except:
     f2.close()
     f = open("faceData.txt", "r")
 fr = f.read()
-
-lenc = []
-
+knownfaces = {}
 for line in fr.split("\n"):
     if not line: continue
-
-    line2 = eval(line)
-    
-    lenc.append(line2)
-
-torf2 = False
-LLoc = None
-ltext = []
-ppl = []
+    knownface = eval(line)
+    knownfaces[knownface[-1]] = knownface[:-1]
 
 while True:
-
     counter += 1
-    if not (counter%5 == 0):
-        
-        if torf2:
-            
-            cv2.imshow("Face Recognition", img)
-            if cv2.waitKey(1) & 0xFF == ord('q'): break
-        
+    if counter%5 != 0:
+        cv2.imshow('Face Recognition', img)
+        if cv2.waitKey(1) & 0xFF == ord('q'): break
         continue
     
-    torf2 = True
-
-    ret, img = video.read()
-
+    ret, img = vid.read()
     bw_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    facelocs = face_recognition.face_locations(bw_img)
+    faceencs = face_recognition.face_encodings(bw_img)
 
-    try:
-        lLoc = face_recognition.face_locations(bw_img)
-
-    except Exception as ex:
-        if not lLoc: continue
-    
-    faceenc = face_recognition.face_encodings(bw_img)
-    faceenc2 = faceenc
-
-    if counter >= 25:
-        
-        for faceLoc in lLoc:
-        
-            faceEnc = list(faceenc2[lLoc.index(faceLoc)])
-
-            if True:
-                counter = 1
-                torf = False
-
-                penc2 = {}
-
-                for encs in lenc:
-                    
-                    sameface = face_recognition.compare_faces([np.array(encs[0:-1])], faceenc[0])[0]
-                    
-                    if sameface:
-                        sameface2 = face_recognition.face_distance([np.array(encs[0:-1])], faceenc[0])[0]
-                        penc2[sameface2] = lenc.index(encs)
-                        torf = True
+    for i in range(len(facelocs)):
+        faceenc, faceloc = faceencs[i], facelocs[i]
+        check = face_recognition.face_distance(list(knownfaces.values()), faceenc)
+        print(check)
+        if True not in (check<=0.5):
+            if check2 == 5:
+                f.close()
+                vid.release()
+                cv2.destroyAllWindows()
                 
-                nothing = False
+                newname = input("Person not found. Input name: ")
+                f3 = open("faceData.txt", "a")
+                f3.write(str(list(faceenc)+[newname])+"\n")
+                f3.close()
+                exit()
+            check2 += 1
+            continue
 
-                if len(penc2) > 1:
-                    l = 100
-                    
-                    for key in penc2.keys():
-                        if key < l: l = key
-                    
-                    c2 = list(penc2.keys()).index(l)
-                
-                elif len(penc2) == 1: c2 = 0
+        name = list(knownfaces.keys())[list(check).index(min(check))]
+        cv2.putText(img, name, (faceloc[3], faceloc[0]-20), 5, 1, (255, 255, 0))
+        cv2.rectangle(img, (faceloc[3], faceloc[0]), (faceloc[1], faceloc[2]), (0, 0, 0), 2)
 
-                else: nothing = True
-                
-                if not nothing: text = lenc[list(penc2.values())[c2]][-1]
-
-            if torf:
-                
-                penc = lenc.index(encs)
-
-                if correct and incorrect >= 5: correct = incorrect = 0
-                elif correct and not incorrect: incorrect += 1
-
-            else:
-                
-                correct += 1
-
-                if correct >= 2:
-
-                    video.release()
-                    cv2.destroyAllWindows()
-                    
-                    f3 = open("faceData.txt", "a")
-
-                    name = None
-                    
-                    root = tk.Tk()
-                    
-                    root.title("Register for Face Recognition")
-                    root.geometry("+600+300")
-
-                    label = tk.Label(root, text= "Enter your name now\nfor further recognition",\
-                                    font=("Algerian", 15))
-                    label.pack()
-
-                    nam = tk.Entry(root, font=("Algerian", 15))
-                    nam.pack(pady = 20)
-                    nam.bind("<Return>", nameget)
-
-                    root.mainloop()
-
-                    if not name: name = "unknown"
-                    
-                    f3.write(str(faceEnc+[name])+"\n")
-
-                    f3.close()
-
-                    exit()
-                        
-            cv2.rectangle(img, (faceLoc[3], faceLoc[0]), (faceLoc[1], faceLoc[2]), (0, 0, 0), 2)
-            cv2.putText(img, text, (faceLoc[3]+30, faceLoc[0]-20),\
-                        cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 0))
-
-            ltext.append(text)
-        
-        LLoc = lLoc
-
-    elif LLoc:
-        
-        for faceLoc in LLoc:
-            
-            text = ltext[LLoc.index(faceLoc)]
-            
-            cv2.rectangle(img, (faceLoc[3], faceLoc[0]), (faceLoc[1], faceLoc[2]), (0, 0, 0), 2)
-            cv2.putText(img, text, (faceLoc[3]+30, faceLoc[0]-20),\
-                        cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 0))
-            
-            if text not in ppl:
-                ppl.append(text)
-
-video.release()
-cv2.destroyAllWindows()
 f.close()
+vid.release()
+cv2.destroyAllWindows()

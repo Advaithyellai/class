@@ -21,7 +21,7 @@ batch_size = 16
 num_epochs = 3
 test_split = 0.2
 data_collator = DefaultDataCollator(return_tensors="tf")
-model_name = "gpt2"
+model_name = "bert-base-uncased"
 
 ds = load_dataset("mnist", split="train[:500]")
 ds = ds.train_test_split(test_size=test_split)

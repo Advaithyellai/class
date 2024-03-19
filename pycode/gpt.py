@@ -21,6 +21,7 @@ for i in range(WORDS_TO_PREDICT):
     pred_id = outputs.argmax().item()
     pred_word = tokenizer.decode(pred_id)
     if pred_word == '\n': break
+    elif pred_word == "." and text[-1] == ".": break
 
     print("\nGiven phrase:", text)
     if pred_word[0] == " ": print("Predicted Words:"+pred_word)

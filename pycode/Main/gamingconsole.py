@@ -20,7 +20,7 @@ The apps and games are -;
 """
 
 from datetime import datetime, timedelta
-import pytz, pyttsx3, random, math, os, sys
+import pytz, random, math, os, sys #, pyttsx3
 import tkinter as tk
 from tkinter import font, ttk, colorchooser, filedialog, messagebox
 from PIL import Image, ImageTk
@@ -40,7 +40,7 @@ def saep(app):
                 event.widget['bg'] = colors[0]
                 colors = []
                 return
-            event.widget['bg'] = "systembuttonface"
+            event.widget['bg'] = "SystemButtonFace"
 
     class clock:
         global clroot
@@ -69,9 +69,9 @@ def saep(app):
                 self.root.configure(bg= "#fff")
                 app.configure(bg= "#fff")
 
-                self.cump = pyttsx3.init()
-                self.cump.setProperty('rate', 120)
-                self.cump.setProperty('volume', 1.2)
+                # self.cump = pyttsx3.init()
+                # self.cump.setProperty('rate', 120)
+                # self.cump.setProperty('volume', 1.2)
 
                 self.count = 0
                 self.color = ''
@@ -102,7 +102,7 @@ def saep(app):
                 self.b2.bind('<Leave>', colorchanger)
                 self.b4.bind('<Leave>', colorchanger)
 
-                self.im = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\tick_toclock.png")
+                self.im = tk.PhotoImage(file = r"images_for_gcpy/tick_toclock.png")
                 self.im = self.im.subsample(3, 3)
 
                 self.idk = "Shortcuts are :\n1) Control + W - Quit/Exit\n"\
@@ -460,8 +460,9 @@ def saep(app):
                 if vals <= datetime.now():
                     kl, vl = list(self.lt2.keys()), list(self.lt2.values())
                     
-                    self.cump.say("Your timer, {} rang".format(self.lotimers[vl.index(vals)]))
-                    self.cump.runAndWait()
+                    print("Your timer, {} rang".format(self.lotimers[vl.index(vals)]))
+                    # self.cump.say("Your timer, {} rang".format(self.lotimers[vl.index(vals)]))
+                    # self.cump.runAndWait()
                     
                     keyinval = kl[vl.index(vals)]
                     keyinval.grid_remove()
@@ -475,12 +476,14 @@ def saep(app):
             if not exit_now: self.root.after(1000, self.looper)
         def settimer(self):
             if len(self.lotimers) == 5:
-                self.cump.say("Maximum number of timers set")
-                self.cump.runAndWait()
+                print("Maximum number of timers set")
+                # self.cump.say("Maximum number of timers set")
+                # self.cump.runAndWait()
                 return
             if self.secondstext == 0 and self.hourstext == 0 and self.minutestext == 0:
-                self.cump.say("Put a timer for more than 0 seconds")
-                self.cump.runAndWait()
+                print("Put a timer for more than 0 seconds")
+                # self.cump.say("Put a timer for more than 0 seconds")
+                # self.cump.runAndWait()
                 return
             if self.nametimer.get() not in self.lotimers:
                 self.fat.grid_remove()
@@ -502,8 +505,9 @@ def saep(app):
                 
                 if len(self.lotimers) == 1: self.looper()
             else:
-                self.cump.say("Name the timer something different")
-                self.cump.runAndWait()
+                print("Name the timer something different")
+                # self.cump.say("Name the timer something different")
+                # self.cump.runAndWait()
                 return
         def movevert(self, wb):
             if wb == 1 or wb == 0:
@@ -672,7 +676,7 @@ def saep(app):
             tk.Label(self.root, height = 7, bg = 'gold', width = 81).grid(row = 1, column = 2, sticky = 'ne')
             
             self.nextbutton = tk.Button(self.root, text = "Next", font = self.myfont, bg = 'orangered', height = 2, command = lambda : self.turner(True))
-            self.nextbutton.grid(row = 0, column = 2, sticky = 'e')
+            self.nextbutton.grid(row = 0, column = 0, sticky = 'e')
             self.prevbutton = tk.Button(self.root, text = "Previous", font = self.myfont, bg = 'orangered', height = 2, command = lambda : self.turner(False))
             
             self.mast1.grid(row = 2, column = 1)
@@ -733,7 +737,7 @@ def saep(app):
             elif self.loframes[self.steper] == self.mast3:
                 self.nextbutton.grid_remove() 
             else:
-                self.nextbutton.grid(row = 0, column = 2, sticky = 'e')
+                self.nextbutton.grid(row = 0, column = 0, sticky = 'e')
                 self.prevbutton.grid(row = 0, column = 0, sticky = 'w')
 
     class hangmang:
@@ -2621,20 +2625,12 @@ def saep(app):
         def __init__(self, root_2, app):
             global astroot
 
-            app.bind('<f>', self.switch)
-            app.bind('<Key>', self.pushed)
-            app.bind('<1>', lambda e : self.pushed("space"))
-            app.bind("<Motion>", self.move)
-
-            self.no0 = app.after(15000, self.move, "Random")
-            self.no1 = app.after(3000, self.attack, True, 3000)
-            
             app.title('Asteroids (An arcade game)')
             app.state('zoomed')
 
             root_2.grid_remove()
 
-            self.root = tk.Canvas(app, bg = 'black', width = 1550, height = 860, cursor = 'none')
+            self.root = tk.Canvas(app, bg = 'black', width = 1550, height = 860, cursor="cross")
 
             self.side = 'left'
 
@@ -2657,14 +2653,13 @@ def saep(app):
             
             self.angle = 0
             self.duration = 7500
-            self.stop = False
             self.once = False
 
             self.gwords = ["OOOOO00000ooooofffff", "NOICE SHOT", "KEEP IT UP", "sUpeR", "LET'S GOOOO", "PRO", "AMAZING", "HIT", "BROKEN!!!", "=D"]
             self.bwords = ["OOOOO00000ooooofffff", "JUST MISS!!!", "HARD LUCK!!!", "DON'T KEEP IT UP", "noT sUpER", "LET'S NOT GOOOO", "NOOB!!!", "UMMMM....", "D=", "LOST MY HOPE"]
 
-            self.img = Image.open("D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\rocket.png")
-            self.img = self.img.resize((100, 100), Image.ANTIALIAS)
+            self.img = Image.open("images_for_gcpy/rocket.png")
+            self.img = self.img.resize((100, 100), Image.Resampling.LANCZOS)
             self.image = ImageTk.PhotoImage(self.img.rotate(0))
 
             self.ball = self.root.create_image(775, 400, image = self.image)
@@ -2672,6 +2667,7 @@ def saep(app):
             self.heart1 = self.root.create_rectangle(10, 10, 50, 50, fill = 'red')
             self.heart2 = self.root.create_rectangle(75, 10, 115, 50, fill = 'red')
             self.heart3 = self.root.create_rectangle(140, 10, 180, 50, fill = 'red')
+            self.lohearts = [self.heart1, self.heart2, self.heart3]
 
             self.bbtg = self.root.create_rectangle(-10, -10, -2, -2, fill = "gray20")
             self.btg = self.root.create_text(-10, -10, text = "Back To Game", fill = "white", font = ("Informal roman", 24, 'bold'))
@@ -2691,6 +2687,17 @@ def saep(app):
 
             self.root.create_rectangle(0, 800, 1550, 860, fill = "#e0ba47")
             self.gbw = self.root.create_text(775, 830, font=("Algerian", 15, 'bold', 'italic'))
+
+            self.no0 = app.after(15000, self.move, "Random")
+            self.no1 = app.after(3000, self.attack, True, 3000)
+            
+            self.inx, self.iny = 775, 350
+
+            app.event_generate('<Motion>', warp = True, x = 775, y = 250)
+            app.bind('<f>', self.switch)
+            app.bind('<Key>', self.pushed)
+            app.bind('<1>', lambda e : self.pushed("space"))
+            app.bind("<Motion>", self.move)
 
             self.root.grid()
 
@@ -2720,7 +2727,7 @@ def saep(app):
                 self.no3 = self.root.after(300, self.attack, metior, 300)
                 return
             
-            if self.root.itemcget(create, "tag") != "Metior": return
+            if "Metior" not in self.root.itemcget(create, "tag") : return
 
             attacker = self.root.coords(self.ball)
             shower = self.root.coords(create)
@@ -2745,9 +2752,10 @@ def saep(app):
                         self.hearts -= 1
                         h1 = self.root.create_text(775, 100, text = "-1 Heart", fill = '#00FFFF', font = ("Algerian", 15, 'bold'))
                         self.no4 = self.root.after(3000, self.root.delete, h1)
-                        if self.hearts == 2: self.root.itemconfigure(self.heart3, fill = 'black')
-                        elif self.hearts == 1: self.root.itemconfigure(self.heart2, fill = 'black')
-                        elif self.hearts == 0: self.switch()
+                        if self.hearts == 0: self.switch()
+                        else:
+                            self.root.itemconfig(self.lohearts[-1], fill = "black")
+                            self.lohearts.pop(-1)
                         self.root.coords(ele, -100, 0, -100, 0)
                         self.root.itemconfigure(ele, tag = "torn")
                         rr = random.randrange(0, len(self.bwords))
@@ -2857,7 +2865,7 @@ def saep(app):
                     self.root.tag_bind(self.besc, "<Button>", lambda e : app.destroy())
 
             elif e == "Escape":
-                self.root['cursor'] = 'none'
+                self.root['cursor'] = 'cross'
                 
                 ts = self.dtn2.total_seconds()
 
@@ -2939,26 +2947,33 @@ def saep(app):
             if self.stop: return
 
             if event == "Random":
-                ran = random.randrange(0, 10)
+                ran = random.randrange(0, 7)
                 if ran == 0:
                     if self.hearts == 1: self.root.itemconfigure(self.heart2, fill = 'red')
                     elif self.hearts == 2: self.root.itemconfigure(self.heart3, fill = 'red')
+                    elif self.hearts == 3:
+                        self.heart4 = self.root.create_rectangle(205, 10, 245, 50, fill = 'red')
+                        self.lohearts.append(self.heart4)
+                    elif self.hearts == 4:
+                        self.heart5 = self.root.create_rectangle(270, 10, 310, 50, fill = 'red')
+                        self.lohearts.append(self.heart5)
+                    else: return
                     self.hearts += 1
                     h1 = self.root.create_text(775, 100, text = "+1 Heart", fill = '#000fff000', font = ("Algerian", 15, 'bold'))
                     self.no10 = self.root.after(3000, self.root.delete, h1)
                 self.no11 = self.root.after(15000, self.move, "Random")
                 return
-            app.unbind("<Motion>")
-            x, y = event.x-775, event.y-400
-            self.angle -= (y+x)/3
+            
+            cx, cy = self.root.coords(self.ball)
+            x, y = event.x-cx, event.y-cy
+            self.angle = 180 + math.degrees(math.atan2(x, y))
             self.angle %= 360
+            
             if self.stop: return
+            
             self.image = ImageTk.PhotoImage(self.img.rotate(self.angle))
-
             self.root.itemconfig(self.ball, image = self.image)
-            app.event_generate('<Motion>', warp = True, x = 775, y = 400)
-            app.bind("<Motion>", self.move)
-
+            
         def switch(self, event = None):
             global astroot
 
@@ -3740,7 +3755,7 @@ def saep(app):
     p = []
 
     for pics, size in thumbnails.items():
-        picture = tk.PhotoImage(file = r"D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\"+pics)
+        picture = tk.PhotoImage(file = r"images_for_gcpy/"+pics)
         p.append(picture.subsample(size[0], size[1]))
     
     cgroot = clroot = calroot = hroot = hgroot = broot = kroot = exit_now = proot = qroot = eroot = astroot = qtwroot = msroot = gqroot = 0
@@ -3884,7 +3899,7 @@ show_pwd = tk.Button(frame, bitmap= "error", command = showing, font = 15, width
 show_pwd.grid(row = 1, column= 0, sticky= "e", pady= 10)
 password.grid(row = 1, column= 0, sticky= "ns", pady= 10)
 
-user_img = Image.open("D:\\Advaith\\Code\\class\\pycode\\Main\\images_for_gcpy\\user.png")
+user_img = Image.open("images_for_gcpy/user.png")
 user_img = user_img.crop([0, 10, 225, 215])
 user_img = ImageTk.PhotoImage(user_img)
 

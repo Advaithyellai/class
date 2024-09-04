@@ -176,7 +176,7 @@ def tim_sort(array):
     
     return bubble_sort(last_third+two_third)
 
-a = tuple(numpy.random.randint(0, 10000, 1000))
+a = tuple(numpy.random.randint(0, 10000, 10000))
 sorted_list = sorted(list(a))
 
 print()
